@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>Inscription - PM2</title>
+</head>
+
+<body>
+    <header id="printHeader"></header>
+
+    <form id="form">
+        <label for="nom">Nom : </label>
+        <input required type="text" id="nom" name="nom" placeholder="Saisir votre nom ici" maxlength="40">
+
+        <label for="prenom">Prénom : </label>
+        <input required type="text" id="prenom" name="prenom" placeholder="Saisir votre prénom ici" maxlength="20">
+
+        <label for="login">Login : </label>
+        <input required type="text" id="login" name="login" placeholder="Saisir votre login ici" maxlength="30">
+
+        <label for="mdp">Mot de passe : </label>
+        <input required type="password" id="mdp" name="mdp" placeholder="Saisir votre mot de passe ici" maxlength="30">
+        <span id="mdpErreur1">Le mot de passe doit contenir au moins 8 caractères</span>
+        <span id="mdpErreur2">Le mot de passe doit contenir au moins un majuscule</span>
+        <span id="mdpErreur3">Le mot de passe doit contenir au moins un minuscule</span>
+        <span id="mdpErreur4">Le mot de passe doit contenir au moins un caractère spéciale</span>
+        <span id="mdpErreur5">Le mot de passe doit contenir au moins un nombre</span>
+
+        <label for="mel">Mail : </label>
+        <input required type="text" id="mel" name="mel" placeholder="Saisir votre adresse mel ici" maxlength="100">
+        <span id="melErreur"></span> </br>
+
+        <label for="date_naissance">Date de naissance : </label>
+        <input required type="date" id="date_naissance" name="date_naissance" value="">
+
+        <br>
+
+        <input type="submit" name="valider" value="S'inscrire" class="form_button">
+
+        <p id="MessageErreur">Message d'erreur</p>
+    </form>
+
+    <footer id="printFooter"></footer>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script type="module" src="./controleur/function.js"></script>
+<script type="module" src="./controleur/register.js"></script>
+
+</html>
