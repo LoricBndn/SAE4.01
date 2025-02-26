@@ -13,10 +13,18 @@ Ce projet consiste à optimiser et améliorer une application e-commerce dédié
 - 📜 **Historique des commandes** : Visualisation des achats effectués.
 
 ## 🏗️ Technologies utilisées
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Cordova](https://img.shields.io/badge/Cordova-E8E8E8?style=for-the-badge&logo=apachecordova&logoColor=black)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![Trello](https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=trello&logoColor=white)
 - **Frontend** : HTML, CSS, JavaScript (Vanilla JS)
 - **Backend** : PHP, MySQL
 - **Mobile** : Cordova
 - **Gestion de projet** : Git, Trello
 
 ## 📄 Licence
-Projet académique réalisé dans le cadre de la SAÉ 4.01 - IUT.
+Projet académique réalisé dans le cadre de la SAÉ 4.01 - IUT Metz.
