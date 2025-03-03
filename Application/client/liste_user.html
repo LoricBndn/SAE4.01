@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des utilisateurs</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js" defer></script>
+    <script type="module" src="./controleur/liste_user.js" defer></script>
+    <script type="module" src="./controleur/function.js" defer></script>
+</head>
+
+<body>
+    <header id="printHeader"></header>
+
+    <template id="userRow">
+        
+        <ul class="userBox">
+            <li>
+                <slot name="nom">test nom</slot>
+            </li>
+            <li>
+                <slot name="prenom">test prenom</slot>
+            </li>
+            <li>
+                <slot name="mel">test mel</slot>
+            </li>
+            <li>
+                <slot name="date_naiss">test date</slot>
+            </li>
+        </ul>
+        <button>Détails</button>
+    </template>
+
+
+    <section id="userGrid"></section>
+
+    <footer id="printFooter"></footer>
+</body>
+
+</html>
