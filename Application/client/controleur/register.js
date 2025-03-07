@@ -4,6 +4,7 @@ const mdpErreurs = document.querySelectorAll('span[id^="mdpErreur"]');
 
 let mdpOK = false;
 let melOK = false;
+let testConfirm = false;
 
 mdpErreurs.forEach((mdpErreur) => {
     mdpErreur.style.display = "none";
@@ -19,60 +20,74 @@ msgErreur.style.borderRadius = "5px";
 msgErreur.style.textAlign = "center";
 msgErreur.style.justifyContent = "center";
 
-document.getElementById("mel").addEventListener("input", (e) => {
-    let mel_conforme = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let msgErreurMail = document.getElementById("melErreur");
-    melOK = mel_conforme.test(document.getElementById("mel").value);
-    
+    document.getElementById("mel").addEventListener("input", (e) => {
+        let mel_conforme = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let msgErreurMail = document.getElementById("melErreur");
+        melOK = mel_conforme.test(document.getElementById("mel").value);
+        
 
-    if (melOK) msgErreurMail.style.color = "green";
-    else{
-        msgErreurMail.style.color = "red";
-        msgErreurMail.innerHTML = "Adresse mail non conforme";
-    }
-});
-
-document.getElementById("mdp").addEventListener("input", (e) => {
-    mdpErreurs.forEach((mdpErreur) => {
-        mdpErreur.style.display = "block";
+        if (melOK) msgErreurMail.style.color = "green";
+        else{
+            msgErreurMail.style.color = "red";
+            msgErreurMail.innerHTML = "Adresse mail non conforme";
+        }
     });
 
-    let testLg = /.{8,}/;
-    let testMaj = /[A-Z]/;
-    let testMin = /[a-z]/;
-    let testCar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-    let testNb = /[0-9]/;
+
+    document.getElementById("mdp").addEventListener("input", (e) => {
+        mdpErreurs.forEach((mdpErreur) => {
+            mdpErreur.style.display = "block";
+        });
+
+        let testLg = /.{8,}/;
+        let testMaj = /[A-Z]/;
+        let testMin = /[a-z]/;
+        let testCar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+        let testNb = /[0-9]/;
+        
+        let valeurTester = document.getElementById("mdp").value;
+        mdpOK = testLg.test(valeurTester) && testMaj.test(valeurTester) && testMin.test(valeurTester) && testCar.test(valeurTester) && testNb.test(valeurTester);
+        console.log(mdpOK);
+
+        if (testLg.test(valeurTester)) mdpErreurs[0].style.color = "green";
+        else {
+            mdpErreurs[0].style.color = "red";
+        }
+
+        if (testMaj.test(valeurTester)) mdpErreurs[1].style.color = "green";
+        else {
+            mdpErreurs[1].style.color = "red";
+        }
+
+        if (testMin.test(valeurTester)) mdpErreurs[2].style.color = "green";
+        else {
+            mdpErreurs[2].style.color = "red";
+        }
+
+        if (testCar.test(valeurTester)) mdpErreurs[3].style.color = "green";
+        else {
+            mdpErreurs[3].style.color = "red";
+        }
+
+        if (testNb.test(valeurTester)) mdpErreurs[4].style.color = "green";
+        else {
+            mdpErreurs[4].style.color = "red";
+        }
+        
+    });
+
+
     
-    let valeurTester = document.getElementById("mdp").value;
-    mdpOK = testLg.test(valeurTester) && testMaj.test(valeurTester) && testMin.test(valeurTester) && testCar.test(valeurTester) && testNb.test(valeurTester);
-    console.log(mdpOK);
-
-    if (testLg.test(valeurTester)) mdpErreurs[0].style.color = "green";
-    else {
-        mdpErreurs[0].style.color = "red";
-    }
-
-    if (testMaj.test(valeurTester)) mdpErreurs[1].style.color = "green";
-    else {
-        mdpErreurs[1].style.color = "red";
-    }
-
-    if (testMin.test(valeurTester)) mdpErreurs[2].style.color = "green";
-    else {
-        mdpErreurs[2].style.color = "red";
-    }
-
-    if (testCar.test(valeurTester)) mdpErreurs[3].style.color = "green";
-    else {
-        mdpErreurs[3].style.color = "red";
-    }
-
-    if (testNb.test(valeurTester)) mdpErreurs[4].style.color = "green";
-    else {
-        mdpErreurs[4].style.color = "red";
-    }
-    
-});
+    document.getElementById("confirm_mdp").addEventListener('input', (e) => {
+        let confirmPasswordField = document.getElementById("comfirm_mdp").value;
+        let errorMessageConfirm = document.getElementById("motdepasseErreur");
+        testConfirm = (confirmPasswordField === document.getElementById("mdp").value);
+        if (testConfirm) errorMessageConfirm.style.color = "green";
+        else{
+            errorMessageConfirm.style.color = "red";
+            errorMessageConfirm.innerHTML = "Les mots de passe ne correspondent pas";
+        }
+    });
 
 
 function register() {
@@ -80,14 +95,24 @@ function register() {
 
     const inputs = document.querySelectorAll('form input[type="text"], form input[type="password"], form input[type="date"]');
     const values = [];
+    const confirmPasswordField = document.getElementById("comfirm_mdp").value;
+    let testConfirm = (confirmPasswordField === document.getElementById("mdp").value);
 
     inputs.forEach((input) => {
         values.push(input.value);
-        if (input.value === null) {
+        if (input.value === null || input.value.trim() === "") {
             erreur++;
         }
     });
-
+    if (!testConfirm) {
+        erreur++;
+        msgErreur.textContent = "Les mots de passe ne correspondent pas";
+        msgErreur.style.display = "block";
+        setTimeout(() => {
+            msgErreur.style.display = "none";
+        }, 10000);
+        return;
+    }
     if (erreur !== 0) {
         msgErreur.innerHTML = "Remplissez tous les champs !";
         msgErreur.style.display = "block";

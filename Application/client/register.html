@@ -25,12 +25,19 @@
 
         <label for="mdp">Mot de passe : </label>
         <input required type="password" id="mdp" name="mdp" placeholder="Saisir votre mot de passe ici" maxlength="30">
-        <span id="mdpErreur1">Le mot de passe doit contenir au moins 8 caractères</span>
-        <span id="mdpErreur2">Le mot de passe doit contenir au moins un majuscule</span>
-        <span id="mdpErreur3">Le mot de passe doit contenir au moins un minuscule</span>
-        <span id="mdpErreur4">Le mot de passe doit contenir au moins un caractère spéciale</span>
-        <span id="mdpErreur5">Le mot de passe doit contenir au moins un nombre</span>
+        <span id="mdpErreur1">Le mot de passe doit contenir au moins 8 caractères <br></span>
+        <span id="mdpErreur2">Le mot de passe doit contenir au moins un majuscule <br></span>
+        <span id="mdpErreur3">Le mot de passe doit contenir au moins un minuscule <br></span>
+        <span id="mdpErreur4">Le mot de passe doit contenir au moins un caractère spéciale <br></span>
+        <span id="mdpErreur5">Le mot de passe doit contenir au moins un nombre <br></span>
 
+        <br> 
+
+        <label for="confirm_mdp">Confirmer le mot de passe : </label>
+        <input required type="password" id="confirm_mdp" name="confirm_mdp" placeholder="Confirmer votre mot de passe" maxlength="30">
+        <span id="motdepasseErreur"></span>
+
+        <br>
         <label for="mel">Mail : </label>
         <input required type="text" id="mel" name="mel" placeholder="Saisir votre adresse mel ici" maxlength="100">
         <span id="melErreur"></span> </br>
@@ -46,10 +53,10 @@
     </form>
 
     <footer id="printFooter"></footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script type="module" src="./controleur/function.js"></script>
+    <script type="module" src="./controleur/register.js"></script>
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script type="module" src="./controleur/function.js"></script>
-<script type="module" src="./controleur/register.js"></script>
-
 </html>
