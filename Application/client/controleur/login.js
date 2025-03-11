@@ -26,7 +26,7 @@ async function authentifier() {
         return;
     }
     const reponse = await fetch(
-        "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/connexion.php", {
+        "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/connexion.php", {
             method: "POST",
             body: new URLSearchParams({
                 login: login,

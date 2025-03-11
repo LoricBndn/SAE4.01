@@ -34,7 +34,7 @@ class ProduitGenerique extends HTMLElement {
 customElements.define("produit-generique", ProduitGenerique);
 function afficherCategories() {
   return fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/getCategorie.php"
+    "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getCategorie.php"
   )
     .then((reponse) => console.log(reponse.json()))
     .then((data) => {
@@ -45,7 +45,7 @@ function afficherCategories() {
 
 function afficherTousLesProduits() {
   return fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/getGenericProduits.php"
+    "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getGenericProduits.php"
   )
     .then((reponse) => reponse.json())
     .then((data) => {
@@ -91,7 +91,7 @@ function produitsCategorie(idCategorie, data) {
 function imprimerUnProduit(produit) {
   console.log(produit)
   let path = produit.path_img
-  ? "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/img/articles/"+produit.path_img
+  ? "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/img/articles/"+produit.path_img
   : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
   produitElement = document.createElement("produit-generique");
   produitElement.setAttribute("name", produit["nom_prod"]);
@@ -136,7 +136,7 @@ function imprimerTousLesProduits(produits) {
 
 async function getFavori(id_us) {
   return await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/getFavori.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getFavori.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -150,7 +150,7 @@ async function getFavori(id_us) {
 
 function ajouterFavori(event, id_us) {
   fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/newFavori.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/newFavori.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -163,7 +163,7 @@ function ajouterFavori(event, id_us) {
 
 function supprimerFavorites(event, id_us) {
   fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/delFavori.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/delFavori.php",
     {
       method: "POST",
       body: new URLSearchParams({

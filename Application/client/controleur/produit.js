@@ -127,7 +127,7 @@ class ProduitDetail extends HTMLElement {
 customElements.define("produit-detail", ProduitDetail);
 async function AfficherProd() {
     return fetch(
-            "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/getProduit.php", {
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getProduit.php", {
                 method: "POST",
 
                 body: new URLSearchParams({
@@ -176,7 +176,7 @@ function imprimerSelectionCouleur(produits) {
             return produit.id_col == id;
         });
         let path = produit.path_img ?
-            "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/img/articles/" + produit.path_img :
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/img/articles/" + produit.path_img :
             "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
         root.querySelector("img").setAttribute("src", path);
         //root.setAttribute("prix", produit.prix_unit);
@@ -214,7 +214,7 @@ function imprimerSelectionTaille(produits) {
 function imprimerProduit(produit) {
 
     let path = produit.path_img ?
-        "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/img/articles/" + produit.path_img :
+        "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/img/articles/" + produit.path_img :
         "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
     //console.log(path)
     const prod_affiche = document.createElement("produit-detail");
@@ -246,7 +246,7 @@ function boutonCommander(id_produit) {
                 couleurSelect.options[couleurSelect.selectedIndex].value;
             // console.log(nbCommandee, tailleID, couleurID)
             // console.log(JSON.stringify({ id_cl: 3, id_prod: id_produit, id_taille: tailleID, couleur: couleurID, qte_pan: nbCommandee }))
-            fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/newPanier.php", {
+            fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/newPanier.php", {
                     method: "POST",
                     body: new URLSearchParams({
                         id_us: cookieValue,
@@ -283,7 +283,7 @@ function boutonCommander(id_produit) {
 
 // function verifierPanierUtilisateur() {
 //     fetch(
-//             "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/getPanier.php", {
+//             "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getPanier.php", {
 //                 method: "POST",
 
 //                 body: new URLSearchParams({
