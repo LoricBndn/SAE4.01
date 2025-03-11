@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Connexion - PM2</title>
+</head>
+
+<body>
+    <header id="printHeader"></header>
+
+    <form method="post" action="javascript:authentifier()">
+
+        <label for="login">Login</label>
+        <input required type="text" id="login" name="login" placeholder='Saisir votre login' maxlength="30">
+
+        <label for="motdepasse">Mot de passe :</label>
+        <input required type="password" id="motdepasse" name="motdepasse" placeholder='Saisir votre mot de passe' maxlength="20">
+
+        <p id="MessageErreur">Message d'erreur</p>
+
+        <a href="register.html" class="form_button">Créer un compte</a>
+        <input type="submit" name="connexion" value="Connexion" class="form_button">
+
+    </form>
+
+    <footer id="printFooter"></footer>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script type="module" src="./controleur/function.js"></script>
+<script src="./controleur/login.js"></script>
+<!--A modifier selon la version choisie -->
+
+</html>
