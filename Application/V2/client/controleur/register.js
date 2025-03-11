@@ -103,6 +103,7 @@ function register() {
     const values = [];
     const confirmPasswordField = document.getElementById("confirm_mdp").value;
     let testConfirm = (confirmPasswordField === document.getElementById("mdp").value);
+    let dateInput = document.getElementById("date_naissance");
 
     inputs.forEach((input) => {
         values.push(input.value);
@@ -133,6 +134,25 @@ function register() {
         msgErreur.style.display = "block";
         setTimeout(() => {
             msgErreur.style.display = "none";
+        }, 10000);
+        return;
+    }
+    
+    let date = new Date(dateInput.value);
+    let today = new Date();
+    let age = today.getFullYear() - date.getFullYear();
+    let monthDiff = today.getMonth() - date.getMonth();
+    let dayDiff = today.getDate() - date.getDate();
+
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--;
+    }
+
+    if (age < 16) {
+        msgErreur.innerHTML = "Vous devez avoir au moins 16 ans pour vous inscrire.";
+        msgErreur.style.display = "block";
+        setTimeout(() => { 
+            msgErreur.style.display = "none"; 
         }, 10000);
         return;
     }
