@@ -26,7 +26,10 @@ msgErreur.style.justifyContent = "center";
         melOK = mel_conforme.test(document.getElementById("mel").value);
         
 
-        if (melOK) msgErreurMail.style.color = "green";
+        if (melOK) {
+            msgErreurMail.style.color = "green";
+            msgErreurMail.innerHTML = "";
+        }
         else{
             msgErreurMail.style.color = "red";
             msgErreurMail.innerHTML = "Adresse mail non conforme";
@@ -79,10 +82,13 @@ msgErreur.style.justifyContent = "center";
 
     
     document.getElementById("confirm_mdp").addEventListener('input', (e) => {
-        let confirmPasswordField = document.getElementById("comfirm_mdp").value;
+        let confirmPasswordField = document.getElementById("confirm_mdp").value;
         let errorMessageConfirm = document.getElementById("motdepasseErreur");
         testConfirm = (confirmPasswordField === document.getElementById("mdp").value);
-        if (testConfirm) errorMessageConfirm.style.color = "green";
+        if (testConfirm) {
+            errorMessageConfirm.style.color = "green";
+            errorMessageConfirm.innerHTML = "";
+        }
         else{
             errorMessageConfirm.style.color = "red";
             errorMessageConfirm.innerHTML = "Les mots de passe ne correspondent pas";
@@ -95,7 +101,7 @@ function register() {
 
     const inputs = document.querySelectorAll('form input[type="text"], form input[type="password"], form input[type="date"]');
     const values = [];
-    const confirmPasswordField = document.getElementById("comfirm_mdp").value;
+    const confirmPasswordField = document.getElementById("confirm_mdp").value;
     let testConfirm = (confirmPasswordField === document.getElementById("mdp").value);
 
     inputs.forEach((input) => {
@@ -131,7 +137,7 @@ function register() {
         return;
     }
 
-    const user = { nom: values[0], prenom: values[1], login: values[2], mdp: values[3], mel: values[4], date_naiss: values[5] }
+    const user = { nom: values[0], prenom: values[1], login: values[2], mdp: values[3], mel: values[5], date_naiss: values[6] }
     console.log(user);
     fetch('https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/newUser.php', {
             method: 'POST',
