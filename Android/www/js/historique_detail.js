@@ -5,7 +5,7 @@ async function getCommande(id_com) { //Fonction qui récupère les données de l
         id_us: cookieValue, //Remplacer par 3 pour tester
         id_com: id_com,
     });
-    const response = await fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/getCommande.php", { method: "POST", body });
+    const response = await fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getCommande.php", { method: "POST", body });
     const { data } = await response.json();
     //console.log(data);
     return data;
@@ -15,7 +15,7 @@ async function getCommande(id_com) { //Fonction qui récupère les données de l
 //     const body = new URLSearchParams({ 
 //         id_prod: id_prod,
 //      });
-//     const response = await fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/getProduit.php", { method: "POST", body });
+//     const response = await fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getProduit.php", { method: "POST", body });
 //     const { data } = await response.json();
 //     console.log("Data cmd :",data);
 //     return data;
@@ -37,7 +37,7 @@ function afficherLesProduits(produits) { //Fonction qui affiche les produits com
         // console.log("Path :",path_img);
         const produitDiv = document.createElement('div');
         produitDiv.classList.add('produit');
-        let path = path_img ? "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/img/articles/" + path_img : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
+        let path = path_img ? "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/img/articles/" + path_img : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
         let prix = prix_unit * qte_com;
 
         produitDiv.innerHTML = `
