@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>PM2</title>
+    <style>
+        span {
+            display: none;
+        }
+        
+        input[type="text"] {
+            width: none;
+        }
+    </style>
+</head>
+
+<body class="accueil">
+    <header id="printHeader"></header>
+
+    <header class="sticky">
+        <img type="image" src="./img/btn_recherche.png" id="btn_deroul_recherche" class="form_img"> </a>
+        <form class="recherche" style="background-color: inherit; margin: 0;"></form>
+    </header>
+
+    <h1>PM2 <span>Votre boutique en ligne</span></h1>
+
+    <section>
+        <div class="produits row"></div>
+    </section>
+
+    <footer id="printFooter"></footer>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script>
+    const span = $("span");
+    console.log(span)
+    span.innerHTML = (window.innerWidth == 1000 ? " - " : "<br />") + span.innerHTML
+</script>
+<script type="module" src="./controleur/accueil.js"></script>
+<script type="module" src="./controleur/function.js"></script>
+<script type="module" src="./controleur/recherche.js"></script>
+
+</html>

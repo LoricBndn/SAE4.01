@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Nouvel article</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous" defer></script>
+    <script type="module" src="./controleur/function.js" type="module" defer></script>
+    <script type="module" src="./controleur/edit_produit.js" defer></script>
+</head>
+
+<body>
+    <header id="printHeader"></header>
+
+    <template id="type_col">
+        <div class="type">
+            <label class="">
+                <input type="checkbox" name="col[]" class="col_enabler">
+                <slot name="name_col" class="">Nom couleur</slot>
+            </label>
+            <input type="file" name="col[]" style="display: none;" class="col_enabled">
+            <label style="display: none;" class="col_enabled">
+                + <input type="number" name="diff_prix_col[]"> €
+            </label>
+        </div>
+    </template>
+
+    <template id="type_tail">
+        <div>
+            <label>
+                <input type="checkbox" name="tail[]" class="tail_enabler">
+                <slot name="name_tail">Nom taille</slot>
+            </label>
+            <label style="display: none;" class="tail_enabled">
+                + <input type="number" name="diff_prix_tail[]" class="tail_enabled"> €
+            </label>
+        </div>
+    </template>
+
+    <form>
+        <label for="name">Nom :</label>
+        <input type="text" name="name" id="name" maxlength="30">
+
+        <label for="description">Description :</label>
+        <textarea name="description" id="description" maxlength="255"></textarea>
+
+        <label for="cat">Catégorie :</label>
+        <select name="cat" id="cat"></select>
+
+        <label for="prix">Prix de base :</label>
+        <input type="number" name="prix" id="prix">€
+
+        <div class="grid2">
+            <div id="col">Couleurs :</div>
+
+            <div id="tail">Tailles :</div>
+        </div>
+
+        <input type="submit" value="Ajouter">
+    </form>
+
+    <footer id="printFooter"></footer>
+</body>
+
+</html>
