@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>Panier - PM2</title>
+</head>
+<style>
+    p {
+        text-align: center;
+    }
+    
+    button {
+        width: 200px;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <header id="printHeader"></header>
+
+    <div id="panier"></div>
+    <div id="footer" style="display: none;">
+        <div id="total">Prix total :
+            <span id="prixTotal">0</span>€
+        </div>
+        <button id="clear" class="footer form_button">Vider le panier</button>
+        <button id="payer" class="footer form_button">Payer</button>
+    </div>
+    <footer id="printFooter"></footer>
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script type="module" type="module" src="./controleur/function.js"></script>
+<script type="module" type="module" src="./controleur/panier.js"></script>
+
+</html>

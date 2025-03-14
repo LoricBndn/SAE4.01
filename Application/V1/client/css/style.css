@@ -1,0 +1,597 @@
+*,
+*::before,
+*::after {
+    transition: 200ms;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+body {
+    background: whitesmoke;
+    font-family: Helvetica;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    color: #232323;
+    /* pour que le footer soit toujours en bas de la page */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url("../img/fondSite3.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+a {
+    margin: 15px 0;
+}
+
+a img {
+    width: 100%;
+    height: auto;
+}
+
+article {
+    padding: 10px 2% 10px 2%;
+    text-align: justify;
+}
+
+article h1 {
+    text-align: center;
+    font-size: 1.6em;
+}
+
+footer {
+    width: 100%;
+    background-color: #ba0324;
+    color: #5f8755;
+    text-align: center;
+    /* pour que le footer soit toujours en bas de la page */
+    margin-top: auto;
+}
+
+footer p {
+    margin: 0;
+    padding: 15px;
+}
+
+footer p a {
+    margin: 0;
+    color: #5f8755;
+    text-decoration: none;
+}
+
+footer p a:hover {
+    text-decoration: underline;
+}
+
+form,
+section {
+    width: 100%;
+    max-width: 500px;
+    margin: 30px auto 0 auto;
+    /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+form {
+    background-color: lightgray;
+}
+
+h1 {
+    margin: 0 auto;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+header {
+    margin: 0;
+    width: 100%;
+    background-color: #ba0324;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+/* Boutons de navigation dans le header */
+
+header nav {
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: right;
+    position: relative;
+    margin: auto;
+    font-size: 15px;
+    text-align: center;
+}
+
+header nav a {
+    color: black;
+    text-decoration: none;
+    padding: 1rem 15px;
+    margin: 0;
+    text-align: center;
+}
+
+header nav a:hover {
+    color: #5f8755;
+    text-decoration: none;
+}
+
+
+/* Titre dans le header */
+
+header h1 {
+    display: none;
+}
+
+iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+input[type=text],
+input[type=url],
+input[type=password],
+input[type=search],
+input[type=date] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+input,
+.form_button {
+    border-radius: 4px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+select {
+    height: 30px;
+}
+
+table {
+    /* color: whitesmoke; */
+    background-color: #5f8755;
+    box-shadow: 5px 5px green;
+    border-radius: 4px;
+    padding: 30px;
+}
+
+tr,
+td,
+th {
+    padding: 5px;
+}
+
+.accueil>h1 {
+    background-color: #5f8755;
+    color: black;
+    font-size: 30px;
+    margin: 30px auto 5vh auto;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-weight: normal;
+}
+
+.accueil section {
+    max-width: 1500px;
+}
+
+
+/* Uniquement sur la page d'accueil */
+
+.accueil div div {
+    box-sizing: border-box;
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: #232323f0;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+    border-radius: 4px;
+}
+
+.accueil div a {
+    font-size: 30px;
+    color: #8c6e44;
+}
+
+.accueil div a,
+.accueil div a:hover {
+    border: none;
+}
+
+.accueil>p {
+    margin: 0 auto 30px auto;
+    box-sizing: border-box;
+    padding: 4px 8px;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 4px;
+    background-color: #232323f0;
+    color: white;
+    width: 90%;
+}
+
+.accueil>p a {
+    color: white;
+    text-decoration: none;
+}
+
+.accueil>p a {
+    color: white;
+    text-decoration: none;
+}
+
+.accueil>p a:hover {
+    text-decoration: underline;
+}
+
+
+/* Bouton pour créer quelque chose, bouton retour et bouton pour valider un formulaire */
+
+.btn_creation,
+.btn_retour {
+    box-sizing: border-box;
+    position: relative;
+}
+
+.btn_creation {
+    float: left;
+    left: 20px;
+}
+
+.btn_retour {
+    float: right;
+    right: 20px;
+}
+
+.btn_modif {
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    background-color: #2d8a5b;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.centrer {
+    text-align: center;
+    margin: initial auto;
+}
+
+.centrer p {
+    text-align: justify;
+    font-size: 18px;
+}
+
+.compteCrea {
+    border: 2px solid teal;
+    max-width: 800px;
+    margin: auto;
+    padding: 10px;
+}
+
+.descProduit {
+    color: black;
+    margin: 0;
+    margin-bottom: 1%;
+    padding: 10%;
+    font-size: large;
+}
+
+.img_prod {
+    width: 150px;
+}
+
+.form_button,
+.btn_creation,
+.btn_retour {
+    text-align: center;
+    background-color: #5f8755;
+    color: black;
+    border: none;
+    padding: 14px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: medium;
+    border-radius: 4px;
+}
+
+.form_button:hover,
+.btn_creation:hover,
+.btn_modif:hover,
+.btn_retour:hover {
+    background-color: white;
+    /* color: #5f8755; */
+}
+
+.form_img {
+    height: 7rem;
+    width: auto;
+}
+
+.form_titre {
+    font-size: x-large;
+    color: #8c6e44;
+    text-decoration: underline;
+}
+
+
+/* Logo en haut à droite et le bouton du menu déroulant en haut à gauche */
+
+.logo,
+#btn_deroul_top,
+#btn_deroul_recherche {
+    width: auto;
+    height: 50px;
+}
+
+.logo {
+    position: absolute;
+    left: 1rem;
+}
+
+#btn_deroul_top {
+    position: relative;
+    float: right;
+    margin-right: 1rem;
+}
+
+#btn_deroul_recherche {
+    position: relative;
+    bottom: 3rem;
+}
+
+.paragraphe {
+    border-top: 2px solid #232323;
+    margin-top: 30px;
+    padding-top: 30px;
+}
+
+.upper_button {
+    display: none;
+}
+
+.red {
+    background-color: #850606;
+    color: whitesmoke;
+}
+
+.red:hover {
+    background-color: darkgray;
+}
+
+
+/* Bouton recherche*/
+
+form.search {
+    margin-bottom: 1em;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.recherche {
+    vertical-align: middle;
+    position: sticky;
+    max-width: 100%;
+    padding: 20px;
+}
+
+.recherche>* {
+    background-color: #5f8755;
+    height: 30px;
+    margin-bottom: 5px;
+    padding: 0 2px;
+    border: 1px solid black;
+    border-radius: 4px;
+    /* color: whitesmoke; */
+}
+
+.search>input[name='key'] {
+    margin: auto;
+    float: left;
+    width: 85%;
+    border-right: none;
+}
+
+.search>button[name='search'] {
+    border: none;
+    width: 15%;
+    height: 43px;
+    border-left: none;
+    background-color: #2d8a5b;
+    background-repeat: no-repeat;
+    float: left;
+    cursor: pointer;
+}
+
+.sticky {
+    z-index: 1;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+#footer {
+    background-color: #ba0324;
+    color: black;
+    padding: 20px;
+    text-align: center;
+    margin-top: auto;
+}
+
+#footer>button[class="footer"] {
+    color: white;
+    background-color: #2d8a5b;
+}
+
+#footer>button[class="footer"]:hover {
+    color: #2d8a5b;
+    background-color: white;
+}
+
+#panier {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 1000px) {
+    #panier {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    #panier {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+#panier>.panierElement>* {
+    margin: auto;
+}
+
+#panier>.panierElement {
+    max-width: 500px;
+    background-color: lightgray;
+    margin: auto;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10%;
+}
+
+#panier>.panierElement img {
+    max-width: 200px;
+    height: auto;
+    margin: 0 auto;
+}
+
+#panier>.panierElement input {
+    max-width: 40px;
+    height: 20px;
+    margin: 0;
+}
+
+#panier>.panierElement>#select {
+    text-align: center;
+}
+
+#panier>.panierElement>#select>select {
+    text-align: center;
+    width: 150px;
+    height: 30px;
+    margin: 0 auto;
+}
+
+#panier>.panierElement>#input_qte {
+    text-align: center;
+}
+
+
+/* #input_qte,
+input[type='number'].qte {
+    display: inline-block;
+} */
+
+@media screen and (min-width: 700px) {
+    .accueil h1 {
+        font-size: 50px;
+        margin: 30px auto 10vh auto;
+    }
+    .accueil div div {
+        font-size: 25px;
+    }
+    .accueil div a {
+        font-size: 35px;
+    }
+    .accueil>p {
+        font-size: 20px;
+    }
+    .accueil span {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .descProduit {
+        padding: 2%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .logo {
+        left: 3rem;
+    }
+    .upper_button {
+        display: initial;
+        position: fixed;
+        bottom: 2em;
+        right: 2em;
+        padding: 20px;
+        z-index: 1;
+    }
+    header h1 {
+        display: block;
+        border-radius: 0;
+        border-left: 2px solid #2d8a5b;
+        text-align: left;
+        padding: 0 1rem;
+        margin-left: 10rem;
+        margin-top: 3rem;
+        position: relative;
+        bottom: 2rem;
+        font-size: 50px;
+    }
+    header nav {
+        right: 3rem;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .descProduit {
+        font-size: medium;
+        padding: 1%;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    .btn_creation,
+    .btn_retour {
+        position: absolute;
+    }
+}
