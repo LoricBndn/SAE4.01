@@ -281,21 +281,33 @@ function boutonCommander(id_produit) {
 
 }
 
-// function verifierPanierUtilisateur() {
-//     fetch(
-//             "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getPanier.php", {
-//                 method: "POST",
+function verifierPanierUtilisateur() {
+     fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getPanier.php", {
+                method: "POST",
 
-//                 body: new URLSearchParams({
-//                     id_us: cookieValue,
-//                 }),
-//             }
-//         )
-//         .then((reponse) => reponse.json())
-//         .then((data) => {
-//             console.log(data.data);
-//         });
-// }
+                body: new URLSearchParams({
+                    id_us: cookieValue,
+                 }),
+             }
+         )
+         .then((reponse) => reponse.json())
+         .then((data) => {
+            const produitExistant = data.data.find((produit) => {
+                return produit.id_prod == id_produit &&
+                        produit.id_col == couleurID &&
+                        produit.id_tail == tailleID;
+            });
+
+         if(produitExistant){
+            alert("Ce produit est déjà dans votre panier. Vous pouvez modifier la quantité dans la page 'Panier'.");
+         }else{
+
+         }
+        })
+        .catch((error) => console.log(error));
+ }
+
 
 AfficherProd();
 // verifierPanierUtilisateur();
