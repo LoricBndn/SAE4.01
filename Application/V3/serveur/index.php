@@ -1,3 +1,3 @@
 <?php
-header("location: ../client/vue/accueil.html");
+header("location: ../client/accueil.html");
 ?>
