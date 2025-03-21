@@ -24,7 +24,7 @@ try{
     // Calcul du total de la commande
     $totalQuery = "SELECT SUM(prix_total) AS total FROM SELECT_COMMANDES WHERE id_com = :id_com";
     $totalStmt = $db->prepare($totalQuery);
-    $totalStmt->bindParam(":id_com", $id_com, PDO::PARAM_INT);
+    $totalStmt->bindParam(":id_com", $_POST["id_com"]);
     $totalStmt->execute();
     $total = $totalStmt->fetch(PDO::FETCH_ASSOC)["total"] ?? 0;
 
