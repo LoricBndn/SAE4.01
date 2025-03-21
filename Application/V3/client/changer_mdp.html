@@ -5,34 +5,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/output.css" />
     <title>Modifier le mot de passe - PM2</title>
 </head>
 
-<body>
-    <header id="printHeader"></header>
+<body class="font-monteserrat flex items-center justify-center h-screen bg-gray-600">
+    <form class="max-w-sm w-full bg-white p-6 rounded-lg">
+        <h2 class="my-4 text-center text-2xl font-semibold tracking-tight">Modifier le mot de passe</h2>
+        <div class="mb-5">
+            <label for="new-password" class="block mb-2 text-sm">Nouveau mot de passe</label>
+            <input type="password" id="new-password" name="new-password" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Saisir le nouveau mot de passe" required />
+        </div>
 
-    <form>
-        <label for="nouveauMdp">Entrez votre nouveau mot de passe</label>
-        <input type="password" id="nouveauMdp" placeholder="password"></input>
-        <span id="mdpErreur1">Le mot de passe doit contenir au moins 8 caractères</span>
-        <span id="mdpErreur2">Le mot de passe doit contenir au moins un majuscule</span>
-        <span id="mdpErreur3">Le mot de passe doit contenir au moins un minuscule</span>
-        <span id="mdpErreur4">Le mot de passe doit contenir au moins un caractère spéciale</span>
-        <span id="mdpErreur5">Le mot de passe doit contenir au moins un nombre</span>
+        <div class="mb-5">
+            <label for="confirm-password" class="block mb-2 text-sm">Confirmer le nouveau mot de passe</label>
+            <input type="password" id="confirm-password" name="confirm-password" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Confirmer le mot de passe" required />
+            <p id="error-message" class="text-red-500 text-sm mt-2 hidden">Les mots de passe ne correspondent pas.</p>
+        </div>
 
-        <label for="confirmation">Confirmer votre mot de passe</label>
-        <input type="password" id="confirmation" placeholder="confirmation"></input>
-        <span id="confirmationErreur" style="display: none;">Les mots de passe ne correspondent pas</span>
-        <input type="submit" id="envoie" value="Confirmer" class="form_button">
+        <button type="submit" class="cursor-pointer text-white bg-[#006600] hover:bg-[#335733] focus:ring-4 focus:outline-none rounded-lg text-sm w-full px-5 py-2.5 text-center">Modifier</button>
     </form>
-
-    <footer id="printFooter"></footer>
 </body>
 
+<script>
+    document.querySelector("form").addEventListener("submit", function(event) {
+        let newPassword = document.getElementById("new-password").value;
+        let confirmPassword = document.getElementById("confirm-password").value;
+        let errorMessage = document.getElementById("error-message");
 
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script type="module" src="./controleur/changerMDP.js"></script>
-<script type="module" src="./controleur/function.js"></script>
+        if (newPassword !== confirmPassword) {
+            event.preventDefault();
+            errorMessage.classList.remove("hidden");
+        } else {
+            errorMessage.classList.add("hidden");
+        }
+    });
+</script>
+<script src="./controleur/function.js"></script>
+
 
 </html>

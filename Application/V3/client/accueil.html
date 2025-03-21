@@ -1,49 +1,375 @@
 <!DOCTYPE html>
-<html lang="fr">
-
-<head>
+<html lang="en">
+  <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/output.css" />
     <title>PM2</title>
-    <style>
-        span {
-            display: none;
-        }
-        
-        input[type="text"] {
-            width: none;
-        }
-    </style>
-</head>
+  </head>
 
-<body class="accueil">
-    <header id="printHeader"></header>
+  <body>
+  <header id="printHeader"></header>
 
-    <header class="sticky">
-        <img type="image" src="./img/btn_recherche.png" id="btn_deroul_recherche" class="form_img"> </a>
-        <form class="recherche" style="background-color: inherit; margin: 0;"></form>
-    </header>
+    <div
+      class="w-full h-screen bg-[url('/img/hero-bg.png')] bg-cover flex items-center"
+    >
+      <div
+        class="max-w-screen-2xl mx-auto w-full flex flex-col gap-6 p-4 md:p-15 lg:p-30"
+      >
+        <h3 class="text-2xl">PM2</h3>
+        <h1 class="text-5xl md:text-6xl w-full lg:w-180">
+          Vente de pulls moches & accessoires de Noël
+        </h1>
+        <a href="#products">
+          <button
+            class="py-3 px-5 bg-[#B43131] font-semibold text-md text-white rounded-md cursor-pointer"
+          >
+            Découvrez les produits
+          </button>
+        </a>
+      </div>
+    </div>
 
-    <h1>PM2 <span>Votre boutique en ligne</span></h1>
+    <div id="products" class="max-w-screen-2xl mx-auto p-4 md:p-15 lg:px-30 flex justify-between">
+      <h2 class=" font-semibold text-3xl">Les produits</h2>
+      <button
+      type="submit"
+      class="2xl:hidden cursor-pointer text-white bg-red-500 hover:bg-[#B43131] font-medium rounded-lg text-sm px-4 py-2"
+    >
+      Filtres
+    </button>
+    </div>
+    <section class="max-w-screen-2xl mx-auto flex gap-10 px-4 md:px-15 lg:px-30">
+      <div class="flex-col gap-10 hidden 2xl:flex">
+        <form class="max-w-xl mx-auto">
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+            >
+              <svg
+                class="w-4 h-4 text-gray-500"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="search"
+              id="default-search"
+              class="w-80 p-4 ps-10 text-sm  border-1 border-[#cfcfcf] rounded-sm"
+              placeholder="Search Mockups, Logos..."
+            />
+            <button
+              type="submit"
+              class="cursor-pointer text-white absolute end-2.5 bottom-2.5 bg-red-500 hover:bg-[#B43131] font-medium rounded-lg text-sm px-4 py-2"
+            >
+              Search
+            </button>
+          </div>
 
-    <section>
-        <div class="produits row"></div>
+          <!-- Catégorie Dropdown -->
+          <button
+            id="dropdownCategoryButton"
+            class="mt-4 cursor-pointer w-80 border-t-1 border-[#cfcfcf] text-sm py-4 text-center inline-flex justify-between items-center font-semibold"
+            type="button"
+          >
+            Catégorie<svg
+              id="dropdownCategoryArrow"
+              class="w-2.5 h-2.5 ms-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 4 4 4-4"
+              />
+            </svg>
+          </button>
+          <div
+            id="dropdownCategory"
+            class="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out z-10 w-80"
+          >
+            <ul
+              class="py-3 space-y-3 text-sm text-gray-700"
+              aria-labelledby="dropdownCategoryButton"
+            >
+              <li>
+                <div class="flex items-center">
+                  <input
+                    id="checkbox-category"
+                    type="checkbox"
+                    class="cursor-pointer w-4 h-4 text-[#B43131]"
+                  />
+                  <label for="checkbox-category" class="ms-2 text-sm"
+                    >Catégorie A</label
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Couleur Dropdown -->
+          <button
+            id="dropdownColorButton"
+            class="cursor-pointer w-80 border-t-1 border-[#cfcfcf] text-sm py-4 text-center inline-flex justify-between items-center font-semibold"
+            type="button"
+          >
+            Couleur<svg
+              id="dropdownColorArrow"
+              class="w-2.5 h-2.5 ms-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 4 4 4-4"
+              />
+            </svg>
+          </button>
+          <div
+            id="dropdownColor"
+            class="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out z-10 w-80"
+          >
+            <ul
+              class="py-3 space-y-3 text-sm text-gray-700"
+              aria-labelledby="dropdownColorButton"
+            >
+              <li>
+                <div class="flex items-center">
+                  <input
+                    id="checkbox-color"
+                    type="checkbox"
+                    class="cursor-pointer w-4 h-4 text-[#B43131]"
+                  />
+                  <label for="checkbox-color" class="ms-2 text-sm">Rouge</label>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <input
+                    id="checkbox-color2"
+                    type="checkbox"
+                    class="cursor-pointer w-4 h-4 text-[#B43131]"
+                  />
+                  <label for="checkbox-color2" class="ms-2 text-sm">Bleu</label>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Taille Dropdown -->
+          <button
+            id="dropdownSizeButton"
+            class="cursor-pointer w-80 border-t-1 border-[#cfcfcf] text-sm py-4 text-center inline-flex justify-between items-center font-semibold"
+            type="button"
+          >
+            Taille<svg
+              id="dropdownSizeArrow"
+              class="w-2.5 h-2.5 ms-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 4 4 4-4"
+              />
+            </svg>
+          </button>
+          <div
+            id="dropdownSize"
+            class="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out z-10 w-80"
+          >
+            <ul
+              class="py-3 space-y-3 text-sm text-gray-700"
+              aria-labelledby="dropdownSizeButton"
+            >
+              <li>
+                <div class="flex items-center">
+                  <input
+                    id="checkbox-size"
+                    type="checkbox"
+                    class="cursor-pointer w-4 h-4 text-[#B43131]"
+                  />
+                  <label for="checkbox-size" class="ms-2 text-sm">S</label>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <input
+                    id="checkbox-size2"
+                    type="checkbox"
+                    class="cursor-pointer w-4 h-4 text-[#B43131]"
+                  />
+                  <label for="checkbox-size2" class="ms-2 text-sm">M</label>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <input
+                    id="checkbox-size3"
+                    type="checkbox"
+                    class="cursor-pointer w-4 h-4 text-[#B43131]"
+                  />
+                  <label for="checkbox-size3" class="ms-2 text-sm">L</label>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </form>
+      </div>
+
+      <div class="bg-white">
+        <div
+          class=" px-4 sm:px-6 lg:px-8"
+        >
+          <div
+            class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8"
+          >
+            <a href="#" class="group">
+              <img
+                src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-01.jpg"
+                alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
+                class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+              />
+              <div class="flex justify-between items-center">
+                <div>
+                  <h3 class="mt-4 text-sm text-gray-700">Earthen Bottle</h3>
+                  <p class="mt-1 text-lg font-medium text-gray-900">$48</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+            </a>
+            <a href="#" class="group">
+              <img
+                src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-01.jpg"
+                alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
+                class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+              />
+              <div class="flex justify-between items-center">
+                <div>
+                  <h3 class="mt-4 text-sm text-gray-700">Earthen Bottle</h3>
+                  <p class="mt-1 text-lg font-medium text-gray-900">$48</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+            </a>
+            <a href="#" class="group">
+              <img
+                src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-01.jpg"
+                alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
+                class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+              />
+              <div class="flex justify-between items-center">
+                <div>
+                  <h3 class="mt-4 text-sm text-gray-700">Earthen Bottle</h3>
+                  <p class="mt-1 text-lg font-medium text-gray-900">$48</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+            </a>
+            <a href="#" class="group">
+              <img
+                src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-01.jpg"
+                alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
+                class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+              />
+              <div class="flex justify-between items-center">
+                <div>
+                  <h3 class="mt-4 text-sm text-gray-700">Earthen Bottle</h3>
+                  <p class="mt-1 text-lg font-medium text-gray-900">$48</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+            </a>
+            <a href="#" class="group">
+              <img
+                src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-01.jpg"
+                alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
+                class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+              />
+              <div class="flex justify-between items-center">
+                <div>
+                  <h3 class="mt-4 text-sm text-gray-700">Earthen Bottle</h3>
+                  <p class="mt-1 text-lg font-medium text-gray-900">$48</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+            </a>
+            <a href="#" class="group">
+              <img
+                src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-01.jpg"
+                alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
+                class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+              />
+              <div class="flex justify-between items-center">
+                <div>
+                  <h3 class="mt-4 text-sm text-gray-700">Earthen Bottle</h3>
+                  <p class="mt-1 text-lg font-medium text-gray-900">$48</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+            </a>
+
+          </div>
+        </div>
+      </div>
     </section>
 
-    <footer id="printFooter"></footer>
-</body>
-
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script>
-    const span = $("span");
-    console.log(span)
-    span.innerHTML = (window.innerWidth == 1000 ? " - " : "<br />") + span.innerHTML
-</script>
-<script type="module" src="./controleur/accueil.js"></script>
-<script type="module" src="./controleur/function.js"></script>
-<script type="module" src="./controleur/recherche.js"></script>
-
+    <script>  
+      function toggleDropdown(dropdownId, arrowId) {
+        var dropdown = document.getElementById(dropdownId);
+        var arrow = document.getElementById(arrowId);
+        
+        dropdown.classList.toggle("max-h-0");
+        dropdown.classList.toggle("opacity-0");
+        dropdown.classList.toggle("max-h-96");
+        dropdown.classList.toggle("opacity-100");
+    
+        arrow.classList.toggle("rotate-180");
+      }
+    
+      document
+        .getElementById("dropdownCategoryButton")
+        .addEventListener("click", function () {
+          toggleDropdown("dropdownCategory", "dropdownCategoryArrow");
+        });
+    
+      document
+        .getElementById("dropdownColorButton")
+        .addEventListener("click", function () {
+          toggleDropdown("dropdownColor", "dropdownColorArrow");
+        });
+    
+      document
+        .getElementById("dropdownSizeButton")
+        .addEventListener("click", function () {
+          toggleDropdown("dropdownSize", "dropdownSizeArrow");
+        });
+    </script>
+  </body>
+  <script type="module" src="./controleur/function.js"></script>
 </html>
