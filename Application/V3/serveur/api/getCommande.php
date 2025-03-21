@@ -19,9 +19,19 @@ $res ->bindParam(":id_com", $_POST["id_com"]);
 
 try{
     $res->execute();
+    $details = $res->fetchAll(PDO::FETCH_ASSOC);
+
+    // Calcul du total de la commande
+    $totalQuery = "SELECT SUM(prix_unit * qte_com) AS total FROM SELECT_COMMANDES WHERE id_com = :id_com";
+    $totalStmt = $db->prepare($totalQuery);
+    $totalStmt->bindParam(":id_com", $id_com, PDO::PARAM_INT);
+    $totalStmt->execute();
+    $total = $totalStmt->fetch(PDO::FETCH_ASSOC)["total"] ?? 0;
+
     $json["status"] = "success";
-    $json["message"] = "recupération réussie";
-    $json["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
+    $json["message"] = "Récupération réussie";
+    $json["data"] = $details;
+    $json["total"] = $total;
 } catch(Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
