@@ -94,7 +94,11 @@ msgErreur.style.justifyContent = "center";
             errorMessageConfirm.innerHTML = "Les mots de passe ne correspondent pas";
         }
     });
-
+function showErrorModal(message) {
+    document.getElementById("modalErrorMessage").innerHTML = "⚠️ " + message;
+    var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    errorModal.show();
+}
 
 function register() {
     let erreur = 0;
@@ -105,36 +109,20 @@ function register() {
     let testConfirm = (confirmPasswordField === document.getElementById("mdp").value);
     let dateInput = document.getElementById("date_naissance");
 
-    inputs.forEach((input) => {
-        values.push(input.value);
-        if (input.value === null || input.value.trim() === "") {
-            erreur++;
-        }
-    });
     if (!testConfirm) {
-        erreur++;
-        msgErreur.textContent = "Les mots de passe ne correspondent pas";
-        msgErreur.style.display = "block";
-        setTimeout(() => {
-            msgErreur.style.display = "none";
-        }, 10000);
+        showErrorModal("Les mots de passe ne correspondent pas !");
         return;
     }
     if (erreur !== 0) {
-        msgErreur.innerHTML = "Remplissez tous les champs !";
-        msgErreur.style.display = "block";
-        setTimeout(() => {
-            msgErreur.style.display = "none";
-        }, 10000);
+        showErrorModal("Remplissez tous les champs !");
         return;
     }
-
     if (!melOK || !mdpOK) {
-        msgErreur.innerHTML = "Votre mot de passe ou votre adresse mail n'est pas conforme !";
-        msgErreur.style.display = "block";
-        setTimeout(() => {
-            msgErreur.style.display = "none";
-        }, 10000);
+        showErrorModal("Votre mot de passe ou votre adresse mail n'est pas conforme !");
+        return;
+    }
+    if (age < 16) {
+        showErrorModal("Vous devez avoir au moins 16 ans pour vous inscrire.");
         return;
     }
     
@@ -148,14 +136,6 @@ function register() {
         age--;
     }
 
-    if (age < 16) {
-        msgErreur.innerHTML = "Vous devez avoir au moins 16 ans pour vous inscrire.";
-        msgErreur.style.display = "block";
-        setTimeout(() => { 
-            msgErreur.style.display = "none"; 
-        }, 10000);
-        return;
-    }
 
     const user = { nom: values[0], prenom: values[1], login: values[2], mdp: values[3], mel: values[5], date_naiss: values[6] }
     console.log(user);
