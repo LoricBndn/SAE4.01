@@ -10,9 +10,10 @@ CREATE TABLE UTILISATEUR (
     id_perm INT NOT NULL,
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    mdp VARCHAR(255) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,    
     date_naissance DATE,
+    identifiant VARCHAR(20) UNIQUE NOT NULL,
+    mdp VARCHAR(255) NOT NULL,
     FOREIGN KEY (id_perm) REFERENCES PERMISSION(id_perm) ON DELETE CASCADE
 );
 
@@ -48,13 +49,13 @@ CREATE TABLE COULEUR (
 CREATE TABLE DETAIL_PRODUIT (
     id_detail_prod INT PRIMARY KEY AUTO_INCREMENT,
     id_produit INT NOT NULL,
-    id_taille VARCHAR(10),
-    id_couleur VARCHAR(20),
+    id_taille INT,
+    id_couleur INT,
     prix DECIMAL(10,2) NOT NULL,
     stock INT NOT NULL CHECK (stock >= 0),
     path_img VARCHAR(255) NOT NULL,
-    FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit) ON DELETE CASCADE
-    FOREIGN KEY (id_taille) REFERENCES TAILLE(id_taille) ON DELETE CASCADE
+    FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit) ON DELETE CASCADE,
+    FOREIGN KEY (id_taille) REFERENCES TAILLE(id_taille) ON DELETE CASCADE,
     FOREIGN KEY (id_couleur) REFERENCES COULEUR(id_couleur) ON DELETE CASCADE
 );
 
@@ -94,7 +95,7 @@ CREATE TABLE COMMANDE (
     date_commande DATETIME DEFAULT CURRENT_TIMESTAMP,
     total DECIMAL(10,2) NOT NULL,
     statut ENUM('En attente', 'En cours', 'Expédiée', 'Livrée', 'Annulée') NOT NULL,
-    FOREIGN KEY (id_user) REFERENCES UTILISATEUR(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_user) REFERENCES UTILISATEUR(id_user) ON DELETE CASCADE
 );
 
 -- Table des détails de commande (articles achetés)
