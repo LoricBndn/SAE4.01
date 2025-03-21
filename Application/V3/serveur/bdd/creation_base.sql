@@ -20,7 +20,7 @@ CREATE TABLE UTILISATEUR (
 -- Table des catégories de produits
 CREATE TABLE CATEGORIE (
     id_categorie INT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(50) NOT NULL UNIQUE
+    nom_categorie VARCHAR(50) NOT NULL UNIQUE
 );
 
 -- Table des produits
@@ -28,7 +28,7 @@ CREATE TABLE PRODUIT (
     id_produit INT PRIMARY KEY AUTO_INCREMENT,
     id_categorie INT NOT NULL,
     SKU VARCHAR(50) UNIQUE NOT NULL,
-    nom VARCHAR(100) NOT NULL,
+    nom_produit VARCHAR(100) NOT NULL,
     description TEXT NOT NULL,
     FOREIGN KEY (id_categorie) REFERENCES CATEGORIE(id_categorie) ON DELETE CASCADE
 );
