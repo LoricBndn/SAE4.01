@@ -53,7 +53,7 @@ CREATE TABLE DETAIL_PRODUIT (
     id_couleur INT,
     prix DECIMAL(10,2) NOT NULL,
     stock INT NOT NULL CHECK (stock >= 0),
-    path_img VARCHAR(255) NOT NULL,
+    path_img VARCHAR(255),
     FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit) ON DELETE CASCADE,
     FOREIGN KEY (id_taille) REFERENCES TAILLE(id_taille) ON DELETE CASCADE,
     FOREIGN KEY (id_couleur) REFERENCES COULEUR(id_couleur) ON DELETE CASCADE
@@ -124,7 +124,7 @@ CREATE TABLE PAIEMENT (
 CREATE TABLE FRAIS_PORT (
     id_categorie INT NOT NULL,
     seuil_quantite INT NOT NULL,
-    frais DECIMAL(10,2) NOT NULL,
+    frais DECIMAL(10,2) NOT NULL CHECK (frais >= 0),
     PRIMARY KEY (id_categorie, seuil_quantite),
     FOREIGN KEY (id_categorie) REFERENCES CATEGORIE(id_categorie) ON DELETE CASCADE
 );
@@ -134,7 +134,7 @@ CREATE TABLE SOLDE (
     id_solde INT PRIMARY KEY AUTO_INCREMENT,
     id_detail_prod INT NOT NULL,
     reduction DECIMAL(5,2) NOT NULL CHECK (reduction >= 0 AND reduction <= 100),
-    date_debut DATE NOT NULL,
+    date_debut DATE NOT NULL CHECK (date_debut < date_fin),
     date_fin DATE NOT NULL,
     FOREIGN KEY (id_detail_prod) REFERENCES DETAIL_PRODUIT(id_detail_prod) ON DELETE CASCADE
 );
