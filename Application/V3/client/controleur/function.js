@@ -1,113 +1,120 @@
-export const cookieValue = document.cookie //Correspond à la valeur de la clé "id_user" dans le cookie
-    .split("; ")
-    .find((row) => row.startsWith("id_user="))
-    ?.split("=")[1];
+export const cookieValue = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("id_user="))
+  ?.split("=")[1];
 
 export function isConnected() {
-    return cookieValue !== undefined;
+  return cookieValue !== undefined;
 }
 
 function printHeader() {
-    const header = document.querySelector("#printHeader");
-    const connected = isConnected();
+  const header = document.querySelector("#printHeader");
+  const connected = isConnected();
 
-    let navLinks = `
-    <a href='./accueil.html'>Accueil</a>
-    <a href='./panier.html'>Panier</a>
-    
+  let navLinks = `
+    <li><a href='./accueil.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Accueil</a></li>
+    <li><a href='./panier.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Panier</a></li>
   `;
 
-    if (connected) {
-        navLinks += `
-        <a href='./historique.html'>Historique</a>
-      <a href='./favori.html'>Favoris</a>
-      <a href='./compte.html'>Compte</a>
-      <a href='./logout.html'>Déconnexion</a>
+  if (connected) {
+    navLinks += `
+      <li><a href='./historique.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Historique</a></li>
+      <li><a href='./favori.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Favoris</a></li>
+      <li><a href='./compte.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Compte</a></li>
+      <li><a href='./logout.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Déconnexion</a></li>
     `;
-    } else {
-        navLinks += `
-      <a href='./login.html'>Connexion</a>
-      <a href='./register.html'>Inscription</a>
+  } else {
+    navLinks += `
+      <li><a href='./login.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Connexion</a></li>
+      <li><a href='./register.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Inscription</a></li>
     `;
-    }
+  }
 
-    header.innerHTML = `
-    <a><img src='./img/logo.png' alt='logo_site' class='logo'>
-    <input type="image" src="./img/btn_deroul_top.png" id="btn_deroul_top" class="form_img"> </a>
-    <nav>
-      ${navLinks}
+  header.innerHTML = `
+    <nav class="z-10 w-full absolute bg-gradient-to-r from-[#f5f5f5] via-[#f2f2f2] to-[#ededed] border-[#d5d5d5] border-b-2">
+      <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4 md:px-15 lg:px-30">
+        <a href="./accueil.html">
+          <img src="./img/logo.png" class="h-11" />
+        </a>
+        <button
+          id="menu-button"
+          type="button"
+          class="cursor-pointer inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-[#B43131] rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          aria-controls="navbar-default"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+          </svg>
+        </button>
+        <div class="hidden w-full lg:block lg:w-auto" id="navbar-default">
+          <ul class="font-medium flex flex-col items-center p-4 lg:p-0 mt-4 lg:flex-row lg:space-x-8 lg:mt-0">
+            ${navLinks}
+          </ul>
+        </div>
+      </div>
     </nav>
   `;
-    MenuPrincipaleDeroulant(999);
 }
 
-function MenuPrincipaleDeroulant(taille) { //Taille -> Taille en px à partir de laquelle le menu se cache 
-    let tailleEcran = window.matchMedia('(max-width: ' + taille + 'px)');
+function toggleMenu() {
+  const menu = document.getElementById("navbar-default");
+  const button = document.getElementById("menu-button");
 
-    if (tailleEcran.matches === true) {
-        // Cache le menu de navigation si la taille d'écran est inférieure à 1000px
-        document.querySelector("nav").style.display = "none";
-    } else {
-        // Sinon cache l'image qui sert de bouton
-        document.getElementById("btn_deroul_top").style.display = "none";
-    }
+  // Vérifie si le menu est actuellement affiché
+  const isOpen = menu.classList.contains("hidden");
 
-    // La variable select toutes les balises a qui ont dans le menu et les stock dans la variable (C'est un tableau)
-    let categHeader = document.querySelectorAll("nav a");
+  // Ouvre ou ferme le menu en fonction de son état actuel
+  if (isOpen) {
+    menu.classList.remove("hidden");
+    button.setAttribute("aria-expanded", "true");
+  } else {
+    menu.classList.add("hidden");
+    button.setAttribute("aria-expanded", "false");
+  }
+}
 
-    // Quand on appuie sur le bouton -> Lance la fonction
-    document.getElementById("btn_deroul_top").addEventListener("click", function() {
-        let nav = document.querySelector("nav");
-        const btn_deroul_recherche = document.getElementById("btn_deroul_recherche");
+// Fonction d'initialisation pour ajouter l'événement au bouton
+function initMenu() {
+  const button = document.getElementById("menu-button");
 
-        if (nav.style.display === "block") { // Si il est en bloc, cela veut dire qu'il est actuellement affiché
-            nav.style.display = "none"; // On le cache 
-
-            for (let i = 0; i < categHeader.length; i++) {
-                categHeader[i].style.display = "none"; // On cache toutes les balises <a> de <nav> une par une
-            }
-            if (document.querySelector(".recherche")) btn_deroul_recherche.style.bottom = "3rem";
-        } else {
-            if (document.querySelector(".recherche")) btn_deroul_recherche.style.bottom = "0";
-            nav.style.display = "block"; // Sinon on le définit en tant que block (Le nav n'est plus caché)
-            for (let i = 0; i < categHeader.length; i++) {
-                setTimeout(function(index) { categHeader[index].style.display = "block"; }, i * 100, i);
-                // setTimeout() permet de créer un délai dans les actions : la fonction sert ici à ce que toutes les balises <a> ne s'affichent pas en même temps
-            }
-        }
-    });
+  if (button) {
+    button.addEventListener("click", toggleMenu);
+  }
 }
 
 function menuRechercheDeroulant() {
-    let tailleEcran = window.matchMedia('(max-width: 575px)');
-    let form = document.querySelector(".recherche"); // Sélectionne le formulaire
+  let tailleEcran = window.matchMedia("(max-width: 575px)");
+  let form = document.querySelector(".recherche"); // Sélectionne le formulaire
 
-    if (tailleEcran.matches === true) {
-        form.style.display = "none";
-        document.querySelector(".sticky").style.position = "relative";
+  if (tailleEcran.matches === true) {
+    form.style.display = "none";
+    document.querySelector(".sticky").style.position = "relative";
+  } else {
+    document.getElementById("btn_deroul_recherche").style.display = "none";
+  }
+
+  let formImg = document.getElementById("btn_deroul_recherche");
+
+  formImg.addEventListener("click", function () {
+    if (form.style.display === "block") {
+      // Si le formulaire est actuellement affiché
+      form.style.display = "none"; // On le cache
     } else {
-        document.getElementById("btn_deroul_recherche").style.display = "none";
+      form.style.display = "block"; // Sinon on le définit en tant que block (Le formulaire n'est plus caché)
     }
-
-    let formImg = document.getElementById("btn_deroul_recherche");
-
-    formImg.addEventListener("click", function() {
-        if (form.style.display === "block") { // Si le formulaire est actuellement affiché
-            form.style.display = "none"; // On le cache
-        } else {
-            form.style.display = "block"; // Sinon on le définit en tant que block (Le formulaire n'est plus caché)
-        }
-    });
-
+  });
 }
 if (document.querySelector(".recherche")) menuRechercheDeroulant();
 
 function printFooter() {
-    const footer = document.querySelector("#printFooter");
-    footer.innerHTML = `
+  const footer = document.querySelector("#printFooter");
+  footer.innerHTML = `
     <p>Paul Muller Piulls Moches - Site de vente </p>
     `;
 }
 
 printHeader();
-// printFooter();
+initMenu();
+//printFooter();
