@@ -22,7 +22,7 @@ try{
     $details = $res->fetchAll(PDO::FETCH_ASSOC);
 
     // Calcul du total de la commande
-    $totalQuery = "SELECT SUM(prix_unit * qte_com) AS total FROM SELECT_COMMANDES WHERE id_com = :id_com";
+    $totalQuery = "SELECT SUM(prix_total) AS total FROM SELECT_COMMANDES WHERE id_com = :id_com";
     $totalStmt = $db->prepare($totalQuery);
     $totalStmt->bindParam(":id_com", $id_com, PDO::PARAM_INT);
     $totalStmt->execute();
