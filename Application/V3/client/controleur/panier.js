@@ -66,38 +66,20 @@ function delButton(id) {
     });
 }
 
-function modifButton(id) {
+function autoUpdatePanier(id) {
+    const id_prod = id.split("|")[0];
+    const id_col = id.split("|")[1];
+    const id_tail = id.split("|")[2];
 
-    const test = findId(id, document.querySelectorAll(".mod"))
+    const inputQuantite = document.getElementById(id);
+    const selectCouleur = document.getElementById(`couleur${id}`);
+    const selectTaille = document.getElementById(`taille${id}`);
 
-    test.addEventListener("click", (e) => {
-        const id_prod = e.target.id.split("|")[0];
-        const id_col = e.target.id.split("|")[1];
-        const id_tail = e.target.id.split("|")[2];
-        const qte_pan = document.getElementById(id).value;
-        let new_id_col = null
-        let new_id_tail = null
-        document.getElementById(`couleur${id}`).querySelectorAll("option").forEach((element) => {
-            if (element.selected) {
-                new_id_col = element.id;
-            }
-        });
-        if (document.getElementById(`taille${id}`) === null) {
-            new_id_tail = 17
-        } else {
-            document.getElementById(`taille${id}`).querySelectorAll("option").forEach((element) => {
-                if (element.selected) {
-                    new_id_tail = element.id;
-                }
-            });
-        }
-        // console.log("id_us",id_us);
-        // console.log("id_prod",id_prod);
-        // console.log("id_col",id_col);
-        // console.log("id_tail",id_tail);
-        // console.log("qte_pan",qte_pan);
-        // console.log("new_id_col",new_id_col);
-        // console.log("new_id_tail",new_id_tail);
+    function updatePanier() {
+        const qte_pan = inputQuantite.value;
+        let new_id_col = selectCouleur ? selectCouleur.options[selectCouleur.selectedIndex].id : id_col;
+        let new_id_tail = selectTaille ? selectTaille.options[selectTaille.selectedIndex].id : id_tail;
+
         fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/setPanier.php", {
             method: "POST",
             body: new URLSearchParams({
@@ -109,22 +91,22 @@ function modifButton(id) {
                 new_id_col: new_id_col,
                 new_id_tail: new_id_tail,
             }),
-        }).then((response) => {
-            response.json().then((json) => {
-                //console.log(json);
-                if (json.status !== "success") {
-                    alert("modif échouée");
-                    appelPanier();
-                    return;
-                }
-
-                console.log("modif réussie");
-                document.getElementById("panier").innerHTML = "";
+        }).then(response => response.json()).then(json => {
+            if (json.status !== "success") {
+                console.log("Mise à jour échouée");
                 appelPanier();
-            });
+                return;
+            }
+            console.log("Mise à jour réussie");
         });
-    });
+    }
+
+    // Écoute les changements et met à jour automatiquement
+    inputQuantite.addEventListener("change", updatePanier);
+    if (selectCouleur) selectCouleur.addEventListener("change", updatePanier);
+    if (selectTaille) selectTaille.addEventListener("change", updatePanier);
 }
+
 
 function rempliSelect(select, array, arrayId, def) {
     array = array.filter((value, index) => array.indexOf(value) === index);
@@ -166,7 +148,6 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
             <div id="input_qte">Quantité : <input class="qte" id="${id}" type="number" value="${qte}"></div>
             <p id="prix">Prix : ${Math.round(panier.prix_unit * qte * 100) / 100}€</p>
             <div id="button">
-                <button class="mod form_button" id="${id}">Modifier</button>
                 <button class="del form_button" id="${id}">Supprimer</button>
             </div>
         </center>
@@ -174,7 +155,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
     document.getElementById("panier").appendChild(panierDiv);
 
     delButton(id);
-    modifButton(id);
+    autoUpdatePanier(id);
     rempliSelect(document.getElementById(`couleur${id}`), couleur, couleurId, panier.nom_col);
     panier.id_tail !== 17 ? rempliSelect(document.getElementById(`taille${id}`), taille, tailleId, panier.nom_tail) : casNulltaill(id, panier.id_tail);
     prix.innerHTML = (Math.round((parseFloat(prix.innerHTML) + panier.prix_unit * qte) * 100) / 100);

@@ -110,17 +110,32 @@ class ProduitDetail extends HTMLElement {
 
         nbrCommande.addEventListener("input", (event) => {
             const prix = this.shadowRoot.getElementById("prix").innerHTML;
-            console.log(prix);
             const contenu = event.target.value;
             const prixTotal = this.shadowRoot.getElementById("prix_tot");
+        
             if (!quantiteCommandeeValide(contenu)) {
                 event.target.style.background = "red";
                 prixTotal.innerHTML = prix;
             } else {
                 event.target.style.background = "whitesmoke";
                 prixTotal.innerHTML = Math.round(prix * parseInt(contenu) * 100) / 100;
+                fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/setPanier.php", {
+                    method: "POST",
+                    body: new URLSearchParams({
+                        id_us: cookieValue,
+                        id_prod: id,
+                        qte_pan: contenu
+                    }),
+                }).then(response => response.json()).then(json => {
+                    if (json.status !== "success") {
+                        console.log("Mise à jour échouée");
+                    } else {
+                        console.log("Mise à jour réussie");
+                    }
+                });
             }
         });
+        
     }
 }
 
