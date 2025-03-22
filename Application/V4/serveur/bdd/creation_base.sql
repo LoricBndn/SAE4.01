@@ -104,7 +104,7 @@ CREATE TABLE DETAIL_COMMANDE (
     id_commande INT NOT NULL,
     id_detail_prod INT NOT NULL,
     quantite INT NOT NULL CHECK (quantite > 0),
-    prix_unitaire DECIMAL(10,2) NOT NULL,
+    prix_total DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (id_commande) REFERENCES COMMANDE(id_commande) ON DELETE CASCADE,
     FOREIGN KEY (id_detail_prod) REFERENCES DETAIL_PRODUIT(id_detail_prod) ON DELETE CASCADE
 );
