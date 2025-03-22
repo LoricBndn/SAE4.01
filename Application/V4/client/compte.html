@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/output.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" defer></script>
+    <title>Compte - PM2</title>
+</head>
+<header id="printHeader"></header>
+
+<body>
+    <div class="flex items-center justify-center h-screen bg-gray-600">
+        <form id="accountForm" class="max-w-md w-full bg-white p-6 rounded-lg shadow-lg mt-14">
+            <h2 class="my-4 text-center text-2xl font-semibold tracking-tight text-gray-900">Informations du compte</h2>
+            
+            <!-- Nom et Prénom -->
+            <div class="mb-5 flex space-x-4">
+                <div class="w-1/2">
+                    <label for="nom" class="block mb-2 text-sm font-medium text-gray-700">Nom</label>
+                    <input type="text" id="nom" value="Dupont" class="bg-gray-100 border border-gray-300 text-sm rounded-lg block w-full p-2.5" disabled />
+                </div>
+                <div class="w-1/2">
+                    <label for="prenom" class="block mb-2 text-sm font-medium text-gray-700">Prénom</label>
+                    <input type="text" id="prenom" value="Jean" class="bg-gray-100 border border-gray-300 text-sm rounded-lg block w-full p-2.5" disabled />
+                </div>
+            </div>
+
+            <!-- Identifiant -->
+            <div class="mb-5">
+                <label for="identifiant" class="block mb-2 text-sm font-medium text-gray-700">Identifiant</label>
+                <input type="text" id="identifiant" value="jean.dupont" class="bg-gray-100 border border-gray-300 text-sm rounded-lg block w-full p-2.5" disabled />
+            </div>
+
+            <!-- Adresse mail -->
+            <div class="mb-5">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Adresse mail</label>
+                <input type="email" id="email" value="jean.dupont@email.com" class="bg-gray-100 border border-gray-300 text-sm rounded-lg block w-full p-2.5" disabled />
+            </div>
+
+            <!-- Date de naissance -->
+            <div class="mb-5">
+                <label for="dob" class="block mb-2 text-sm font-medium text-gray-700">Date de naissance</label>
+                <input type="text" id="dob" value="01/01/1990" class="bg-gray-100 border border-gray-300 text-sm rounded-lg block w-full p-2.5" disabled />
+            </div>
+
+            <!-- Boutons -->
+            <div class="flex justify-between space-x-4">
+                <a class="w-1/2" href="./changer_mdp.html">
+                    <button type="button" class=" cursor-pointer text-white bg-[#006600] hover:bg-[#005300] focus:ring-4 focus:outline-none rounded-lg text-sm  px-5 py-2.5 text-center">
+                        Changer de mot de passe
+                    </button>
+                </a>
+                <button type="button" class=" cursor-pointer text-white bg-[#B43131] hover:bg-[#892424] focus:ring-4 focus:outline-none rounded-lg text-sm w-1/2 px-5 py-2.5 text-center">
+                    Déconnexion
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+<script type="module" src="./controleur/function.js"></script>
+
+</html>

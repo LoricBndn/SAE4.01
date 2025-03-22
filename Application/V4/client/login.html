@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/output.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" defer></script>
+    <title>Connexion - PM2</title>
+</head>
+
+<body class="">
+    <div class="flex items-center justify-center h-screen bg-gray-600">
+    <form id="loginForm" class="max-w-sm w-full bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="my-4 text-center text-2xl font-semibold tracking-tight text-gray-900">Connexion</h2>
+        
+        <!-- Identifiant -->
+        <div class="mb-5">
+            <label for="login" class="block mb-2 text-sm font-medium text-gray-700">Identifiant</label>
+            <input type="text" id="login" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5 focus:ring-[#006600] focus:border-[#006600]" placeholder="Saisir votre identifiant" required />
+            <p id="loginError" class="text-red-500 text-sm mt-1 hidden">Veuillez saisir un identifiant valide.</p>
+        </div>
+
+        <!-- Mot de passe -->
+        <div class="mb-5 relative">
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Mot de passe</label>
+            <div class="relative">
+                <input placeholder="Saisir votre mot de passe" type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5 pr-10 focus:ring-[#006600] focus:border-[#006600]" required />
+                <button type="button" id="togglePassword" class="absolute inset-y-0 right-2 flex items-center px-2">
+                    <i id="eyeIcon" class="fa fa-eye text-gray-500"></i>
+                </button>
+            </div>
+            <p id="passwordError" class="text-red-500 text-sm mt-1 hidden">Veuillez saisir un mot de passe valide.</p>
+        </div>
+
+        <!-- Bouton Connexion -->
+        <button type="submit" class="cursor-pointer text-white bg-[#006600] hover:bg-[#335733] focus:ring-4 focus:outline-none rounded-lg text-sm w-full px-5 py-2.5 text-center">
+            Connexion
+        </button>
+    </form>
+</div>
+</body>
+
+
+<script src="./controleur/login.js"></script>
+</html>
