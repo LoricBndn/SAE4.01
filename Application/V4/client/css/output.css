@@ -494,8 +494,20 @@
   .mt-20 {
     margin-top: calc(var(--spacing) * 20);
   }
+  .mt-30 {
+    margin-top: calc(var(--spacing) * 30);
+  }
+  .mt-40 {
+    margin-top: calc(var(--spacing) * 40);
+  }
+  .mt-60 {
+    margin-top: calc(var(--spacing) * 60);
+  }
   .mt-80 {
     margin-top: calc(var(--spacing) * 80);
+  }
+  .mt-100 {
+    margin-top: calc(var(--spacing) * 100);
   }
   .mr-4 {
     margin-right: calc(var(--spacing) * 4);
@@ -640,6 +652,9 @@
   }
   .h-11 {
     height: calc(var(--spacing) * 11);
+  }
+  .h-12 {
+    height: calc(var(--spacing) * 12);
   }
   .h-full {
     height: 100%;
@@ -1574,6 +1589,9 @@
   .bg-\[url\(\'\.\.\/img\/hero-bg\.png\'\)\] {
     background-image: url('../img/hero-bg.png');
   }
+  .bg-\[url\(\'\/img\/hero-bg\.png\'\)\] {
+    background-image: url('/img/hero-bg.png');
+  }
   .bg-none {
     background-image: none;
   }
@@ -1824,6 +1842,9 @@
   }
   .py-24 {
     padding-block: calc(var(--spacing) * 24);
+  }
+  .py-30 {
+    padding-block: calc(var(--spacing) * 30);
   }
   .py-80 {
     padding-block: calc(var(--spacing) * 80);
