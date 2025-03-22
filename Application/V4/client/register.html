@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/output.css" />
+    <title>Inscription - PM2</title>
+</head>
+<header id="printHeader"></header>
+
+<body>
+    <div class="flex items-center justify-center pt-30 pb-10 bg-gray-600">
+    <form class="max-w-md w-full bg-white p-6 rounded-lg">
+        <h2 class="my-4 text-center text-2xl font-semibold tracking-tight">Créer un compte</h2>
+        
+        <div class="flex gap-4 mb-5">
+            <div class="w-1/2">
+                <label for="nom" class="block mb-2 text-sm">Nom</label>
+                <input type="text" id="nom" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Votre nom" required />
+            </div>
+            <div class="w-1/2">
+                <label for="prenom" class="block mb-2 text-sm">Prénom</label>
+                <input type="text" id="prenom" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Votre prénom" required />
+            </div>
+        </div>
+        
+        <div class="mb-5">
+            <label for="login" class="block mb-2 text-sm">Identifiant</label>
+            <input type="text" id="login" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Choisissez un identifiant" required />
+        </div>
+        
+        <div class="mb-5">
+            <label for="motdepasse" class="block mb-2 text-sm">Mot de passe</label>
+            <input type="password" id="motdepasse" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Saisir un mot de passe" required />
+        </div>
+        
+        <div class="mb-5">
+            <label for="verifmotdepasse" class="block mb-2 text-sm">Vérification du mot de passe</label>
+            <input type="password" id="verifmotdepasse" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Confirmez votre mot de passe" required />
+        </div>
+        
+        <div class="mb-5">
+            <label for="email" class="block mb-2 text-sm">Adresse mail</label>
+            <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Votre adresse mail" required />
+        </div>
+        
+        <div class="mb-5">
+            <label for="date_naissance" class="block mb-2 text-sm">Date de naissance</label>
+            <input type="date" id="date_naissance" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" required />
+        </div>
+        
+        <button type="submit" class="cursor-pointer text-white bg-[#006600] hover:bg-[#335733] focus:ring-4 focus:outline-none rounded-lg text-sm w-full px-5 py-2.5 text-center">S'inscrire</button>
+    </form>
+</div>
+</body>
+
+<script type="module" src="./controleur/function.js"></script>
+<script src="./controleur/signup.js"></script>
+</html>
