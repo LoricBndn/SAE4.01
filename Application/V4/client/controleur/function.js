@@ -49,7 +49,7 @@ function printHeader() {
           </svg>
         </button>
         <div class="hidden w-full lg:block lg:w-auto" id="navbar-default">
-          <ul class="font-medium flex flex-col items-center p-4 lg:p-0 mt-4 lg:flex-row lg:space-x-8 lg:mt-0">
+          <ul class="font-medium flex flex-col items-start lg:p-0 mt-4 lg:flex-row lg:space-x-8 lg:mt-0 ">
             ${navLinks}
           </ul>
         </div>
@@ -84,37 +84,38 @@ function initMenu() {
   }
 }
 
-function menuRechercheDeroulant() {
-  let tailleEcran = window.matchMedia("(max-width: 575px)");
-  let form = document.querySelector(".recherche"); // Sélectionne le formulaire
-
-  if (tailleEcran.matches === true) {
-    form.style.display = "none";
-    document.querySelector(".sticky").style.position = "relative";
-  } else {
-    document.getElementById("btn_deroul_recherche").style.display = "none";
-  }
-
-  let formImg = document.getElementById("btn_deroul_recherche");
-
-  formImg.addEventListener("click", function () {
-    if (form.style.display === "block") {
-      // Si le formulaire est actuellement affiché
-      form.style.display = "none"; // On le cache
-    } else {
-      form.style.display = "block"; // Sinon on le définit en tant que block (Le formulaire n'est plus caché)
-    }
-  });
-}
-if (document.querySelector(".recherche")) menuRechercheDeroulant();
-
 function printFooter() {
   const footer = document.querySelector("#printFooter");
   footer.innerHTML = `
-    <p>Paul Muller Piulls Moches - Site de vente </p>
-    `;
+<footer class="mt-15 bg-white rounded-lg shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] m-4">
+    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                <img src="./img/logo.png" class="h-14" alt="" />
+            </a>
+            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
+        <span class="block text-sm text-gray-500 sm:text-center">Paul Muller Pulls Moches - Site de vente</span>
+    </div>
+</footer>
+
+`;
 }
 
 printHeader();
 initMenu();
-//printFooter();
+printFooter();
