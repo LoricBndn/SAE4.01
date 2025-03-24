@@ -6,7 +6,7 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"INSERT INTO USER (id_user, id_perm, nom, prenom, email, date_naissance, identifiant, mdp)
+"INSERT INTO UTILISATEUR (id_user, id_perm, nom, prenom, email, date_naissance, identifiant, mdp)
 VALUES (NULL, 2, :nom, :prenom, :email, :date_naissance, :identifiant, :mdp)";
 
 $res = $db->prepare($query);
