@@ -298,13 +298,13 @@ INSERT INTO DETAIL_PRODUIT (id_detail_prod, id_produit, id_taille, id_couleur, p
 (202, 15, 11, 2, 0.0, 0, "PereNoelRouge.png"); -- Rouge 200cm
 
 -- Insertion dans la table HISTORIQUE_PRIX
-INSERT INTO HISTORIQUE_PRIX (id_historique, id_detail_prod, prix, date_debut, date_fin); VALUES;
-(1, 1, 5.0, "2023-01-01", NULL), -- Rouge Pas de taille
-(2, 1, 6.0, "2023-01-01", NULL), -- Doré Pas de taille
-(3, 2, 4.0, "2023-01-01", NULL), -- Rouge Pas de taille
-(4, 2, 4.0, "2023-01-01", NULL), -- Vert Pas de taille
-(5, 2, 4.0, "2023-01-01", NULL), -- Blanc Pas de taille
-(6, 2, 4.0, "2023-01-01", NULL), -- Marron Pas de taille
+INSERT INTO HISTORIQUE_PRIX (id_historique, id_detail_prod, prix, date_debut, date_fin) VALUES
+(1, 1, 5.0, "2023-01-01", NULL), -- Rouge 
+(2, 1, 6.0, "2023-01-01", NULL), -- Doré 
+(3, 2, 4.0, "2023-01-01", NULL), -- Rouge 
+(4, 2, 4.0, "2023-01-01", NULL), -- Vert 
+(5, 2, 4.0, "2023-01-01", NULL), -- Blanc 
+(6, 2, 4.0, "2023-01-01", NULL), -- Marron 
 (7, 3, 15.0, "2023-01-01", NULL), -- Rouge XS
 (8, 3, 15.0, "2023-01-01", NULL), -- Rouge S
 (9, 3, 15.0, "2023-01-01", NULL), -- Rouge M
