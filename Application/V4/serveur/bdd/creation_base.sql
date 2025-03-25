@@ -69,7 +69,6 @@ CREATE TABLE HISTORIQUE_PRIX (
     FOREIGN KEY (id_detail_prod) REFERENCES DETAIL_PRODUIT(id_detail_prod) ON DELETE CASCADE
 );
 
-
 -- Table des favoris (produits sauvegardés par l'utilisateur)
 CREATE TABLE FAVORI (
     id_user INT NOT NULL,
@@ -81,10 +80,10 @@ CREATE TABLE FAVORI (
 
 -- Table du panier (articles en attente d'achat)
 CREATE TABLE PANIER (
-    id_panier INT PRIMARY KEY AUTO_INCREMENT,
     id_user INT NOT NULL,
     id_detail_prod INT NOT NULL,
     quantite INT NOT NULL CHECK (quantite > 0),
+    PRIMARY KEY (id_user, id_detail_prod),
     FOREIGN KEY (id_user) REFERENCES UTILISATEUR(id_user) ON DELETE CASCADE,
     FOREIGN KEY (id_detail_prod) REFERENCES DETAIL_PRODUIT(id_detail_prod) ON DELETE CASCADE
 );

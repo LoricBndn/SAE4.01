@@ -518,22 +518,22 @@ INSERT INTO FAVORI (id_user, id_detail_prod) VALUES
 (18, 176);
 
 -- Insertion dans la table PANIER
-INSERT INTO PANIER (id_panier, id_user, id_detail_prod, quantite) VALUES
-(1, 11, 124, 2),
-(2, 16, 3, 1),
-(3, 16, 104, 1),
-(4, 11, 2, 3),
-(5, 7, 2, 3),
-(6, 16, 129, 1),
-(7, 7, 129, 1),
-(8, 18, 178, 1),
-(9, 11, 193, 10),
-(10, 11, 89, 11),
-(11, 11, 202, 10),
-(12, 16, 2, 1),
-(13, 16, 167, 1),
-(14, 7, 165, 1),
-(15, 7, 202, 14);
+INSERT INTO PANIER (id_user, id_detail_prod, quantite) VALUES
+(11, 124, 2),
+(16, 3, 1),
+(16, 104, 1),
+(11, 2, 3),
+(7, 2, 3),
+(16, 129, 1),
+(7, 129, 1),
+(18, 178, 1),
+(11, 193, 10),
+(11, 89, 11),
+(11, 202, 10),
+(16, 2, 1),
+(16, 167, 1),
+(7, 165, 1),
+(7, 202, 14);
 
 -- Insertion dans la table COMMANDE
 INSERT INTO COMMANDE (id_commande, id_user, date_commande, total, statut) VALUES
