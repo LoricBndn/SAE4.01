@@ -49,7 +49,7 @@ function printHeader() {
           </svg>
         </button>
         <div class="hidden w-full lg:block lg:w-auto" id="navbar-default">
-          <ul class="font-medium flex flex-col items-start lg:p-0 mt-4 lg:flex-row lg:space-x-8 lg:mt-0 ">
+          <ul class="font-medium flex flex-col items-start lg:p-0 mt-4 lg:flex-row lg:space-x-8 lg:mt-0 text-md">
             ${navLinks}
           </ul>
         </div>
@@ -87,24 +87,16 @@ function initMenu() {
 function printFooter() {
   const footer = document.querySelector("#printFooter");
   footer.innerHTML = `
-<footer class="mt-15 bg-white rounded-lg shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] m-4">
+<footer class="mt-15 bg-white rounded-lg shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
     <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+            <a href="./accueil.html" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                 <img src="./img/logo.png" class="h-14" alt="" />
             </a>
             <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
                 <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline">Contact</a>
+                <a href="#" class="hover:underline me-4 md:me-6">Conditions générales de vente</a>
+                    <a href="#" class="hover:underline me-4 md:me-6">Politique de confidentialité</a>
                 </li>
             </ul>
         </div>
