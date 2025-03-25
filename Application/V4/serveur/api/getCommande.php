@@ -5,26 +5,25 @@ require_once 'header.php';
 
 $json = [];
 
-$query ="SELECT nom_tail, nom_col, nom_prod, path_img, prix_unit, description, qte_com
-FROM `SELECT_COMMANDES` SC
-INNER JOIN SELECT_PRODUITS SP ON
-(SP.id_prod, SP.id_col, SP.id_tail) = (SC.id_prod, SC.id_col, SC.id_tail)
-WHERE `id_us` = :id_us
-AND `id_com` = :id_com
-";
+$query = 
+"SELECT id_commande, date_commande, path_img, nom_produit, couleur, taille, quantite, prix_total
+FROM SELECT_COMMANDES SC
+INNER JOIN SELECT_PRODUITS SP ON SP.id_detail_prod = SC.id_detail_prod
+WHERE id_user = :id_user
+AND id_commande = :id_commande";
 
 $res = $db->prepare($query);
-$res ->bindParam(":id_us", $_POST["id_us"]);
-$res ->bindParam(":id_com", $_POST["id_com"]);
+$res ->bindParam(":id_user", $_POST["id_user"]);
+$res ->bindParam(":id_commande", $_POST["id_commande"]);
 
 try{
     $res->execute();
     $details = $res->fetchAll(PDO::FETCH_ASSOC);
 
     // Calcul du total de la commande
-    $totalQuery = "SELECT SUM(prix_total) AS total FROM SELECT_COMMANDES WHERE id_com = :id_com";
+    $totalQuery = "SELECT SUM(prix_total) AS total FROM SELECT_COMMANDES WHERE id_commande = :id_commande";
     $totalStmt = $db->prepare($totalQuery);
-    $totalStmt->bindParam(":id_com", $_POST["id_com"]);
+    $totalStmt->bindParam(":id_commande", $_POST["id_commande"]);
     $totalStmt->execute();
     $total = $totalStmt->fetch(PDO::FETCH_ASSOC)["total"] ?? 0;
 

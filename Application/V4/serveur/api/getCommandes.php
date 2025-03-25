@@ -6,23 +6,21 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"SELECT id_com, DATE_FORMAT(date_com, '%d/%m/%Y') date_com, ROUND(SUM(prix_total), 2) prix_total
-FROM `SELECT_COMMANDES`
-WHERE id_us = :id_us
-GROUP BY id_com";
+"SELECT id_commande, date_commande, total, statut
+FROM COMMANDE
+WHERE id_user = :id_user";
 
 $res = $db->prepare($query);
-$res->bindParam(":id_us", $_POST["id_us"]);
+$res->bindParam(":id_user", $_POST["id_user"]);
 
 try{
     $res->execute();
     $json["status"] = "success";
-    $json["message"] = "recupération réussie";
+    $json["message"] = "Sélection réussie";
     $json["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
 } catch(Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
 }
-
 
 echo json_encode($json);
