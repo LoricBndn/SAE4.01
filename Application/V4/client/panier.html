@@ -14,31 +14,29 @@
     <section class="py-24 relative">
       <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
         <h2
-          class="title font-manrope font-bold text-4xl leading-10 mb-8 text-center text-black"
+          class="font-semibold text-2xl leading-10 mb-8 sm:text-3xl text-black"
         >
           Mon panier
         </h2>
-        <div class="hidden lg:grid grid-cols-4 py-6">
-            <div class="font-normal text-xl leading-8 text-gray-500">Produits</div>
-            <span class="font-normal text-xl leading-8 text-gray-500 text-center">Couleur</span>
-            <span class="font-normal text-xl leading-8 text-gray-500 text-center">Taille</span>
-            <p class="font-normal text-xl leading-8 text-gray-500 flex items-center justify-between">
-                <span class="w-full max-w-[200px] text-center">Quantité</span>
-                <span class="w-full max-w-[200px] text-center">Prix total</span>
-            </p>
-        </div>
+       
         
         <div
-          class="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6"
-        >
+          class="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6 relative"
+        ><button class="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition duration-300 cursor-pointer">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line>
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+  </svg>
+</button>
+
           <div
             class="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto"
           >
-            <div class="img-box">
+            <div>
               <img
-                src="https://pagedone.io/asset/uploads/1701162850.png"
+                src="./img/produit1.png"
                 alt="perfume bottle image"
-                class="xl:w-[140px] rounded-xl object-cover"
+                class="xl:w-[140px] rounded-sm w-40 object-cover"
               />
             </div>
             <div class=" w-full max-w-sm">
@@ -47,11 +45,138 @@
               >
                 Latest N-5 Perfuam
               </h5>
-              <p class="font-normal text-sm leading-5 text-gray-500">Noir</p>
-              <h6
-              class="font-medium text-lg leading-8 max-[550px]:text-center"
+              <p class="font-normal text-sm leading-5 text-gray-500 max-[550px]:text-center max-[550px]:hidden">Noir</p>
+
+            </h6>
+            </div>
+          </div>
+          <div
+            class="flex items-center flex-col min-[550px]:flex-row w-full max-xl:max-w-xl max-xl:mx-auto gap-2"
+          >
+          <div class="flex items-center gap-2">
+            <div class="flex justify-center items-center">
+              <select class="border rounded-md px-2 py-1 cursor-pointer">
+                  <option value="noir">Noir</option>
+                  <option value="blanc">Blanc</option>
+                  <option value="gris">Gris</option>
+              </select>
+          </div>
+            <div class="flex justify-center items-center">
+              <select class="border rounded-md px-2 py-1 cursor-pointer">
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+              </select>
+          </div>
+        </div>
+            <div class="flex items-center w-full mx-auto justify-center">
+              <button
+                class="group rounded-l-full px-2 py-2 border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50"
               >
+                <svg
+                  class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 22 22"
+                  fill="none"
+                >
+                  <path
+                    d="M16.5 11H5.5"
+                    stroke=""
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M16.5 11H5.5"
+                    stroke=""
+                    stroke-opacity="0.2"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M16.5 11H5.5"
+                    stroke=""
+                    stroke-opacity="0.2"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <input
+                type="text"
+                class="border-y border-gray-200 outline-none text-gray-900 font-semibold text-lg w-full max-w-[80px] min-w-[40px] placeholder:text-gray-900 py-[5px] text-center bg-transparent"
+                placeholder="1"
+              />
+              <button
+                class="group rounded-r-full px-2 py-2 border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50"
+              >
+                <svg
+                  class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 22 22"
+                  fill="none"
+                >
+                  <path
+                    d="M11 5.5V16.5M16.5 11H5.5"
+                    stroke=""
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M11 5.5V16.5M16.5 11H5.5"
+                    stroke=""
+                    stroke-opacity="0.2"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M11 5.5V16.5M16.5 11H5.5"
+                    stroke=""
+                    stroke-opacity="0.2"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <h6
+              class="font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center"
+            >
               $120.00
+            </h6>
+          </div>
+        </div>
+        <div
+          class="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6 relative"
+        ><button class="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition duration-300 cursor-pointer">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line>
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+  </svg>
+</button>
+
+          <div
+            class="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto"
+          >
+            <div>
+              <img
+                src="./img/produit2.jpg"
+                alt="perfume bottle image"
+                class="xl:w-[140px] rounded-sm w-40 object-cover"
+              />
+            </div>
+            <div class=" w-full max-w-sm">
+              <h5
+                class="font-semibold text-xl leading-8 text-black max-[550px]:text-center"
+              >
+                Latest N-5 Perfuam
+              </h5>
+              <p class="font-normal text-sm leading-5 text-gray-500 max-[550px]:text-center max-[550px]:hidden">Noir</p>
+
             </h6>
             </div>
           </div>
@@ -59,14 +184,14 @@
             class="flex items-center flex-col min-[550px]:flex-row w-full max-xl:max-w-xl max-xl:mx-auto gap-2"
           >
           <div class="flex justify-center items-center">
-            <select class="border rounded-md px-2 py-1">
+            <select class="border rounded-md px-2 py-1 cursor-pointer">
                 <option value="noir">Noir</option>
                 <option value="blanc">Blanc</option>
                 <option value="gris">Gris</option>
             </select>
         </div>
           <div class="flex justify-center items-center">
-            <select class="border rounded-md px-2 py-1">
+            <select class="border rounded-md px-2 py-1 cursor-pointer">
                 <option value="S">S</option>
                 <option value="M">M</option>
                 <option value="L">L</option>
@@ -154,16 +279,22 @@
           </div>
         </div>
         <div
-          class="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6"
-        >
+          class="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6 relative"
+        ><button class="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition duration-300 cursor-pointer">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line>
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+  </svg>
+</button>
+
           <div
             class="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto"
           >
-            <div class="img-box">
+            <div>
               <img
-                src="https://pagedone.io/asset/uploads/1701162850.png"
+                src="./img/produit1.png"
                 alt="perfume bottle image"
-                class="xl:w-[140px] rounded-xl object-cover"
+                class="xl:w-[140px] rounded-sm w-40 object-cover"
               />
             </div>
             <div class=" w-full max-w-sm">
@@ -172,11 +303,8 @@
               >
                 Latest N-5 Perfuam
               </h5>
-              <p class="font-normal text-sm leading-5 text-gray-500">Noir</p>
-              <h6
-              class="font-medium text-lg leading-8 max-[550px]:text-center"
-              >
-              $120.00
+              <p class="font-normal text-sm leading-5 text-gray-500 max-[550px]:text-center max-[550px]:hidden">Noir</p>
+
             </h6>
             </div>
           </div>
@@ -184,139 +312,14 @@
             class="flex items-center flex-col min-[550px]:flex-row w-full max-xl:max-w-xl max-xl:mx-auto gap-2"
           >
           <div class="flex justify-center items-center">
-            <select class="border rounded-md px-2 py-1">
+            <select class="border rounded-md px-2 py-1 cursor-pointer">
                 <option value="noir">Noir</option>
                 <option value="blanc">Blanc</option>
                 <option value="gris">Gris</option>
             </select>
         </div>
           <div class="flex justify-center items-center">
-            <select class="border rounded-md px-2 py-1">
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-            </select>
-        </div>
-            <div class="flex items-center w-full mx-auto justify-center">
-              <button
-                class="group rounded-l-full px-2 py-2 border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50"
-              >
-                <svg
-                  class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                >
-                  <path
-                    d="M16.5 11H5.5"
-                    stroke=""
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M16.5 11H5.5"
-                    stroke=""
-                    stroke-opacity="0.2"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M16.5 11H5.5"
-                    stroke=""
-                    stroke-opacity="0.2"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  />
-                </svg>
-              </button>
-              <input
-                type="text"
-                class="border-y border-gray-200 outline-none text-gray-900 font-semibold text-lg w-full max-w-[80px] min-w-[40px] placeholder:text-gray-900 py-[5px] text-center bg-transparent"
-                placeholder="1"
-              />
-              <button
-                class="group rounded-r-full px-2 py-2 border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50"
-              >
-                <svg
-                  class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                >
-                  <path
-                    d="M11 5.5V16.5M16.5 11H5.5"
-                    stroke=""
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M11 5.5V16.5M16.5 11H5.5"
-                    stroke=""
-                    stroke-opacity="0.2"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M11 5.5V16.5M16.5 11H5.5"
-                    stroke=""
-                    stroke-opacity="0.2"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  />
-                </svg>
-              </button>
-            </div>
-            <h6
-              class="font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center"
-            >
-              $120.00
-            </h6>
-          </div>
-        </div>
-        <div
-          class="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6"
-        >
-          <div
-            class="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto"
-          >
-            <div class="img-box">
-              <img
-                src="https://pagedone.io/asset/uploads/1701162850.png"
-                alt="perfume bottle image"
-                class="xl:w-[140px] rounded-xl object-cover"
-              />
-            </div>
-            <div class=" w-full max-w-sm">
-              <h5
-                class="font-semibold text-xl leading-8 text-black max-[550px]:text-center"
-              >
-                Latest N-5 Perfuam
-              </h5>
-              <p class="font-normal text-sm leading-5 text-gray-500">Noir</p>
-              <h6
-              class="font-medium text-lg leading-8 max-[550px]:text-center"
-              >
-              $120.00
-            </h6>
-            </div>
-          </div>
-          <div
-            class="flex items-center flex-col min-[550px]:flex-row w-full max-xl:max-w-xl max-xl:mx-auto gap-2"
-          >
-          <div class="flex justify-center items-center">
-            <select class="border rounded-md px-2 py-1">
-                <option value="noir">Noir</option>
-                <option value="blanc">Blanc</option>
-                <option value="gris">Gris</option>
-            </select>
-        </div>
-          <div class="flex justify-center items-center">
-            <select class="border rounded-md px-2 py-1">
+            <select class="border rounded-md px-2 py-1 cursor-pointer">
                 <option value="S">S</option>
                 <option value="M">M</option>
                 <option value="L">L</option>
