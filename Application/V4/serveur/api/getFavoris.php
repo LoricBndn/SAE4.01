@@ -8,22 +8,23 @@ $json = [];
 $query =
 "SELECT *
 FROM SELECT_FAVORIS
-WHERE id_user = :id_user
-AND id_detail_prod = :id_detail_prod";
+WHERE id_user = :id_user";
 
 $res = $db->prepare($query);
+
 $res->bindParam(":id_user", $_POST["id_user"]);
-$res->bindParam(":id_detail_prod", $_POST["id_detail_prod"]);
 
 try {
     $res->execute();
     $json["status"] = "success";
     $json["message"] = "Sélection réussie";
     $json["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
+
 } catch(Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
     $json["data"] = "[]";
 }
+
 
 echo json_encode($json);
