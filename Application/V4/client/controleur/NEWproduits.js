@@ -1,6 +1,6 @@
 async function fetchArticles() {
     try {
-        const response = await fetch('-------API---------');
+        const response = await fetch('https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getGenericProduits.php');
         if (!response.ok) {
             throw new Error('Erreur lors de la récupération des articles');
         }
@@ -8,7 +8,7 @@ async function fetchArticles() {
         const data = await response.json();
 
         if (data.status === 'success') {
-            displayArticles(data.data);
+            afficherLesProduits(data.data);
         } else {
             console.error(data.message);
         }
@@ -17,7 +17,7 @@ async function fetchArticles() {
     }
 }
 
-function displayArticles(articles) {
+function afficherLesProduits(articles) {
     const productsContainer = document.querySelector('#products-container'); 
     productsContainer.innerHTML = ''; 
 
@@ -25,10 +25,12 @@ function displayArticles(articles) {
         const articleElement = document.createElement('a');
         articleElement.href = '#';
         articleElement.classList.add('group');
+        articleElement.setAttribute('data-category', article.id_categorie); 
+        articleElement.setAttribute('data-color', article.id_couleur);
 
         articleElement.innerHTML = `
             <img
-            width="24" max-height="24"
+                width="24" max-height="24"
                 src="../serveur/img/articles/${article.path_img}"
                 alt="${article.nom_produit}"
                 class="w-full rounded-lg bg-gray-200 object-fit group-hover:opacity-75"
@@ -47,5 +49,7 @@ function displayArticles(articles) {
         productsContainer.appendChild(articleElement);
     });
 }
+
+
 
 fetchArticles();

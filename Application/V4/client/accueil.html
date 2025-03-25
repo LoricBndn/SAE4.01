@@ -108,18 +108,6 @@
               class="py-3 space-y-3 text-sm text-gray-700"
               aria-labelledby="dropdownCategoryButton"
             >
-              <li>
-                <div class="flex items-center">
-                  <input
-                    id="checkbox-category"
-                    type="checkbox"
-                    class="cursor-pointer w-4 h-4 text-[#B43131]"
-                  />
-                  <label for="checkbox-category" class="ms-2 text-sm"
-                    >Catégorie A</label
-                  >
-                </div>
-              </li>
             </ul>
           </div>
 
@@ -154,26 +142,7 @@
               class="py-3 space-y-3 text-sm text-gray-700"
               aria-labelledby="dropdownColorButton"
             >
-              <li>
-                <div class="flex items-center">
-                  <input
-                    id="checkbox-color"
-                    type="checkbox"
-                    class="cursor-pointer w-4 h-4 text-[#B43131]"
-                  />
-                  <label for="checkbox-color" class="ms-2 text-sm">Rouge</label>
-                </div>
-              </li>
-              <li>
-                <div class="flex items-center">
-                  <input
-                    id="checkbox-color2"
-                    type="checkbox"
-                    class="cursor-pointer w-4 h-4 text-[#B43131]"
-                  />
-                  <label for="checkbox-color2" class="ms-2 text-sm">Bleu</label>
-                </div>
-              </li>
+
             </ul>
           </div>
 
@@ -208,36 +177,7 @@
               class="py-3 space-y-3 text-sm text-gray-700"
               aria-labelledby="dropdownSizeButton"
             >
-              <li>
-                <div class="flex items-center">
-                  <input
-                    id="checkbox-size"
-                    type="checkbox"
-                    class="cursor-pointer w-4 h-4 text-[#B43131]"
-                  />
-                  <label for="checkbox-size" class="ms-2 text-sm">S</label>
-                </div>
-              </li>
-              <li>
-                <div class="flex items-center">
-                  <input
-                    id="checkbox-size2"
-                    type="checkbox"
-                    class="cursor-pointer w-4 h-4 text-[#B43131]"
-                  />
-                  <label for="checkbox-size2" class="ms-2 text-sm">M</label>
-                </div>
-              </li>
-              <li>
-                <div class="flex items-center">
-                  <input
-                    id="checkbox-size3"
-                    type="checkbox"
-                    class="cursor-pointer w-4 h-4 text-[#B43131]"
-                  />
-                  <label for="checkbox-size3" class="ms-2 text-sm">L</label>
-                </div>
-              </li>
+
             </ul>
           </div>
         </form>
@@ -259,11 +199,7 @@
             <input type="search" class="w-full p-4 border border-gray-300 rounded-sm" placeholder="Rechercher..." />
           </div>
           <div id="filterCategories" class="mb-4">
-            <label class="font-semibold">Catégorie</label>
-            <div class="mt-2">
-              <input type="checkbox" id="catA" class="mr-2" />
-              <label for="catA">Catégorie A</label>
-            </div>
+
           </div>
           <div id="filterCouleurs" class="mb-4">
             <label class="font-semibold">Couleur</label>
@@ -278,25 +214,17 @@
           </div>
           <div id="filterTailles" class="mb-4">
             <label class="font-semibold">Taille</label>
-            <div class="mt-2">
-              <input type="checkbox" id="sizeS" class="mr-2" />
-              <label for="sizeS">S</label>
-            </div>
-            <div>
-              <input type="checkbox" id="sizeM" class="mr-2" />
-              <label for="sizeM">M</label>
-            </div>
-            <div>
-              <input type="checkbox" id="sizeL" class="mr-2" />
-              <label for="sizeL">L</label>
-            </div>
           </div>
         </form>
       </div>
     </div>
     <footer id="printFooter"></footer>
   </body>
-  <script type="module" src="./controleur/NEWproduit.js" ></script>
+  <script type="module" src="./controleur/NEWfiltres.js" ></script>
+  <script type="module" src="./controleur/NEWproduits.js" ></script>
+  <script type="module" src="./controleur/NEWcouleurs.js" ></script>
+  <script type="module" src="./controleur/NEWtailles.js" ></script>
+  <script type="module" src="./controleur/NEWcategories.js" ></script>
   <script type="module" src="./controleur/function.js"></script>
   <script type="module" src="./controleur/accueil.js"></script>
 </html>
