@@ -11,7 +11,6 @@ FROM SELECT_FAVORIS
 WHERE id_user = :id_user";
 
 $res = $db->prepare($query);
-
 $res->bindParam(":id_user", $_POST["id_user"]);
 
 try {
