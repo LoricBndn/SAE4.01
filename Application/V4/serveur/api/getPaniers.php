@@ -8,12 +8,10 @@ $json = [];
 $query =
 "SELECT *
 FROM SELECT_PANIERS
-AND id_user = :id_user
-AND SP.id_detail_prod = :id_detail_prod";
+AND id_user = :id_user";
 
 $res = $db->prepare($query);
 $res->bindParam(":id_user", $_POST["id_user"]);
-$res->bindParam(":id_detail_prod", $_POST["id_detail_prod"]);
 
 try {
     $res->execute();
