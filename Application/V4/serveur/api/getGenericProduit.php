@@ -6,9 +6,11 @@ require_once 'header.php';
 $query =
 "SELECT *
 FROM SELECT_PRODUITS
+WHERE id_produit = :id_produit
 GROUP BY id_produit";
 
 $res = $db->prepare($query);
+$res->bindParam(":id_produit", $_POST["id_produit"]);
 
 try {
     $res->execute();
