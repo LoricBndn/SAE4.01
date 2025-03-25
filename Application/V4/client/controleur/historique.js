@@ -2,13 +2,37 @@ let currentPage = 1;
 const itemsPerPage = 5; // Affiche 5 commandes par page
 let commandesData = []; // Contiendra toutes les commandes
 
+function getUserIdFromCookie() {
+    const name = "id_user=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length); // Retourne l'ID utilisateur
+        }
+    }
+    return null; // Retourne null si l'ID utilisateur n'est pas trouvé
+}
+
 async function fetchCommandes() {
     try {
+        const userId = getUserIdFromCookie();
+        if (!userId) {
+            console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
+            window.location.href = "accueil.html";
+            return;
+        }
+
         const response = await fetch(
             "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getCommandes.php", {
                 method: "POST",
                 body: new URLSearchParams({
-                    id_user: 11,
+                    id_user: userId,
                 }),
             }
         );
@@ -79,10 +103,16 @@ function displayCommandes(page) {
 }
 
 function displayPagination() {
-    const paginationContainer = document.getElementById('pagination');
+    const paginationContainer = document.querySelector('#paginationContainer');
     paginationContainer.innerHTML = ''; // Vider la pagination avant de la générer
 
     const totalPages = Math.ceil(commandesData.length / itemsPerPage);
+
+    // Si aucune commande, ne pas afficher la pagination
+    if (totalPages === 0) {
+        paginationContainer.style.display = 'none';
+        return;
+    }
 
     // Bouton "Previous"
     const prevButton = document.createElement('li');
