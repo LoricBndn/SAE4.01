@@ -16,12 +16,10 @@ try {
     $json["status"] = "success";
     $json["message"] = "Sélection réussie";
     $json["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
-
 } catch(Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
     $json["data"] = "[]";
 }
-
 
 echo json_encode($json);
