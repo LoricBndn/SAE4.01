@@ -8,12 +8,12 @@ $json = [];
 $query =
 "SELECT id_couleur, couleur
 FROM SELECT_PRODUITS
-WHERE id_categorie = :id_categorie
+WHERE id_produit = :id_produit
 GROUP BY id_couleur
 ORDER BY id_couleur";
 
 $res = $db->prepare($query);
-$res->bindParam(':id_categorie', $_POST['id_categorie']);
+$res->bindParam(':id_produit', $_POST['id_produit']);
 
 try {
     $res->execute();
