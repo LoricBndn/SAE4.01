@@ -8,11 +8,10 @@ $json = [];
 $query =
 "SELECT *
 FROM SELECT_PRODUITS
-WHERE id_prod = :id_prod";
+WHERE id_detail_prod = :id_detail_prod";
 
 $res = $db->prepare($query);
-
-$res->bindParam(":id_prod", $_POST["id_prod"]);
+$res->bindParam(":id_detail_prod", $_POST["id_detail_prod"]);
 
 try {
     $res->execute();
@@ -25,6 +24,5 @@ try {
     $json["message"] = $exception->getMessage();
     $json["data"] = "[]";
 }
-
 
 echo json_encode($json);
