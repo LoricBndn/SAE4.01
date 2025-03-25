@@ -6,37 +6,18 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"SELECT salt FROM USER
-WHERE id_us = :id_us";
+"UPDATE UTILISATEUR
+SET mdp = :mdp
+WHERE id_user = :id_user";
 
 $res = $db->prepare($query);
+$res->bindParam(":mdp", password_hash($_POST["mdp"], PASSWORD_DEFAULT));
+$res->bindParam(":id_user", $_POST["id_user"]);
 
-$res->bindParam(":id_us", $_POST["id_us"]);
-try{
+try {
     $res->execute();
-    $salt = $res->fetch(PDO::FETCH_ASSOC)["salt"];
-
-    $password = crypt($_POST["mdp"], $salt);
-
-    $query =
-    "UPDATE `USER` SET `mdp` = :mdp_us 
-    WHERE `id_us` = :id_us";
-
-    $res = $db->prepare($query);
-
-    $res->bindParam(':mdp_us', $password);
-    $res->bindParam(':id_us', $_POST['id_us']);
-
-    try{
-        $res->execute();
-        $json["status"] = "success";
-        $json["message"] = "Modification réussie";
-
-    } catch(Exception $exception) {
-        $json["status"] = "error";
-        $json["message"] = $exception->getMessage();
-    }
-
+    $json["status"] = "success";
+    $json["message"] = "Modification réussie";
 } catch(Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();

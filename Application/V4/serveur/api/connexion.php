@@ -1,51 +1,32 @@
-<?php
-    require_once '../bdd/connexion.php';
-    require_once 'header.php';
+<?php declare(strict_types=1);
 
-    // function Mycrypt($mdp, $salt){
-    //     $verif = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s]).{8,20}$/";
-    //     $S = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
-    //     $res["mdp"] = "";
-    //     if(preg_match($verif, $mdp)) {
-    //         for($i = 0; $i < strlen($mdp); $i++) {
-    //             $pos = (strpos($S, $mdp[$i]) + strpos($S, $salt[$i])) % strlen($S);
-    //             $res["mdp"] .= $S[$pos];
-    //         }
-    //         $res["salt"] = $salt;
-    //         return $res;
-    //     }
-    //     else {
-    //         $res["status"] = "failed";
-    //         return $res;
-    //     }        
-    // }
+require_once "../bdd/connexion.php";
+require_once 'header.php';
 
 $json = [];
-$query = "
-SELECT mdp, salt, id_us
-FROM USER
-WHERE login = :login";
+
+$query = 
+"SELECT id_user, mdp
+FROM UTILISATEUR
+WHERE identifiant = :identifiant";
 
 $res = $db->prepare($query);
+$res->bindParam(':identifiant', $_POST['identifiant']);
 
-$res->bindParam(':login', $_POST['login']);
-try{
+try {
     $res->execute();
     $res = $res->fetch();
-    $mdp = crypt($_POST['mdp'], $res['salt']);
 
-    if($mdp == $res['mdp']){
-        setcookie("id_us", $res['id_us'], 10800 + time());
-        $json["id_us"] = $res['id_us'];
+    if (password_verify($_POST['mdp'], $res['mdp'])) {
+        setcookie("id_user", $res['id_user'], 10800 + time());
+        $json["id_user"] = $res['id_user'];
         $json["status"] = "success";
         $json["message"] = "Connexion réussie";
-    }
-    else{
+    } else {
         $json["status"] = "failed";
         $json["message"] = "Mauvais mot de passe";
     }
-}
-catch(Exception $exception){
+} catch(Exception $exception){
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
 }

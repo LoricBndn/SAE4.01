@@ -59,22 +59,23 @@ CREATE TABLE DETAIL_PRODUIT (
     FOREIGN KEY (id_couleur) REFERENCES COULEUR(id_couleur) ON DELETE CASCADE
 );
 
--- Table de l'historique des prix d'un produit (couleurs, tailles, prix, stock)
+-- Table de l'historique des prix d'un produit
 CREATE TABLE HISTORIQUE_PRIX (
-    id_historique INT PRIMARY KEY AUTO_INCREMENT,
-    id_detail_prod INT NOT NULL,
-    ancien_prix DECIMAL(10,2) NOT NULL,
-    nouveau_prix DECIMAL(10,2) NOT NULL,
-    date_modif DATETIME DEFAULT CURRENT_TIMESTAMP,
+    id_historique INT AUTO_INCREMENT PRIMARY KEY,
+    id_detail_prod INT,
+    prix DECIMAL(10,2) NOT NULL,
+    date_debut DATETIME NOT NULL,
+    date_fin DATETIME DEFAULT NULL,
     FOREIGN KEY (id_detail_prod) REFERENCES DETAIL_PRODUIT(id_detail_prod) ON DELETE CASCADE
 );
+
 
 -- Table des favoris (produits sauvegardés par l'utilisateur)
 CREATE TABLE FAVORI (
     id_user INT NOT NULL,
     id_detail_prod INT NOT NULL,
     PRIMARY KEY (id_user, id_detail_prod),
-    FOREIGN KEY (id_user) REFERENCES UTILISATEUR(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_user) REFERENCES UTILISATEUR(id_user),
     FOREIGN KEY (id_detail_prod) REFERENCES DETAIL_PRODUIT(id_detail_prod) ON DELETE CASCADE
 );
 
