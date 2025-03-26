@@ -13,11 +13,11 @@ function printHeader() {
 
   let navLinks = `
     <li><a href='./accueil.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Accueil</a></li>
-    <li><a href='./panier.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Panier</a></li>
   `;
 
-  if (!connected) {
+  if (connected) {
     navLinks += `
+      <li><a href='./panier.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Panier</a></li>
       <li><a href='./historique.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Historique</a></li>
       <li><a href='./favori.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Favoris</a></li>
       <li><a href='./compte.html' class="block py-2 px-3 text-black hover:text-[#B43131]">Compte</a></li>
