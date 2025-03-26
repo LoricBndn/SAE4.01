@@ -36,14 +36,19 @@ function afficherLesProduits(articles) {
 
     articles.forEach(article => {
         const articleElement = document.createElement('a');
+
+        articleElement.href = '#';
+         articleElement.classList.add('group');
+         articleElement.setAttribute('data-category', article.id_categorie);
+         articleElement.setAttribute('data-color', article.id_couleur);
+         
+         articleElement.setAttribute(
+            'data-size',
+            article.tailles.map(t => t.id_taille).join(',')
+        );
         
         const url = `detail_produit.html?id_produit=${article.id_produit}&id_couleur=${article.id_couleur}`;
         articleElement.href = url;
-
-        articleElement.classList.add('group');
-        articleElement.setAttribute('data-category', article.id_categorie); 
-        articleElement.setAttribute('data-color', JSON.stringify(article.couleurs)); 
-        articleElement.setAttribute('data-size', JSON.stringify(article.tailles));
 
         articleElement.innerHTML = `
             <img

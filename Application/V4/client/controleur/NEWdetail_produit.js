@@ -10,13 +10,22 @@ const { id_produit, id_couleur } = getQueryParams();
 
 async function fetchProduitDetails(id_produit, id_couleur) {
     try {
-        const response = await fetch(`https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getGenericProduit.php?id_produit=${id_produit}&id_couleur=${id_couleur}`);
+        const response = await fetch('https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getGenericProduit.php', {
+            method: 'POST',
+            body: JSON.stringify({
+                id_produit: id_produit,
+                id_couleur: id_couleur
+            })
+        });
+
         const data = await response.json();
         
         if (!data || data.error) {
             console.error("Erreur lors de la récupération des données :", data.error);
             return null;
         }
+        
+        console.log(data);
         
         return data;
     } catch (error) {
@@ -25,8 +34,10 @@ async function fetchProduitDetails(id_produit, id_couleur) {
     }
 }
 
+
 async function afficherProduit() {
     const produit = await fetchProduitDetails(id_produit, id_couleur);
+
     if (!produit) {
         console.error("Produit non trouvé");
         return;
