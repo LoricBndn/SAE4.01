@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 require_once "../bdd/connexion.php";
 require_once 'header.php';
@@ -6,7 +8,7 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"UPDATE UTILISATEUR
+    "UPDATE UTILISATEUR
 SET mdp = :mdp
 WHERE id_user = :id_user";
 
@@ -18,7 +20,7 @@ try {
     $res->execute();
     $json["status"] = "success";
     $json["message"] = "Modification réussie";
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
 }

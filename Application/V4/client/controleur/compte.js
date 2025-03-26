@@ -11,16 +11,15 @@ function getUserIdFromCookie() {
             c = c.substring(1);
         }
         if (c.indexOf(name) === 0) {
-            return c.substring(name.length, c.length); // Return the user ID
+            return c.substring(name.length, c.length);
         }
     }
-    return null; // Return null if the user ID is not found
+    return null;
 }
-
 
 async function afficherInfos() {
     if (cookieValue === null) {
-        window.location.href = 'accueil.html'; // If cookie is empty, user is not logged in, redirect to home.
+        window.location.href = 'accueil.html'; 
         return;
     }
 

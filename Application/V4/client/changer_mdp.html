@@ -5,43 +5,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./css/output.css" />
     <title>Modifier le mot de passe - PM2</title>
 </head>
 
 <body class="font-monteserrat flex items-center justify-center h-screen bg-gray-600">
-    <form class="max-w-sm w-full bg-white p-6 rounded-lg">
+    <form id="password-form" class="max-w-sm w-full bg-white p-6 rounded-lg">
         <h2 class="my-4 text-center text-2xl font-semibold tracking-tight">Modifier le mot de passe</h2>
+
         <div class="mb-5">
             <label for="new-password" class="block mb-2 text-sm">Nouveau mot de passe</label>
-            <input type="password" id="new-password" name="new-password" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Saisir le nouveau mot de passe" required />
+            <div class="relative">
+                <input placeholder="Saisir votre mot de passe" type="password" id="new-password" name="password" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5 pr-10 focus:ring-[#006600] focus:border-[#006600]" required />
+                <button type="button" id="togglePassword" class="absolute inset-y-0 right-2 flex items-center px-2">
+                    <i id="eyeIcon" class="fa fa-eye cursor-pointer text-gray-500"></i>
+                </button>
+            </div>            
+            <span id="mdpErreur1" class="text-red-500 text-sm hidden">Le mot de passe doit comporter au moins 8 caractères.</span>
+            <span id="mdpErreur2" class="text-red-500 text-sm hidden">Le mot de passe doit contenir au moins une majuscule.</span>
+            <span id="mdpErreur3" class="text-red-500 text-sm hidden">Le mot de passe doit contenir au moins une minuscule.</span>
+            <span id="mdpErreur4" class="text-red-500 text-sm hidden">Le mot de passe doit contenir au moins un caractère spécial.</span>
+            <span id="mdpErreur5" class="text-red-500 text-sm hidden">Le mot de passe doit contenir au moins un chiffre.</span>
         </div>
 
         <div class="mb-5">
             <label for="confirm-password" class="block mb-2 text-sm">Confirmer le nouveau mot de passe</label>
-            <input type="password" id="confirm-password" name="confirm-password" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Confirmer le mot de passe" required />
+            <div class="relative">
+                <input placeholder="Saisir votre mot de passe" type="password" id="confirm-password" name="confirm-password" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5 pr-10 focus:ring-[#006600] focus:border-[#006600]" required />
+                <button type="button" id="togglePasswordConfirm" class="absolute inset-y-0 right-2 flex items-center px-2">
+                    <i id="eyeIconConfirm" class="fa fa-eye cursor-pointer text-gray-500"></i>
+                </button>
+            </div>
             <p id="error-message" class="text-red-500 text-sm mt-2 hidden">Les mots de passe ne correspondent pas.</p>
         </div>
 
-        <button type="submit" class="cursor-pointer text-white bg-[#006600] hover:bg-[#335733] focus:ring-4 focus:outline-none rounded-lg text-sm w-full px-5 py-2.5 text-center">Modifier</button>
+        <button type="submit" id="submit-btn" class="cursor-pointer text-white bg-[#006600] hover:bg-[#335733] focus:ring-4 focus:outline-none rounded-lg text-sm w-full px-5 py-2.5 text-center">Modifier</button>
     </form>
 </body>
 
-<script>
-    document.querySelector("form").addEventListener("submit", function(event) {
-        let newPassword = document.getElementById("new-password").value;
-        let confirmPassword = document.getElementById("confirm-password").value;
-        let errorMessage = document.getElementById("error-message");
-
-        if (newPassword !== confirmPassword) {
-            event.preventDefault();
-            errorMessage.classList.remove("hidden");
-        } else {
-            errorMessage.classList.add("hidden");
-        }
-    });
-</script>
 <script src="./controleur/function.js"></script>
-
+<script src="./controleur/changerMDP.js"></script>
 
 </html>
