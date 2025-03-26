@@ -18,14 +18,14 @@ async function fetchProduitDetails(id_produit, id_couleur) {
                 }),
         });
 
-        const data = await response.json();
+        const resultat = await response.json();
         
-        if (!data || data.error) {
-            console.error("Erreur lors de la récupération des données :", data.error);
+        if (!resultat || resultat.error) {
+            console.error("Erreur lors de la récupération des données :", resultat.error);
             return null;
         }
                 
-        return data;
+        return resultat.data[0];
     } catch (error) {
         console.error("Erreur de connexion à l'API :", error);
         return null;
@@ -34,14 +34,12 @@ async function fetchProduitDetails(id_produit, id_couleur) {
 
 
 async function afficherProduit() {
-    const resultat = await fetchProduitDetails(id_produit, id_couleur);
+    const produit = await fetchProduitDetails(id_produit, id_couleur);
 
-    if (!resultat) {
+    if (!produit) {
         console.error("Produit non trouvé");
         return;
     }
-
-    const produit = resultat.data[0];
     
     document.getElementById("titre").textContent = produit.nom_produit;
     document.querySelector(".text-2xl").textContent = `${produit.prix} €`;
