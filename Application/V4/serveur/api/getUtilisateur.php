@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 require_once "../bdd/connexion.php";
 require_once 'header.php';
@@ -6,19 +8,19 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"SELECT *
+    "SELECT *
 FROM SELECT_USERS
 WHERE id_user = :id_user";
 
 $res = $db->prepare($query);
-$res->bindParam(":id_user", $_POST["id_id_userus"]);
+$res->bindParam(":id_user", $_POST["id_user"]);
 
 try {
     $res->execute();
     $json["status"] = "success";
     $json["message"] = "Sélection réussie";
     $json["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
     $json["data"] = "[]";
