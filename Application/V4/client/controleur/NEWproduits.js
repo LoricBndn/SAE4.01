@@ -1,56 +1,53 @@
-import { fetchTaillesByIdProduit } from './NEWtailles.js';
-import { fetchCouleursByIdProduit } from './NEWcouleurs.js';
+import { fetchTaillesByIdProduit } from "./NEWtailles.js";
 
 async function fetchArticles() {
-    try {
-        const response = await fetch('https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getGenericProduits.php');
-        if (!response.ok) {
-            throw new Error('Erreur lors de la récupération des articles');
-        }
-
-        const data = await response.json();
-
-        if (data.status === 'success') {
-            const articlesAvecDetails = await Promise.all(
-                data.data.map(async (article) => {
-                    const tailles = await fetchTaillesByIdProduit(article.id_produit);
-                    return { ...article, tailles };
-                })
-            );
-
-            console.log(articlesAvecDetails);
-            
-            afficherLesProduits(articlesAvecDetails);
-        } else {
-            console.error(data.message);
-        }
-    } catch (error) {
-        console.error('Erreur:', error);
+  try {
+    const response = await fetch(
+      "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getGenericProduits.php"
+    );
+    if (!response.ok) {
+      throw new Error("Erreur lors de la récupération des articles");
     }
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      const articlesAvecDetails = await Promise.all(
+        data.data.map(async (article) => {
+          const tailles = await fetchTaillesByIdProduit(article.id_produit);
+          return { ...article, tailles };
+        })
+      );
+
+      console.log(articlesAvecDetails);
+
+      afficherLesProduits(articlesAvecDetails);
+    } else {
+      console.error(data.message);
+    }
+  } catch (error) {
+    console.error("Erreur:", error);
+  }
 }
 
-
 function afficherLesProduits(articles) {
-    const productsContainer = document.querySelector('#products-container'); 
-    productsContainer.innerHTML = ''; 
+  const productsContainer = document.querySelector("#products-container");
+  productsContainer.innerHTML = "";
 
-    articles.forEach(article => {
-        const articleElement = document.createElement('a');
+  articles.forEach((article) => {
+    const articleElement = document.createElement("a");
 
-        articleElement.href = '#';
-         articleElement.classList.add('group');
-         articleElement.setAttribute('data-category', article.id_categorie);
-         articleElement.setAttribute('data-color', article.id_couleur);
-         
-         articleElement.setAttribute(
-            'data-size',
-            article.tailles.map(t => t.id_taille).join(',')
-        );
-        
-        const url = `detail_produit.html?id_produit=${article.id_produit}&id_couleur=${article.id_couleur}`;
-        articleElement.href = url;
+    articleElement.href = `detail_produit.html?id_produit=${article.id_produit}&id_couleur=${article.id_couleur}`;
+    articleElement.classList.add("group");
+    articleElement.setAttribute("data-category", article.id_categorie);
+    articleElement.setAttribute("data-color", article.id_couleur);
 
-        articleElement.innerHTML = `
+    articleElement.setAttribute(
+      "data-size",
+      article.tailles.map((t) => t.id_taille).join(",")
+    );
+
+    articleElement.innerHTML = `
             <img
                 width="24" max-height="24"
                 src="../serveur/img/articles/${article.path_img}"
@@ -68,9 +65,8 @@ function afficherLesProduits(articles) {
             </div>
         `;
 
-        productsContainer.appendChild(articleElement);
-    });
+    productsContainer.appendChild(articleElement);
+  });
 }
-
 
 fetchArticles();
