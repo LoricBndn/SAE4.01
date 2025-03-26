@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 require_once "../bdd/connexion.php";
 require_once 'header.php';
@@ -6,7 +8,7 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"SELECT *
+    "SELECT *
 FROM SELECT_USERS
 WHERE id_user = :id_user";
 
@@ -18,7 +20,7 @@ try {
     $json["status"] = "success";
     $json["message"] = "Sélection réussie";
     $json["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
     $json["data"] = "[]";
