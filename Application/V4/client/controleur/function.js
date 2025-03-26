@@ -4,7 +4,7 @@ function showCookieBanniere() {
       let banniere = document.createElement("div");
       banniere.innerHTML = `
           <div id="cookie-banniere" style="position:fixed; bottom:0; left:0; width:100%; background:rgba(0,0,0,0.8); color:white; text-align:center; padding:10px;">
-              Ce site utilise des cookies pour améliorer votre expérience. <button id="acceptCookies">Accepter</button>
+              Ce site utilise des cookies pour améliorer votre expérience. <button class="cursor-pointer" id="acceptCookies">Accepter</button>
           </div>`;
       document.body.appendChild(banniere);
 
