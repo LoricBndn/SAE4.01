@@ -12,11 +12,11 @@ const products = document.querySelectorAll('#products-container a');
 
 products.forEach(product => {
     const productCategory = product.getAttribute('data-category');
-    const productColors = product.getAttribute('data-color').split(',');
+    const productColors = product.getAttribute('data-color');
     const productSizes = product.getAttribute('data-size').split(',');
 
     const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(productCategory);
-    const colorMatch = selectedColors.length === 0 || productColors.some(color => selectedColors.includes(color));
+    const colorMatch = selectedColors.length === 0 || selectedColors.includes(productColors);
     const sizeMatch = selectedSizes.length === 0 || productSizes.some(size => selectedSizes.includes(size));
 
     if (categoryMatch && colorMatch && sizeMatch) {
