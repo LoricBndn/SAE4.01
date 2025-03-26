@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.status === "success") {
                 let date_expiration = new Date();
                 date_expiration.setTime(date_expiration.getTime() + 1 * 60 * 60 * 1000);
-                document.cookie = `id_user=${data.id_user};expires=${date_expiration.toUTCString()};path=/`;
+                document.cookie = `auth_token=${data.token}; Secure; HttpOnly; SameSite=Strict; path=/; max-age=3600`; 
                 window.location.href = "accueil.html";
             } else {
                 loginError.textContent = "Identifiant ou mot de passe incorrect.";

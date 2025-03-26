@@ -1,6 +1,23 @@
- export const cookieValue = document.cookie
+function showCookieBanniere() {
+  if (!document.cookie.includes("cookiesAccepted=true")) {
+      let banniere = document.createElement("div");
+      banniere.innerHTML = `
+          <div id="cookie-banniere" style="position:fixed; bottom:0; left:0; width:100%; background:rgba(0,0,0,0.8); color:white; text-align:center; padding:10px;">
+              Ce site utilise des cookies pour améliorer votre expérience. <button id="acceptCookies">Accepter</button>
+          </div>`;
+      document.body.appendChild(banniere);
+
+      document.getElementById("acceptCookies").addEventListener("click", () => {
+          document.cookie = "cookiesAccepted=true; path=/; max-age=31536000"; 
+          document.getElementById("cookie-banniere").remove();
+      });
+  }
+}
+showCookieBanniere();
+
+export const cookieValue = document.cookie
   .split("; ")
-  .find((row) => row.startsWith("id_user="))
+  .find((row) => row.startsWith("auth_token="))
   ?.split("=")[1];
 
  export function isConnected() {
