@@ -749,6 +749,9 @@
   .min-w-screen {
     min-width: 100vw;
   }
+  .flex-1 {
+    flex: 1;
+  }
   .flex-auto {
     flex: auto;
   }
