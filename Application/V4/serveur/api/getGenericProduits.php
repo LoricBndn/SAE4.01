@@ -12,7 +12,7 @@ $res = $db->prepare($query);
 
 try {
     $res->execute();
-    $data["status"] = "success";
+    $data["status"] = "success";    
     $data["message"] = "Sélection réussie";
     $data["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
 

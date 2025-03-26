@@ -19,6 +19,26 @@ async function fetchTailles() {
     }
 }
 
+export async function fetchTaillesByIdProduit(idProduit) {
+    try {
+        const response = await fetch('https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getTaille.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `id_produit=${idProduit}`
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des tailles');
+        }
+
+        const data = await response.json();
+        return data.status === 'success' ? data.data : [];
+    } catch (error) {
+        console.error('Erreur:', error);
+        return [];
+    }
+}
+
 function afficherLesTailles(tailles) {
     const taillesContainer = document.querySelector('#dropdownSize');
     taillesContainer.innerHTML = '';

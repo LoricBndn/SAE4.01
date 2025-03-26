@@ -1,6 +1,6 @@
 import { filtrePoduits } from './NEWfiltres.js';
 
-async function fetchColors() {
+async function fetchCouleurs() {
     try {
         const response = await fetch('https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getCouleurs.php');
         if (!response.ok) {
@@ -16,6 +16,26 @@ async function fetchColors() {
         }
     } catch (error) {
         console.error('Erreur:', error);
+    }
+}
+
+export async function fetchCouleursByIdProduit(idProduit) {
+    try {
+        const response = await fetch('https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getCouleur.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `id_produit=${idProduit}`
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des couleurs');
+        }
+
+        const data = await response.json();
+        return data.status === 'success' ? data.data : [];
+    } catch (error) {
+        console.error('Erreur:', error);
+        return [];
     }
 }
 
@@ -46,4 +66,4 @@ function remplirFiltreCouleurs(couleurs) {
 }
 
 
-fetchColors();
+fetchCouleurs();
