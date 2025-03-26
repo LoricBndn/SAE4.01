@@ -242,5 +242,4 @@ function getStatusBadge(status) {
     return badge;
 }
 
-
 fetchCommandes();
