@@ -36,9 +36,12 @@ async function fetchProduitDetails(id_produit, id_couleur) {
 }
 
 
-async function afficherProduit() {
+async function afficherProduit(id_produit, id_couleur) {
     const produit = await fetchProduitDetails(id_produit, id_couleur);
     const couleurs = await fetchCouleursByIdProduit(id_produit);
+
+    console.log(produit);
+    
 
     if (!produit) {
         console.error("Produit non trouvé");
@@ -53,20 +56,42 @@ async function afficherProduit() {
     const couleursContainer = document.getElementById("couleurs_produits");
     couleursContainer.innerHTML = "";
 
-    couleurs.forEach(({ id_couleur, couleur }) => {
-        const hexa = codeHexaCouleurs.get(id_couleur)?.hex || "#000000";
-        const isActive = id_couleur == id_couleur ? "border-4 border-black" : "border-gray-200";
+    couleurs.forEach(couleur => {
+        const bouton = document.createElement("button");
+        bouton.classList.add(
+            "cursor-pointer", 
+            "p-2.5", 
+            "border", 
+            "rounded-full", 
+            "transition-all", 
+            "duration-300"
+        );
+    
+        if (couleur.id_couleur == id_couleur) {
+            bouton.classList.add("border-green-500");
+        } else {
+            bouton.classList.add("border-gray-200", "hover:border-gray-500");
+        }
 
-        const button = document.createElement("button");
-        button.className = `cursor-pointer p-2.5 border rounded-full transition-all duration-300 hover:border-gray-500 ${isActive}`;
-        button.innerHTML = `<svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="${hexa}" /></svg>`;
-        button.addEventListener("click", () => {
-            window.location.search = `?id_produit=${id_produit}&id_couleur=${id_couleur}`;
+        bouton.addEventListener("click", () => {
+            // Met à jour l'URL sans recharger
+            const newUrl = `?id_produit=${id_produit}&id_couleur=${couleur.id_couleur}`;
+            window.history.pushState({}, "", newUrl);
+        
+            // Met à jour dynamiquement les informations du produit
+            afficherProduit(id_produit, couleur.id_couleur);
         });
-
-        couleursContainer.appendChild(button);
+        
+    
+        bouton.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="20" fill="${codeHexaCouleurs.get(couleur.id_couleur).hex}" />
+            </svg>
+        `;
+    
+        couleursContainer.appendChild(bouton);
     });
 }
 
-afficherProduit();
+afficherProduit(id_produit, id_couleur);
 
