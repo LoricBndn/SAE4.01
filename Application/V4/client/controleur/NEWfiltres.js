@@ -30,3 +30,25 @@ products.forEach(product => {
 document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
 checkbox.addEventListener('change', filtrePoduits);
 });
+
+function rechercherProduits() {
+    const searchInput = document.getElementById('default-search').value.trim().toLowerCase();
+
+    document.querySelectorAll('#products-container a').forEach(article => {
+        const articleName = article.querySelector('h3').textContent.toLowerCase();
+        const matchesSearch = articleName.includes(searchInput);
+
+        if (matchesSearch) {
+            article.style.display = 'block';
+        } else {
+            article.style.display = 'none';
+        }
+    });
+}
+
+document.querySelector('button[type="submit"]').addEventListener('click', (e) => {
+    e.preventDefault();
+    rechercherProduits();
+});
+
+document.getElementById('default-search').addEventListener('input', rechercherProduits);
