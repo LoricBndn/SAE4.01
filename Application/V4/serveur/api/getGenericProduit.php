@@ -7,7 +7,7 @@ $query =
 "SELECT *
 FROM SELECT_PRODUITS
 WHERE id_produit = :id_produit
-GROUP BY id_produit";
+GROUP BY id_produit, id_couleur";
 
 $res = $db->prepare($query);
 $res->bindParam(":id_produit", $_POST["id_produit"]);
