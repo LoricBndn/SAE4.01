@@ -328,7 +328,7 @@ document
     var modal = document.getElementById("filterModal");
     modal.classList.remove("hidden", "opacity-0", "scale-95");
     modal.classList.add("opacity-100", "scale-100");
-    document.body.classList.add("overflow-hidden");
+    document.body.classList.add("overflow-hidden"); // Empêche le défilement du corps
   });
 
 function closeModal() {
@@ -337,13 +337,14 @@ function closeModal() {
   setTimeout(() => {
     modal.classList.add("hidden");
     modal.classList.remove("opacity-100", "scale-100");
-    document.body.classList.remove("overflow-hidden");
+    document.body.classList.remove("overflow-hidden"); // Restaure le défilement du corps
   }, 300);
 }
 
 document
   .getElementById("closeFilterModal")
   .addEventListener("click", closeModal);
+
 document.getElementById("filterModal").addEventListener("click", function (e) {
   if (e.target === this) {
     closeModal();
@@ -379,4 +380,35 @@ document
   .addEventListener("click", function () {
     toggleDropdown("dropdownSize", "dropdownSizeArrow");
   });
+
+  function toggleDropdownMobile(dropdownId, arrowId) {
+    var dropdown = document.getElementById(dropdownId);
+    var arrow = document.getElementById(arrowId);
+  
+    dropdown.classList.toggle("max-h-0");
+    dropdown.classList.toggle("opacity-0");
+    dropdown.classList.toggle("max-h-96");
+    dropdown.classList.toggle("opacity-100");
+  
+    arrow.classList.toggle("rotate-180");
+  }
+  
+  document
+    .getElementById("dropdownCategoryButtonMobile")
+    .addEventListener("click", function () {
+      toggleDropdownMobile("dropdownCategoryMobile", "dropdownCategoryArrowMobile");
+    });
+  
+  document
+    .getElementById("dropdownColorButtonMobile")
+    .addEventListener("click", function () {
+      toggleDropdownMobile("dropdownColorMobile", "dropdownColorArrowMobile");
+    });
+  
+  document
+    .getElementById("dropdownSizeButtonMobile")
+    .addEventListener("click", function () {
+      toggleDropdownMobile("dropdownSizeMobile", "dropdownSizeArrowMobile");
+    });
+  
 afficherTousLesProduits();

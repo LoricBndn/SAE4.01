@@ -20,23 +20,30 @@ async function fetchCategories() {
 }
 
 function remplirFiltreCategories(categories) {
-    const categoryContainer = document.querySelector('#dropdownCategory ul');
-    categoryContainer.innerHTML = '';
+    const containers = ['#dropdownCategory ul', '#dropdownCategoryMobile ul'];
 
-    categories.forEach(category => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-            <div class="flex items-center">
-                <input id="category-${category.id_categorie}" type="checkbox" class="cursor-pointer w-4 h-4" data-category="${category.id_categorie}" />
-                <label for="category-${category.id_categorie}" class="ms-2 text-sm">${category.nom_categorie}</label>
-            </div>
-        `;
-        categoryContainer.appendChild(listItem);
+    containers.forEach(selector => {
+        const categoryContainer = document.querySelector(selector);
+        if (!categoryContainer) return; // Vérifie si l'élément existe
+
+        categoryContainer.innerHTML = '';
+
+        categories.forEach(category => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <div class="flex items-center">
+                    <input id="category-${category.id_categorie}" type="checkbox" class="cursor-pointer w-4 h-4" data-category="${category.id_categorie}" />
+                    <label for="category-${category.id_categorie}" class="ms-2 text-sm">${category.nom_categorie}</label>
+                </div>
+            `;
+            categoryContainer.appendChild(listItem);
+        });
     });
 
-    document.querySelectorAll('#dropdownCategory input[type="checkbox"]').forEach(checkbox => {
+    document.querySelectorAll('#dropdownCategory input[type="checkbox"], #dropdownCategoryMobile input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', filtrePoduits);
     });
 }
+
 
 fetchCategories();

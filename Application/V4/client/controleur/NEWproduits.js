@@ -33,7 +33,7 @@ function afficherLesProduits(articles) {
                 width="24" max-height="24"
                 src="../serveur/img/articles/${article.path_img}"
                 alt="${article.nom_produit}"
-                class="w-full rounded-lg bg-gray-200 object-fit group-hover:opacity-75"
+                class="w-full lg:h-55 rounded-lg bg-gray-200 object-cover lg:object-fill group-hover:opacity-75"
             />
             <div class="flex justify-between items-center">
                 <div>

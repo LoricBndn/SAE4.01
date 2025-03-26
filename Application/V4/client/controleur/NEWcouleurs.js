@@ -20,23 +20,30 @@ async function fetchColors() {
 }
 
 function remplirFiltreCouleurs(couleurs) {
-    const colorContainer = document.querySelector('#dropdownColor ul');
-    colorContainer.innerHTML = '';
+    const containers = ['#dropdownColor ul', '#dropdownColorMobile ul'];
 
-    couleurs.forEach(couleur => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-            <div class="flex items-center">
-                <input id="color-${couleur.id_couleur}" type="checkbox" class="cursor-pointer w-4 h-4" data-color="${couleur.id_couleur}" />
-                <label for="color-${couleur.id_couleur}" class="ms-2 text-sm">${couleur.couleur}</label>
-            </div>
-        `;
-        colorContainer.appendChild(listItem);
+    containers.forEach(selector => {
+        const colorContainer = document.querySelector(selector);
+        if (!colorContainer) return; // Vérifie si l'élément existe
+
+        colorContainer.innerHTML = '';
+
+        couleurs.forEach(couleur => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <div class="flex items-center">
+                    <input id="color-${couleur.id_couleur}" type="checkbox" class="cursor-pointer w-4 h-4" data-color="${couleur.id_couleur}" />
+                    <label for="color-${couleur.id_couleur}" class="ms-2 text-sm">${couleur.couleur}</label>
+                </div>
+            `;
+            colorContainer.appendChild(listItem);
+        });
     });
 
-    document.querySelectorAll('#dropdownColor input[type="checkbox"]').forEach(checkbox => {
+    document.querySelectorAll('#dropdownColor input[type="checkbox"], #dropdownColorMobile input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', filtrePoduits);
     });
 }
+
 
 fetchColors();

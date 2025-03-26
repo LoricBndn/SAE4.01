@@ -20,22 +20,27 @@ async function fetchTailles() {
 }
 
 function afficherLesTailles(tailles) {
-    const taillesContainer = document.querySelector('#dropdownSize');
-    taillesContainer.innerHTML = '';
+    const containers = ['#dropdownSize ul', '#dropdownSizeMobile ul'];
 
-    tailles.forEach(taille => {
-        const tailleElement = document.createElement('div');
-        tailleElement.classList.add('flex', 'items-center', 'gap-2');
+    containers.forEach(selector => {
+        const sizeContainer = document.querySelector(selector);
+        if (!sizeContainer) return; 
 
-        tailleElement.innerHTML = `
-            <input type="checkbox" id="taille-${taille.id_taille}" data-size="${taille.id_taille}" class="taille-checkbox">
-            <label for="taille-${taille.id_taille}" class="text-sm text-gray-700">${taille.taille}</label>
-        `;
+        sizeContainer.innerHTML = '';
 
-        taillesContainer.appendChild(tailleElement);
+        tailles.forEach(taille => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <div class="flex items-center">
+                    <input id="color-${taille.id_taille}" type="checkbox" class="cursor-pointer w-4 h-4" data-color="${taille.id_taille}" />
+                    <label for="color-${taille.id_taille}" class="ms-2 text-sm">${taille.taille}</label>
+                </div>
+            `;
+            sizeContainer.appendChild(listItem);
+        });
     });
 
-    document.querySelectorAll('.taille-checkbox').forEach(checkbox => {
+    document.querySelectorAll('#dropdownSize input[type="checkbox"], #dropdownSizeMobile input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', filtrePoduits);
     });
 }

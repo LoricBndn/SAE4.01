@@ -189,34 +189,50 @@
 
       </div>
     </section>
-    <div id="filterModal" class="fixed inset-0 bg-white flex justify-center items-center z-50 hidden">
-      <div class="max-w-xl w-full p-6 relative">
+    <div id="filterModal" class="fixed inset-0 bg-white flex justify-center items-center z-50 hidden pointer-events-none">
+      <div class="modal-content w-full max-w-xl p-6 relative bg-white overflow-y-auto max-h-[80vh] pointer-events-auto">
         <button id="closeFilterModal" class="absolute top-4 right-4 text-gray-700 text-2xl cursor-pointer">&times;</button>
         <h2 class="text-3xl font-semibold mb-4">Filtres</h2>
-
+    
         <form class="w-full">
           <div class="relative mb-4">
             <input type="search" class="w-full p-4 border border-gray-300 rounded-sm" placeholder="Rechercher..." />
           </div>
-          <div id="filterCategories" class="mb-4">
-
+    
+          <button id="dropdownCategoryButtonMobile" class="w-full border-t border-gray-300 text-sm py-4 text-center inline-flex justify-between items-center font-semibold" type="button">
+            Catégorie
+            <svg id="dropdownCategoryArrowMobile" class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+            </svg>
+          </button>
+          <div id="dropdownCategoryMobile" class="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out">
+            <ul class="py-3 space-y-3 text-sm text-gray-700"></ul>
           </div>
-          <div id="filterCouleurs" class="mb-4">
-            <label class="font-semibold">Couleur</label>
-            <div class="mt-2">
-              <input type="checkbox" id="colorRed" class="mr-2" />
-              <label for="colorRed">Rouge</label>
-            </div>
-            <div>
-              <input type="checkbox" id="colorBlue" class="mr-2" />
-              <label for="colorBlue">Bleu</label>
-            </div>
+    
+          <button id="dropdownColorButtonMobile" class="w-full border-t border-gray-300 text-sm py-4 text-center inline-flex justify-between items-center font-semibold" type="button">
+            Couleur
+            <svg id="dropdownColorArrowMobile" class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+            </svg>
+          </button>
+          <div id="dropdownColorMobile" class="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out">
+            <ul class="py-3 space-y-3 text-sm text-gray-700"></ul>
           </div>
-          <div id="filterTailles" class="mb-4">
-            <label class="font-semibold">Taille</label>
+    
+          <button id="dropdownSizeButtonMobile" class="w-full border-t border-gray-300 text-sm py-4 text-center inline-flex justify-between items-center font-semibold" type="button">
+            Taille
+            <svg id="dropdownSizeArrowMobile" class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+            </svg>
+          </button>
+          <div id="dropdownSizeMobile" class="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out">
+            <ul class="py-3 space-y-3 text-sm text-gray-700"></ul>
           </div>
         </form>
       </div>
+    </div>
+    
+    
     </div>
     <footer id="printFooter"></footer>
   </body>
