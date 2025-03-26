@@ -1,91 +1,110 @@
-import { cookieValue } from "./function.js";
-
-if (cookieValue === undefined) {
-    window.location.href = 'accueil.html'; //Si le cookie est vide, l'utilisateur n'est pas connecté donc on retourne à l'accueil.
+const eyeIcon = document.getElementById("eyeIcon");
+const togglePassword = document.getElementById("togglePassword");
+const passwordInput = document.getElementById("new-password"); // Sélecteur pour l'input du mot de passe
+const eyeIconConfirm = document.getElementById("eyeIconConfirm");
+const togglePasswordConfirm = document.getElementById("togglePasswordConfirm");
+const confirmPasswordInput = document.getElementById("confirm-password"); 
+// Sélecteur pour l'input de confirmation
+function getUserIdFromCookie() {
+  const name = "id_user=";
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(';');
+  
+  for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+          c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+      }
+  }
+  return null;
 }
-let mdpOK = false;
-const mdpErreurs = document.querySelectorAll('span[id^="mdpErreur"]');
-mdpErreurs.forEach((mdpErreur) => {
-  mdpErreur.style.display = "none";
+togglePassword.addEventListener("click", () => {
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
+    }
 });
 
-document.getElementById("nouveauMdp").addEventListener("input", (e) => {
-  mdpErreurs.forEach((mdpErreur) => {
-    mdpErreur.style.display = "block";
+togglePasswordConfirm.addEventListener("click", () => {
+    if (confirmPasswordInput.type === "password") {
+        confirmPasswordInput.type = "text";
+        eyeIconConfirm.classList.replace("fa-eye", "fa-eye-slash");
+    } else {
+        confirmPasswordInput.type = "password";
+        eyeIconConfirm.classList.replace("fa-eye-slash", "fa-eye");
+    }
+});
+    function validatePassword(password) {
+      const testLg = /.{8,}/;
+      const testMaj = /[A-Z]/;
+      const testMin = /[a-z]/;
+      const testCar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+      const testNb = /[0-9]/;
+
+      let valid = true;
+
+      // Validation des différentes règles
+      document.getElementById("mdpErreur1").style.display = testLg.test(password) ? "none" : "block";
+      document.getElementById("mdpErreur2").style.display = testMaj.test(password) ? "none" : "block";
+      document.getElementById("mdpErreur3").style.display = testMin.test(password) ? "none" : "block";
+      document.getElementById("mdpErreur4").style.display = testCar.test(password) ? "none" : "block";
+      document.getElementById("mdpErreur5").style.display = testNb.test(password) ? "none" : "block";
+
+      // Vérification globale
+      valid = testLg.test(password) && testMaj.test(password) && testMin.test(password) && testCar.test(password) && testNb.test(password);
+
+      return valid;
+  }
+
+  // Événement de validation lors de l'input
+  document.getElementById("new-password").addEventListener("input", function() {
+      const password = this.value;
+      validatePassword(password);
   });
-  if(document.getElementById("nouveauMdp").value === ""){
-    mdpErreurs.forEach((mdpErreur) => {
-      mdpErreur.style.display = "none";
-    });
-  }
-  
-  let testLg = /.{8,}/;
-  let testMaj = /[A-Z]/;
-  let testMin = /[a-z]/;
-  let testCar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-  let testNb = /[0-9]/;
-  
-  let valeurTester = document.getElementById("nouveauMdp").value;
-  mdpOK = testLg.test(valeurTester) && testMaj.test(valeurTester) && testMin.test(valeurTester) && testCar.test(valeurTester) && testNb.test(valeurTester);
-  console.log(mdpOK);
 
-  if (testLg.test(valeurTester)) mdpErreurs[0].style.color = "green";
-  else {
-      mdpErreurs[0].style.color = "red";
-  }
+  // Gestion de la soumission du formulaire
+  document.getElementById("password-form").addEventListener("submit", function(event) {
+      event.preventDefault();
 
-  if (testMaj.test(valeurTester)) mdpErreurs[1].style.color = "green";
-  else {
-      mdpErreurs[1].style.color = "red";
-  }
+      let newPassword = document.getElementById("new-password").value;
+      let confirmPassword = document.getElementById("confirm-password").value;
+      let errorMessage = document.getElementById("error-message");
 
-  if (testMin.test(valeurTester)) mdpErreurs[2].style.color = "green";
-  else {
-      mdpErreurs[2].style.color = "red";
-  }
+      // Vérification des mots de passe
+      if (newPassword !== confirmPassword) {
+          errorMessage.classList.remove("hidden");
+          return;
+      } else {
+          errorMessage.classList.add("hidden");
+      }
 
-  if (testCar.test(valeurTester)) mdpErreurs[3].style.color = "green";
-  else {
-      mdpErreurs[3].style.color = "red";
-  }
+      // Vérification des règles du mot de passe
+      if (!validatePassword(newPassword)) {
+          return;
+      }
 
-  if (testNb.test(valeurTester)) mdpErreurs[4].style.color = "green";
-  else {
-      mdpErreurs[4].style.color = "red";
-  }
-});
-
-function ConfirmerMDP(mdpOK) {
-  const motDePasse = document.getElementById("nouveauMdp");
-  const confimation = document.getElementById("confirmation");
-
-  if (motDePasse.value === confimation.value && mdpOK) {
-    fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/changerMDP.php", {
-      method: "POST",
-      body: new URLSearchParams({
-        "id_us": cookieValue,
-        "mdp": motDePasse.value,
-      }),
-    }).then((response) => {
-      response.json().then((data) => {
-        console.log(data);
-        if (data["status"] === "success") {
-          alert("Votre mot de passe a bien été changé");
-          window.location.href = "accueil.html";
-        } else {
-          alert("Erreur lors du changement de mot de passe");
-        }
+      // Envoi de la requête de changement de mot de passe
+      const cookieValue = getUserIdFromCookie(); // Utilise la fonction que tu as déjà pour obtenir l'id_user
+      fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/changerMDP.php", {
+          method: "POST",
+          body: new URLSearchParams({
+              "id_user": cookieValue,
+              "mdp": newPassword,
+          }),
+      }).then((response) => {
+          response.json().then((data) => {
+              if (data["status"] === "success") {
+                  alert("Votre mot de passe a bien été changé");
+                  window.location.href = "accueil.html"; // Redirige vers la page d'accueil après la modification
+              } else {
+                  alert("Erreur lors du changement de mot de passe");
+              }
+          });
       });
-    });
-  } else {
-    alert("Les mots de passe ne correspondent pas");
-  }
-}
-
-let button = document.getElementById("envoie");
-button.addEventListener("click", (e) => {
-  e.preventDefault();
-  console.log("click");
-  ConfirmerMDP(mdpOK);
-
-});
+  });
