@@ -3,19 +3,39 @@ CREATE VIEW SELECT_COMMANDES AS
 SELECT
     C.id_commande AS id_commande,
     C.id_user AS id_user,
-    DC.id_detail_prod AS id_detail_prod,
+    C.date_commande AS date_commande,
+    C.total AS total,
+    C.statut AS statut,
+    P.id_produit AS id_produit,
+    P.nom_produit AS nom_produit,
+    P.id_categorie AS id_categorie,
+    CA.nom_categorie AS nom_categorie,
+    DP.id_detail_prod AS id_detail_prod,
+    DP.id_couleur AS id_couleur,
+    CO.couleur AS couleur,
+    DP.id_taille AS id_taille,
+    T.taille AS taille,
+    DP.path_img AS path_img,
+    DP.prix AS prix,
     DC.quantite AS quantite,
-    DC.prix_total AS prix_total,
-    C.date_commande AS date_commande
+    DC.prix_total AS prix_total
 FROM
     COMMANDE C, 
     DETAIL_COMMANDE DC, 
-    DETAIL_PRODUIT DP
+    PRODUIT P, 
+    CATEGORIE CA, 
+    DETAIL_PRODUIT DP,
+    COULEUR CO, 
+    TAILLE T
 WHERE C.id_commande = DC.id_commande
 AND DC.id_detail_prod = DP.id_detail_prod
+AND DP.id_produit = P.id_produit 
+AND P.id_categorie = CA.id_categorie 
+AND DP.id_couleur = CO.id_couleur 
+AND DP.id_taille = T.id_taille
 ORDER BY
-    C.id_user,
     C.id_commande,
+    C.id_user,
     DC.id_detail_prod
 
 -- Vue SELECT_FAVORIS

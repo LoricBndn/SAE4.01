@@ -6,9 +6,8 @@ require_once 'header.php';
 $json = [];
 
 $query = 
-"SELECT id_commande, date_commande, path_img, nom_produit, couleur, taille, prix, quantite, prix_total
-FROM SELECT_COMMANDES SC
-INNER JOIN SELECT_PRODUITS SP ON SP.id_detail_prod = SC.id_detail_prod
+"SELECT *
+FROM SELECT_COMMANDES
 WHERE id_user = :id_user
 AND id_commande = :id_commande";
 

@@ -6,7 +6,7 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"SELECT id_commande, date_commande, total, statut
+"SELECT *
 FROM COMMANDE
 WHERE id_user = :id_user";
 

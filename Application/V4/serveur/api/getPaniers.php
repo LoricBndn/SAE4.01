@@ -8,7 +8,7 @@ $json = [];
 $query =
 "SELECT *
 FROM SELECT_PANIERS
-AND id_user = :id_user";
+WHERE id_user = :id_user";
 
 $res = $db->prepare($query);
 $res->bindParam(":id_user", $_POST["id_user"]);

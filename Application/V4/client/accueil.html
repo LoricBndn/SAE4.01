@@ -180,9 +180,14 @@
       <div id="products-container" class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         <!-- Les articles seront ajoutés ici par JavaScript -->
       </div>
-
       </div>
     </section>
+    
+    <nav class="mt-6 flex items-center justify-center sm:mt-8" aria-label="Page navigation example">
+      <ul id="pagination-container" class="flex justify-center space-x-2 mt-4"></ul>
+        <!-- Affiche des pages dynamiquement en JS -->
+      </ul>
+    </nav>
     <div id="filterModal" class="fixed inset-0 bg-white flex justify-center items-center z-50 hidden pointer-events-none">
       <div class="modal-content w-full max-w-xl p-6 relative bg-white overflow-y-auto max-h-[80vh] pointer-events-auto">
         <button id="closeFilterModal" class="absolute top-4 right-4 text-gray-700 text-2xl cursor-pointer">&times;</button>
