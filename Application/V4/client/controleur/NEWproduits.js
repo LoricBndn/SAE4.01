@@ -27,6 +27,7 @@ function afficherLesProduits(articles) {
         articleElement.classList.add('group');
         articleElement.setAttribute('data-category', article.id_categorie); 
         articleElement.setAttribute('data-color', article.id_couleur);
+        articleElement.setAttribute('data-size', article.id_taille);
 
         articleElement.innerHTML = `
             <img

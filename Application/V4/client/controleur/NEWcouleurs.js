@@ -24,7 +24,7 @@ function remplirFiltreCouleurs(couleurs) {
 
     containers.forEach(selector => {
         const colorContainer = document.querySelector(selector);
-        if (!colorContainer) return; // Vérifie si l'élément existe
+        if (!colorContainer) return;
 
         colorContainer.innerHTML = '';
 

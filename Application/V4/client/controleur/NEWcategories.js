@@ -24,7 +24,7 @@ function remplirFiltreCategories(categories) {
 
     containers.forEach(selector => {
         const categoryContainer = document.querySelector(selector);
-        if (!categoryContainer) return; // Vérifie si l'élément existe
+        if (!categoryContainer) return;
 
         categoryContainer.innerHTML = '';
 
