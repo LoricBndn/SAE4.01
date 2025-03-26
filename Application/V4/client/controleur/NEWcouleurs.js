@@ -48,16 +48,23 @@ function remplirFiltreCouleurs(couleurs) {
 
         colorContainer.innerHTML = '';
 
+        const gridContainer = document.createElement('div');
+        gridContainer.classList.add('grid', 'grid-cols-2', 'gap-2');
+
         couleurs.forEach(couleur => {
-            const listItem = document.createElement('li');
+            const listItem = document.createElement('div');
+            listItem.classList.add('flex', 'items-center', 'gap-2');
+            
             listItem.innerHTML = `
                 <div class="flex items-center">
                     <input id="color-${couleur.id_couleur}" type="checkbox" class="cursor-pointer w-4 h-4" data-color="${couleur.id_couleur}" />
                     <label for="color-${couleur.id_couleur}" class="ms-2 text-sm">${couleur.couleur}</label>
                 </div>
             `;
-            colorContainer.appendChild(listItem);
+            gridContainer.appendChild(listItem);
         });
+        
+        colorContainer.appendChild(gridContainer);
     });
 
     document.querySelectorAll('#dropdownColor input[type="checkbox"], #dropdownColorMobile input[type="checkbox"]').forEach(checkbox => {

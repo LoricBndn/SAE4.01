@@ -6,7 +6,7 @@ require_once 'header.php';
 $query =
 "SELECT *
 FROM SELECT_PRODUITS
-GROUP BY id_produit";
+GROUP BY id_produit, id_couleur";
 
 $res = $db->prepare($query);
 

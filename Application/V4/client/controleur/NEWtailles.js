@@ -42,25 +42,35 @@ export async function fetchTaillesByIdProduit(idProduit) {
 function afficherLesTailles(tailles) {
     const taillesContainer = document.querySelector('#dropdownSize');
     taillesContainer.innerHTML = '';
-
+    
+    const gridContainer = document.createElement('div');
+    gridContainer.classList.add('grid', 'grid-cols-2', 'gap-2'); // Similaire à la grille des couleurs
+    
     tailles.forEach(taille => {
         const tailleElement = document.createElement('div');
         tailleElement.classList.add('flex', 'items-center', 'gap-2');
 
         tailleElement.innerHTML = `
-        <div class="flex items-center">
-            <input type="checkbox" id="taille-${taille.id_taille}" data-size="${taille.id_taille}" class="taille-checkbox">
+        <div class="flex items-center gap-2">
+            <input 
+                type="checkbox" 
+                id="taille-${taille.id_taille}" 
+                data-size="${taille.id_taille}" 
+                class="taille-checkbox cursor-pointer w-4 h-4" 
+            />
             <label for="taille-${taille.id_taille}" class="text-sm text-gray-700">${taille.taille}</label>
         </div>
         `;
 
-        taillesContainer.appendChild(tailleElement);
+        gridContainer.appendChild(tailleElement);
     });
+    
+    taillesContainer.appendChild(gridContainer);
 
+    // Ajouter l'événement de filtre sur les checkboxes des tailles
     document.querySelectorAll('.taille-checkbox').forEach(checkbox => {
         checkbox.addEventListener('change', filtrePoduits);
     });
 }
 
 fetchTailles();
-
