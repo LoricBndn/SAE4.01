@@ -14,8 +14,7 @@ async function fetchArticles() {
             const articlesAvecDetails = await Promise.all(
                 data.data.map(async (article) => {
                     const tailles = await fetchTaillesByIdProduit(article.id_produit);
-                    const couleurs = await fetchCouleursByIdProduit(article.id_produit);
-                    return { ...article, tailles, couleurs };
+                    return { ...article, tailles };
                 })
             );
 
@@ -39,11 +38,9 @@ function afficherLesProduits(articles) {
         const articleElement = document.createElement('a');
         articleElement.href = '#';
         articleElement.classList.add('group');
-        articleElement.setAttribute('data-category', article.id_categorie); 
-        articleElement.setAttribute(
-            'data-color',
-            article.couleurs.map(c => c.id_couleur).join(',')
-        );
+        articleElement.setAttribute('data-category', article.id_categorie);
+        articleElement.setAttribute('data-color', article.id_couleur);
+
         articleElement.setAttribute(
             'data-size',
             article.tailles.map(t => t.id_taille).join(',')
