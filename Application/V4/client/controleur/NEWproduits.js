@@ -1,3 +1,6 @@
+import { fetchTaillesByIdProduit } from './NEWtailles.js';
+import { fetchCouleursByIdProduit } from './NEWcouleurs.js';
+
 async function fetchArticles() {
     try {
         const response = await fetch('https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getGenericProduits.php');
@@ -8,7 +11,17 @@ async function fetchArticles() {
         const data = await response.json();
 
         if (data.status === 'success') {
-            afficherLesProduits(data.data);
+            const articlesAvecDetails = await Promise.all(
+                data.data.map(async (article) => {
+                    const tailles = await fetchTaillesByIdProduit(article.id_produit);
+                    const couleurs = await fetchCouleursByIdProduit(article.id_produit);
+                    return { ...article, tailles, couleurs };
+                })
+            );
+
+            console.log(articlesAvecDetails);
+            
+            afficherLesProduits(articlesAvecDetails);
         } else {
             console.error(data.message);
         }
@@ -16,6 +29,7 @@ async function fetchArticles() {
         console.error('Erreur:', error);
     }
 }
+
 
 function afficherLesProduits(articles) {
     const productsContainer = document.querySelector('#products-container'); 
@@ -26,8 +40,14 @@ function afficherLesProduits(articles) {
         articleElement.href = '#';
         articleElement.classList.add('group');
         articleElement.setAttribute('data-category', article.id_categorie); 
-        articleElement.setAttribute('data-color', article.id_couleur);
-        articleElement.setAttribute('data-size', article.id_taille);
+        articleElement.setAttribute(
+            'data-color',
+            article.couleurs.map(c => c.id_couleur).join(',')
+        );
+        articleElement.setAttribute(
+            'data-size',
+            article.tailles.map(t => t.id_taille).join(',')
+        );
 
         articleElement.innerHTML = `
             <img
@@ -50,7 +70,5 @@ function afficherLesProduits(articles) {
         productsContainer.appendChild(articleElement);
     });
 }
-
-
 
 fetchArticles();
