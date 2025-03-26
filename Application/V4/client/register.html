@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,13 +7,11 @@
     <link rel="stylesheet" href="./css/output.css" />
     <title>Inscription - PM2</title>
 </head>
-
 <body>
     <div class="flex items-center justify-center py-10 bg-gray-600 h-screen">
-        <form class="max-w-md w-full bg-white p-6 rounded-lg m-4" id="registerForm">
+        <form id="registerForm" class="max-w-md w-full bg-white p-6 rounded-lg m-4">
             <h2 class="my-4 text-center text-2xl font-semibold tracking-tight">Créer un compte</h2>
-
-            <!-- Nom et Prénom -->
+            
             <div class="flex gap-4 mb-5">
                 <div class="w-1/2">
                     <label for="nom" class="block mb-2 text-sm">Nom</label>
@@ -35,36 +32,48 @@
             <!-- Mot de passe -->
             <div class="mb-5">
                 <label for="motdepasse" class="block mb-2 text-sm">Mot de passe</label>
-                <input type="password" id="motdepasse" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Saisir un mot de passe" required />
+                <div class="relative">
+                    <input type="password" id="motdepasse" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Saisir un mot de passe" required />
+                    <i id="eyeIcon" class="fa fa-eye absolute right-3 top-3 cursor-pointer"></i>
+                </div>
+                <div class="password-rules">
+                    <ul>
+                        <li id="mdpErreur1" class="error">Le mot de passe doit comporter au moins 8 caractères.</li>
+                        <li id="mdpErreur2" class="error">Le mot de passe doit contenir au moins une majuscule.</li>
+                        <li id="mdpErreur3" class="error">Le mot de passe doit contenir au moins une minuscule.</li>
+                        <li id="mdpErreur4" class="error">Le mot de passe doit contenir un caractère spécial.</li>
+                        <li id="mdpErreur5" class="error">Le mot de passe doit contenir au moins un chiffre.</li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- Vérification du mot de passe -->
+            <!-- Confirmation du mot de passe -->
             <div class="mb-5">
                 <label for="verifmotdepasse" class="block mb-2 text-sm">Vérification du mot de passe</label>
-                <input type="password" id="verifmotdepasse" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Confirmez votre mot de passe" required />
+                <div class="relative">
+                    <input type="password" id="verifmotdepasse" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Confirmez votre mot de passe" required />
+                    <i id="eyeIconConfirm" class="fa fa-eye absolute right-3 top-3 cursor-pointer"></i>
+                </div>
+                <div id="motdepasseErreur" class="text-red-500"></div>
             </div>
 
-            <!-- Adresse mail -->
+            <!-- Email et date de naissance -->
             <div class="mb-5">
                 <label for="email" class="block mb-2 text-sm">Adresse mail</label>
                 <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="Votre adresse mail" required />
             </div>
-
-            <!-- Date de naissance -->
+            
             <div class="mb-5">
                 <label for="date_naissance" class="block mb-2 text-sm">Date de naissance</label>
                 <input type="date" id="date_naissance" class="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" required />
+                <div id="dateErreur" class="text-red-500"></div>
             </div>
-
-            <!-- Bouton d'inscription -->
+            
             <button type="submit" class="cursor-pointer text-white bg-[#006600] hover:bg-[#335733] focus:ring-4 focus:outline-none rounded-lg text-sm w-full px-5 py-2.5 text-center">S'inscrire</button>
-
-            <!-- Erreur Message -->
-            <div id="MessageErreur" class="hidden mt-4 p-4 bg-red-500 text-white text-center rounded-lg"></div>
         </form>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <script src="./controleur/register.js"></script>
 </body>
-
 </html>
