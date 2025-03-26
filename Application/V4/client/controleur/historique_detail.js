@@ -50,7 +50,7 @@ async function fetchProduits() {
     } catch (error) {
         console.error('Erreur:', error);
     }
-}4
+}
 
 function displayCommande(commandes) {
     const commandeContainer = document.querySelector('#commandeContainer'); 

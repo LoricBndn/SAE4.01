@@ -1,276 +1,433 @@
-import { cookieValue } from "./function.js";
-
-if (cookieValue === undefined) {
-    window.location.href = 'login.html'; //Si le cookie est vide, l'utilisateur n'est pas connecté donc on retourne à l'accueil.
-}
-
-async function getPanier(id_us) {
-    return await fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getPanier.php", {
-            method: "POST",
-            body: new URLSearchParams({
-                id_us: id_us,
-            }),
-        })
-        //.then(reponse => console.log(reponse.json()))
-        .then(reponse => reponse.json());
-}
-
-async function getProduit(id_produit) {
-    return await fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getProduit.php", {
-        method: "POST",
-        body: new URLSearchParams({
-            id_prod: id_produit,
-        }),
-    });
-}
-
-function findId(id, array) {
-    let test = null;
-    array.forEach((element) => {
-        if (element.id == id) {
-            test = element;
+function getUserIdFromCookie() {
+    const name = "id_user=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
         }
-    });
-    return test;
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length); // Retourne l'ID utilisateur
+        }
+    }
+    return null; // Retourne null si l'ID utilisateur n'est pas trouvé
 }
 
-function delButton(id) {
 
-    const test = findId(id, document.querySelectorAll(".del"))
-        //console.log(test)
+async function fetchProduits() {
+    try {
+        const userId = getUserIdFromCookie();
+        if (!userId) {
+            console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
+            window.location.href = "accueil.html";
+            return;
+        }
 
-    test.addEventListener("click", (e) => {
-        const id_prod = e.target.id.split("|")[0];
-        const id_col = e.target.id.split("|")[1];
-        const id_tail = e.target.id.split("|")[2];
-        // console.log(e.target.id)
-        // console.log(id_prod, id_col, id_tail);
-        fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/delPanier.php", {
-            method: "POST",
-            body: new URLSearchParams({
-                id_us: id_us,
-                id_prod: id_prod,
-                id_col: id_col,
-                id_tail: id_tail,
-            }),
-        }).then((response) => {
-            response.json().then((json) => {
-                if (json.status !== "success") {
-                    console.log("suppression échouée");
-                    return;
-                }
-                console.log("suppression réussie");
-                appelPanier();
-            });
-        });
-    });
-}
-
-function autoUpdatePanier(id) {
-    const id_prod = id.split("|")[0];
-    const id_col = id.split("|")[1];
-    const id_tail = id.split("|")[2];
-
-    const inputQuantite = document.getElementById(id);
-    const selectCouleur = document.getElementById(`couleur${id}`);
-    const selectTaille = document.getElementById(`taille${id}`);
-
-    function updatePanier() {
-        const qte_pan = inputQuantite.value;
-        let new_id_col = selectCouleur ? selectCouleur.options[selectCouleur.selectedIndex].id : id_col;
-        let new_id_tail = selectTaille ? selectTaille.options[selectTaille.selectedIndex].id : id_tail;
-
-        fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/setPanier.php", {
-            method: "POST",
-            body: new URLSearchParams({
-                id_us: id_us,
-                id_prod: id_prod,
-                id_col: id_col,
-                id_tail: id_tail,
-                qte_pan: qte_pan,
-                new_id_col: new_id_col,
-                new_id_tail: new_id_tail,
-            }),
-        }).then(response => response.json()).then(json => {
-            if (json.status !== "success") {
-                console.log("Mise à jour échouée");
-                appelPanier();
-                return;
+        const response = await fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getPaniers.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    id_user: userId,
+                }),
             }
-            console.log("Mise à jour réussie");
-        });
-    }
+        );
 
-    // Écoute les changements et met à jour automatiquement
-    inputQuantite.addEventListener("change", updatePanier);
-    if (selectCouleur) selectCouleur.addEventListener("change", updatePanier);
-    if (selectTaille) selectTaille.addEventListener("change", updatePanier);
-}
-
-
-function rempliSelect(select, array, arrayId, def) {
-    array = array.filter((value, index) => array.indexOf(value) === index);
-    arrayId = arrayId.filter((value, index) => arrayId.indexOf(value) === index);
-    array.forEach((element) => {
-        const option = document.createElement("option");
-        option.id = arrayId[array.indexOf(element)];
-        if (element == def) {
-            option.selected = true;
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des produits du panier');
         }
-        option.value = element;
-        option.innerHTML = element;
-        select.appendChild(option);
-    });
-}
 
-function casNulltaill(id, panier) {
-    if (panier === 17) {
-        return ""
-    }
-    return `<select  id="taille${id}"></select>`
-}
-
-function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
-    const prix = document.getElementById("prixTotal");
-    const panierDiv = document.createElement("div");
-    panierDiv.classList.add("panierElement");
-    const id = `${panier.id_prod}|${panier.id_col}|${panier.id_tail}`
-        //console.log(panier)
-    panierDiv.innerHTML = `
-
-        <center><img id="img${id}" src="https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/img/articles/${panier.path_img}" alt="image du produit"></center>
-        <p>${panier.nom_prod}</p>
-        <div id="select">
-            <select  id="couleur${id}"></select>
-            ${casNulltaill(id, panier.id_tail)}
-        </div> 
-        <center>
-            <div id="input_qte">Quantité : <input class="qte" id="${id}" type="number" value="${qte}"></div>
-            <p id="prix">Prix : ${Math.round(panier.prix_unit * qte * 100) / 100}€</p>
-            <div id="button">
-                <button class="del form_button" id="${id}">Supprimer</button>
-            </div>
-        </center>
-        `;
-    document.getElementById("panier").appendChild(panierDiv);
-
-    delButton(id);
-    autoUpdatePanier(id);
-    rempliSelect(document.getElementById(`couleur${id}`), couleur, couleurId, panier.nom_col);
-    panier.id_tail !== 17 ? rempliSelect(document.getElementById(`taille${id}`), taille, tailleId, panier.nom_tail) : casNulltaill(id, panier.id_tail);
-    prix.innerHTML = (Math.round((parseFloat(prix.innerHTML) + panier.prix_unit * qte) * 100) / 100);
-    document.getElementById(`couleur${id}`).addEventListener("change", (e) => {
-        getProduit(panier.id_prod).then((response) => {
-            response.json().then(BDDproduit => {
-                BDDproduit.data.forEach((element) => {
-                    if (element.nom_col === e.target.value) {
-                        document.getElementById(`img${id}`).src = `https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/img/articles/${element.path_img}`
-                    }
-                })
-            })
-        });
-    });
-}
-
-async function appelPanier() {
-    document.getElementById("panier").innerHTML = "";
-    document.getElementById("prixTotal").innerHTML = 0;
-    getPanier(id_us).then((panier) => {
-        if (panier.data.length !== 0) {
-            document.getElementById("footer").style.display = "block";
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            displayProduits(data.data);
         } else {
-            document.getElementById("footer").style.display = "none";
-            const section = document.createElement("section");
-            section.classList.add("accueil");
-            const rien = document.createElement("h1");
-            rien.innerHTML = "Votre panier est vide";
-            section.appendChild(rien);
-            document.getElementById("panier").appendChild(section);
-            document.getElementById("panier").id = "accueil";
+            console.error(data.message);
         }
-        panier.data.forEach((produit) => {
-
-            getProduit(produit.id_prod).then((response) => {
-                let couleur = [];
-                let couleurId = [];
-                let taille = [];
-                let tailleId = [];
-
-                response.json().then((BDDproduits) => {
-
-                    BDDproduits.data.forEach((BDDproduit) => {
-
-                        if (BDDproduit.id_prod == produit.id_prod) {
-                            couleur.push(BDDproduit.nom_col);
-                            taille.push(BDDproduit.nom_tail);
-                            couleurId.push(BDDproduit.id_col);
-                            tailleId.push(BDDproduit.id_tail);
-                        }
-                    });
-                    BDDproduits.data.forEach((BDDproduit) => {
-                        if (BDDproduit.id_col == produit.id_col && BDDproduit.id_tail == produit.id_tail) {
-                            affichePanier(BDDproduit, produit.qte_pan, taille, couleur, couleurId, tailleId);
-                        }
-                    });
-                });
-            });
-        });
-    })
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
 }
 
-document.getElementById("clear").addEventListener("click", () => {
-    fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/clearPanier.php", {
-        method: "POST",
-        body: new URLSearchParams({
-            id_us: id_us,
-        }),
-    }).then((response) => {
-        response.json().then((data) => {
-            if (data.status == "success") {
-                console.log("suppression réussie");
-                appelPanier();
-            } else {
-                console.log("suppression échouée");
+async function fetchCouleurs(produitId, couleurId) {
+    try {
+        const response = await fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getCouleur.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    id_produit: produitId,
+                }),
             }
-        });
-    });
-});
+        );
 
-document.getElementById("payer").addEventListener("click", () => {
-    fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/payer.php", {
-        method: "POST",
-        body: new URLSearchParams({
-            id_us: id_us,
-        }),
-    }).then((reponse) => {
-        reponse.json().then((data) => {
-            if (data.status == "success") {
-                console.log("paiement réussi");
-                fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/clearPanier.php", {
-                    method: "POST",
-                    body: new URLSearchParams({
-                        id_us: id_us,
-                    }),
-                }).then((response) => {
-                    response.json().then((data) => {
-                        if (data.status == "success") {
-                            console.log("suppression réussie");
-                            appelPanier();
-                            window.location.href = "accueil.html";
-                        } else {
-                            console.log("suppression échouée");
-                        }
-                    });
-                });
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des couleurs du produit');
+        }
 
-            } else {
-                console.log("paiement échoué");
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            const couleurSelect = document.createElement("select");
+            couleurSelect.id = "couleurSelect";
+            couleurSelect.classList.add('border', 'rounded-md', 'px-2', 'py-1', 'cursor-pointer')
+            data.data.forEach(couleur => {
+                const option = document.createElement("option");
+                option.value = couleur.id_couleur;
+                option.textContent = couleur.couleur;
+    
+                // Si c'est la couleur sélectionnée, on la marque comme "selected"
+                if (couleur.id_couleur == couleurId) {
+                    option.selected = true;
+                }
+    
+                couleurSelect.appendChild(option);
+            });
+            return couleurSelect;
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
+async function fetchTailles(produitId, tailleId) {
+    try {
+        const response = await fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getTaille.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    id_produit: produitId,
+                }),
             }
-        })
-    });
+        );
 
-});
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des tailles du produit');
+        }
 
-const id_us = cookieValue; // A changer en cookieValue
+        const data = await response.json();
 
-appelPanier()
+        if (data.status === 'success') {
+            const tailleSelect = document.createElement("select");
+            tailleSelect.id = "tailleSelect";
+            tailleSelect.classList.add('border', 'rounded-md', 'px-2', 'py-1', 'cursor-pointer')
+            data.data.forEach(taille => {
+                const option = document.createElement("option");
+                option.value = taille.id_taille;
+                option.textContent = taille.taille;
+    
+                // Si c'est la taille sélectionnée, on la marque comme "selected"
+                if (taille.id_taille == tailleId) {
+                    option.selected = true;
+                }
+    
+                tailleSelect.appendChild(option);
+            });
+            return tailleSelect;
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
+async function displayProduits(produits) {
+    const produitsContainer = document.querySelector('#produitsContainer'); 
+    produitsContainer.innerHTML = ''; 
+    produitsContainer.innerHTML = `
+        <h2 class="font-semibold text-2xl leading-10 mb-8 sm:text-3xl text-black">
+            Mon panier
+        </h2>`;
+    let total = 0;
+
+    for (const produit of produits) {
+        const produitElement = document.createElement('div');
+        produitElement.classList.add('grid', 'grid-cols-1', 'lg:grid-cols-2', 'min-[550px]:gap-6', 'border-t', 'border-gray-200', 'py-6', 'relative');
+                
+        produitElement.innerHTML = `
+            <button id="suppButton_${produit.id_detail_prod}" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition duration-300 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto">
+                <div>
+                    <img src="https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/img/articles/${produit.path_img}" alt="${produit.nom_produit}" class="xl:w-[140px] rounded-sm w-40 object-cover"/>
+                </div>
+                <div class=" w-full max-w-sm">
+                    <h5 class="font-semibold text-xl leading-8 text-black max-[550px]:text-center">
+                        ${produit.nom_produit}
+                    </h5>
+                    <p class="font-normal text-sm leading-5 text-gray-500 max-[550px]:text-center max-[550px]:hidden">
+                        ${produit.nom_categorie}
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center flex-col min-[550px]:flex-row w-full max-xl:max-w-xl max-xl:mx-auto gap-2">
+                <div class="flex items-center gap-2">
+                    <div id="couleursContainer" class="flex justify-center items-center">
+                        <!-- Ajout des couleurs en js -->
+                    </div>
+                    <div id="taillesContainer" class="flex justify-center items-center">
+                        <!-- Ajout des tailles en js -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-center w-full mx-auto justify-center">
+              <button id="removeButton_${produit.id_detail_prod}" class="group rounded-l-full px-2 py-2 border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
+                <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <path d="M16.5 11H5.5" stroke="" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+              </button>
+              <input type="text" class="border-y border-gray-200 outline-none text-gray-900 font-semibold text-lg w-full max-w-[80px] min-w-[40px] placeholder:text-gray-900 py-[5px] text-center bg-transparent" placeholder="${produit.quantite}"/>
+              <button id="addButton_${produit.id_detail_prod}" class="group rounded-r-full px-2 py-2 border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
+                <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+            <h6 class="font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">
+                ${produit.prix_total}€
+            </h6>
+          </div>
+        `;
+        produitsContainer.appendChild(produitElement);
+        total += parseFloat(produit.prix_total);
+
+        const couleurSelectOption = await fetchCouleurs(produit.id_produit, produit.id_couleur);
+        const tailleSelectOption = await fetchTailles(produit.id_produit, produit.id_taille);
+
+        if (couleurSelectOption) {
+            produitElement.querySelector('#couleursContainer').appendChild(couleurSelectOption);
+        } 
+        if (tailleSelectOption) {
+            produitElement.querySelector('#taillesContainer').appendChild(tailleSelectOption);
+        }
+
+        const suppButtons = produitElement.querySelector(`#suppButton_${produit.id_detail_prod}`);
+        const couleurSelect = produitElement.querySelector(`#couleurSelect`);
+        const tailleSelect = produitElement.querySelector(`#tailleSelect`);
+        const removeButton = produitElement.querySelector(`#removeButton_${produit.id_detail_prod}`);
+        const addButton = produitElement.querySelector(`#addButton_${produit.id_detail_prod}`);
+        
+        if (suppButtons) {
+            suppButtons.addEventListener('click', () => {
+                delProduit(produit.id_detail_prod);
+                fetchProduits();
+            });
+        }
+
+        if (couleurSelect) {
+            couleurSelect.addEventListener('change', async (e) => {
+                const detail = await fetchDetailProduit(produit.id_produit, produit.id_taille,  e.target.value);
+                if (detail) {
+                    newPanier(detail[0].id_detail_prod, produit.quantite);
+                    delProduit(produit.id_detail_prod);
+                    fetchProduits();
+                }
+            });
+        }
+
+        if (tailleSelect) {
+            tailleSelect.addEventListener('change', async (e) => {
+                const detail = await fetchDetailProduit(produit.id_produit, e.target.value,  produit.id_couleur);
+                if (detail) {
+                    newPanier(detail[0].id_detail_prod, produit.quantite);
+                    delProduit(produit.id_detail_prod);
+                    fetchProduits();
+                }
+            });
+        }
+
+        if (removeButton) {
+            removeButton.addEventListener('click', () => {
+                updateQuantite(produit.quantite - 1, produit.id_detail_prod);
+                fetchProduits();
+            });
+        }
+
+        if (addButton) {
+            addButton.addEventListener('click', () => {
+                updateQuantite(produit.quantite + 1, produit.id_detail_prod);
+                fetchProduits();
+            });
+        }
+
+    };
+
+    const prixContainer = document.createElement("div");
+    prixContainer.classList.add('bg-gray-50', 'rounded-xl', 'p-6', 'w-80', 'mb-8', 'max-lg:max-w-xl', 'max-lg:mx-auto', 'ml-auto');
+    prixContainer.innerHTML = `
+        <div class="flex items-center justify-between w-full py-2">
+            <p class="font-manrope font-medium text-2xl leading-9 text-gray-900">
+              Total 
+            </p>
+            <h6 class="font-manrope font-medium text-2xl leading-9">
+              ${total}€
+            </h6>
+        </div>
+        <div class="flex items-center flex-col sm:flex-row justify-center gap-3 mt-8">
+          <button class="rounded-md w-full max-w-[280px] py-4 text-center justify-center items-center bg-[#B43131] font-semibold text-lg text-white flex transition-all duration-500 hover:bg-[#9b2929]">
+            Passer au paiement
+            <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
+              <path d="M8.75324 5.49609L14.2535 10.9963L8.75 16.4998" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+    `;
+
+    produitsContainer.appendChild(prixContainer);
+}
+
+async function delProduit(detailProdId) {
+    try {
+        const userId = getUserIdFromCookie();
+        if (!userId) {
+            console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
+            window.location.href = "accueil.html";
+            return;
+        }
+
+        const response = await fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/delPanier.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    id_user: userId,
+                    id_detail_prod: detailProdId,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la suppression du produit');
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            console.log(data.message);
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
+async function updateQuantite(quantite, detailProdId) {
+    try {
+        const userId = getUserIdFromCookie();
+        if (!userId) {
+            console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
+            window.location.href = "accueil.html";
+            return;
+        }
+
+        if (quantite <= 0) {
+            quantite = 1;
+        }
+
+        const response = await fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/setPanier.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    quantite: quantite,
+                    id_user: userId,
+                    id_detail_prod: detailProdId,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la modification de la quantité du produit');
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            console.log(data.message);
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
+async function newPanier(detailProdId, quantite) {
+    try {
+        const userId = getUserIdFromCookie();
+        if (!userId) {
+            console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
+            window.location.href = "accueil.html";
+            return;
+        }
+
+        const response = await fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/newPanier.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    id_user: userId,
+                    id_detail_prod: detailProdId,
+                    quantite: quantite,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la modification de la quantité du produit');
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            console.log(data.message);
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
+async function fetchDetailProduit(produitId, tailleId, couleurId) {
+    try {
+        const response = await fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getDetailProduit.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    id_produit: produitId,
+                    id_taille: tailleId,
+                    id_couleur: couleurId,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la modification de la quantité du produit');
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            return data.data;
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
+fetchProduits();
