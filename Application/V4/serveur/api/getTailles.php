@@ -7,7 +7,8 @@ $json = [];
 
 $query =
 "SELECT *
-FROM TAILLE";
+FROM TAILLE
+ORDER BY id_taille";
 
 $res = $db->prepare($query);
 
