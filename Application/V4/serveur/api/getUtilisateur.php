@@ -11,7 +11,7 @@ FROM SELECT_USERS
 WHERE id_user = :id_user";
 
 $res = $db->prepare($query);
-$res->bindParam(":id_user", $_POST["id_id_userus"]);
+$res->bindParam(":id_user", $_POST["id_user"]);
 
 try {
     $res->execute();
