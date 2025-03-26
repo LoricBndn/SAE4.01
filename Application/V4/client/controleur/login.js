@@ -1,63 +1,63 @@
-let id_user = -1;
-let form = document.querySelector("form");
-let msgErreur = document.querySelector("#MessageErreur");
+document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("loginForm");
+    const loginInput = document.getElementById("login");
+    const passwordInput = document.getElementById("password");
+    const loginError = document.getElementById("loginError");
+    const passwordError = document.getElementById("passwordError");
+    const togglePassword = document.getElementById("togglePassword");
+    const eyeIcon = document.getElementById("eyeIcon");
 
-msgErreur.style.display = "none";
-msgErreur.style.backgroundColor = "red";
-msgErreur.style.color = "white";
-msgErreur.style.fontSize = "16px";
-msgErreur.style.padding = "10px";
-msgErreur.style.marginBottom = "10px";
-msgErreur.style.borderRadius = "5px";
-msgErreur.style.textAlign = "center";
-msgErreur.style.justifyContent = "center";
+    // Afficher/Masquer le mot de passe
+    togglePassword.addEventListener("click", () => {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
+        }
+    });
 
-async function authentifier() {
-    var login = $("#login").val();
-    var motdepasse = $("#motdepasse").val();
+    // Gestion du formulaire
+    loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        loginError.classList.add("hidden");
+        passwordError.classList.add("hidden");
 
-    if (!login || !motdepasse) {
-        msgErreur.innerHTML = "Remplissez tous les champs !";
-        msgErreur.style.display = "block";
-        setTimeout(() => {
-            msgErreur.style.display = "none";
-        }, 10000);
+        const login = loginInput.value.trim();
+        const password = passwordInput.value.trim();
 
-        return;
-    }
-    const reponse = await fetch(
-        "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/connexion.php", {
+        if (login === "" || password === "") {
+            if (login === "") loginError.classList.remove("hidden");
+            if (password === "") passwordError.classList.remove("hidden");
+            return;
+        }
+
+        // Envoi des données
+        fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/connexion.php", {
             method: "POST",
             body: new URLSearchParams({
-                login: login,
-                mdp: motdepasse,
+                identifiant: login,
+                mdp: password,
             }),
-        }
-    );
-
-    const data = await reponse.json();
-    console.log("M : ", data.message);
-    console.log("Data : ", data);
-
-
-    if (data.status === "success") {
-
-        let date_expiration = new Date();
-        date_expiration.setTime(date_expiration.getTime() + (1 * 60 * 60 * 1000));
-
-        // console.log("User :",data.id_us);
-
-        document.cookie = "id_user=" + data.id_us + ";expires=" + date_expiration.toUTCString() + ";path=/";
-
-        // console.log("Cookie : ", document.cookie);
-        window.location.href = "accueil.html";
-        return;
-    }
-
-    // Echec
-    msgErreur.innerHTML = data.message;
-    msgErreur.style.display = "block";
-    setTimeout(() => {
-        msgErreur.style.display = "none";
-    }, 10000);
-}
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            if (data.status === "success") {
+                let date_expiration = new Date();
+                date_expiration.setTime(date_expiration.getTime() + 1 * 60 * 60 * 1000);
+                document.cookie = `id_user=${data.id_user};expires=${date_expiration.toUTCString()};path=/`;
+                window.location.href = "accueil.html";
+            } else {
+                loginError.textContent = "Identifiant ou mot de passe incorrect.";
+                loginError.classList.remove("hidden");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            loginError.textContent = "Erreur de connexion au serveur.";
+            loginError.classList.remove("hidden");
+        });
+    });
+});
