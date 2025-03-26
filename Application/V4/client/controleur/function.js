@@ -1,9 +1,9 @@
- const cookieValue = document.cookie
+ export const cookieValue = document.cookie
   .split("; ")
   .find((row) => row.startsWith("id_user="))
   ?.split("=")[1];
 
- function isConnected() {
+export  function isConnected() {
   return cookieValue !== undefined;
 }
 
