@@ -6,8 +6,8 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"UPDATE PANIER SET
-quantite = :quantite,
+"UPDATE PANIER 
+SET quantite = :quantite
 WHERE id_user = :id_user
 AND id_detail_prod = :id_detail_prod";
 
