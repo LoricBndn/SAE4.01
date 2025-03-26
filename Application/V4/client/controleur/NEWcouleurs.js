@@ -8,7 +8,7 @@ async function fetchCouleurs() {
         }
 
         const data = await response.json();
-
+        
         if (data.status === 'success') {
             remplirFiltreCouleurs(data.data);
         } else {
