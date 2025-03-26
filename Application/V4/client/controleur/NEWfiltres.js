@@ -46,9 +46,4 @@ function rechercherProduits() {
     });
 }
 
-document.querySelector('button[type="submit"]').addEventListener('click', (e) => {
-    e.preventDefault();
-    rechercherProduits();
-});
-
 document.getElementById('default-search').addEventListener('input', rechercherProduits);
