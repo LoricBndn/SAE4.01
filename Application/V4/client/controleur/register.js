@@ -126,36 +126,36 @@ document.addEventListener("DOMContentLoaded", function () {
     
     
 
-    // function checkLoginExists() {
-    //     return fetch(`https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/checkLogin.php?login=${inputs.login.value}`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.exists) {
-    //                 showError(inputs.login, errors.login, "Cet identifiant est déjà pris.");
-    //                 return false;
-    //             }
-    //             clearError(inputs.login, errors.login);
-    //             return true;
-    //         })
-    //         .catch(() => {
-    //             showError(inputs.login, errors.login, "Erreur lors de la vérification du login.");
-    //             return false;
-    //         });
-    // }
+        function checkLoginExists() {
+            return fetch(`https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/checkLogin.php?login=${inputs.login.value}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.data) {
+                        showError(inputs.login, errors.login, "Cet identifiant est déjà pris.");
+                        return false;
+                    }
+                    clearError(inputs.login, errors.login);
+                    return true;
+                })
+                .catch(() => {
+                    showError(inputs.login, errors.login, "Erreur lors de la vérification du login.");
+                    return false;
+                });
+        }
+        
 
 
 
 
-
-    function register() {
+    async function register() {
         if (!validatePassword() || !validateConfirmPassword() || !validateEmail() || !validateAge()) {
             return;
         }
 
-        // const loginAvailable = await checkLoginExists();
-        // if (!loginAvailable) {
-        //     return;
-        // }
+        const loginAvailable = await checkLoginExists();
+        if (!loginAvailable) {
+            return;
+        }
 
 
         const user = {

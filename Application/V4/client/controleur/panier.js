@@ -278,17 +278,80 @@ async function displayProduits(produits) {
             </h6>
         </div>
         <div class="flex items-center flex-col sm:flex-row justify-center gap-3 mt-8">
-          <button class="rounded-md w-full max-w-[280px] py-4 text-center justify-center items-center bg-[#B43131] font-semibold text-lg text-white flex transition-all duration-500 hover:bg-[#9b2929]">
+ <button id="paymentButton" class="w-full max-w-[280px] py-4 text-center justify-center items-center bg-[#B43131] font-semibold text-lg text-white flex transition-all duration-500 hover:bg-[#9b2929] rounded-md">
             Passer au paiement
             <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
-              <path d="M8.75324 5.49609L14.2535 10.9963L8.75 16.4998" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.75324 5.49609L14.2535 10.9963L8.75 16.4998" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-          </button>
+        </button>
         </div>
     `;
 
     produitsContainer.appendChild(prixContainer);
+    produitsContainer.appendChild(prixContainer);
+
+    const paymentButton = document.getElementById("paymentButton");
+    if (paymentButton) {
+        paymentButton.addEventListener("click", () => {
+            // Afficher le modal PayPal
+            document.body.classList.add("overflow-hidden");
+
+            const modal = document.createElement("div");
+            modal.id = "paypalModal";
+            modal.classList.add("modal", "hidden", "fixed", "inset-0", "z-50", "flex", "items-center", "justify-center", "bg-[#000000ad]");
+
+            modal.innerHTML = `
+                <div class="modal-content bg-white p-8 rounded-md w-full max-w-md">
+                    <span id="closeModal" class="close absolute top-0 right-0 p-4 text-2xl cursor-pointer text-gray-600">&times;</span>
+                    <div id="paypal-button-container"></div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            modal.classList.remove("hidden");
+
+            modal.addEventListener("click", (event) => {
+                // Si l'utilisateur clique à l'extérieur de la fenêtre modale (pas sur .modal-content)
+                if (event.target === modal) {
+                    modal.classList.add("hidden");
+                    document.body.removeChild(modal);
+
+                    // Réactiver le défilement de la page
+                    document.body.classList.remove("overflow-hidden");
+                }
+            });
+
+            // Ajouter l'événement de fermeture en cliquant sur la croix (close)
+            const closeModalButton = document.getElementById("closeModal");
+            if (closeModalButton) {
+                closeModalButton.addEventListener("click", () => {
+                    modal.classList.add("hidden");
+                    document.body.removeChild(modal);
+
+                    // Réactiver le défilement de la page
+                    document.body.classList.remove("overflow-hidden");
+                });
+            }
+
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: total 
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert("Transaction réussie : " + details.payer.name.given_name);
+                    });
+                }
+            }).render('#paypal-button-container');
+        });
+    }
 }
+
 
 async function delProduit(detailProdId) {
     try {
