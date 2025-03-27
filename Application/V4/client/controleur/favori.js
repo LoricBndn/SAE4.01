@@ -169,39 +169,4 @@ async function clearFavori() {
     }
 }
 
-async function newFavori(detailProdId) {
-    try {
-        const userId = getUserIdFromCookie();
-        if (!userId) {
-            console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
-            window.location.href = "accueil.html";
-            return;
-        }
-
-        const response = await fetch(
-            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/newFavori.php", {
-                method: "POST",
-                body: new URLSearchParams({
-                    id_user: userId,
-                    id_detail_prod: detailProdId,
-                }),
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error("Erreur lors de l'ajout d'un favori");
-        }
-
-        const data = await response.json();
-
-        if (data.status === 'success') {
-            console.log(data.message);
-        } else {
-            console.error(data.message);
-        }
-    } catch (error) {
-        console.error('Erreur:', error);
-    }
-}
-
 fetchProduits();
