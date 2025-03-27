@@ -1,4 +1,4 @@
-import { cookieValue } from "./function.js";
+import { userId } from "./function.js";
 export class ProduitGenerique extends HTMLElement {
   constructor() {
     super();
@@ -196,7 +196,7 @@ function imprimerTousLesProduits(produits) {
   const categorie = urlParams.get("idCategorie");
   const taille = urlParams.get("idTaille");
   const couleur = urlParams.get("idCouleur");
-  const id_us = cookieValue;
+  const id_us = userId;
   if (recherche) {
     produits = produitsRecherche(recherche, produits);
   }
@@ -310,7 +310,7 @@ function traiterFavori(id_us) {
             const checkbox = produit.shadowRoot.querySelector(".checkbox");
             if (id_fav.includes(parseInt(checkbox.id))) checkbox.checked = true;
             checkbox.addEventListener("click", (event) => {
-              if (cookieValue == null) window.location.href = "login.html";
+              if (userId == null) window.location.href = "login.html";
               if (event.target.checked === true) {
                 ajouterFavori(event, id_us);
               } else {
@@ -416,8 +416,8 @@ afficherTousLesProduits();
 window.onload = function() {
   const end = Date.now() + 1000;
 
-  // Check if the user is logged in by checking the cookie or session (cookieValue could be a flag for login)
-  if (cookieValue != null) {  // You can replace `cookieValue` with whatever variable you use to track login state
+  // Check if the user is logged in by checking the cookie or session (userId could be a flag for login)
+  if (userId != null) {  // You can replace `userId` with whatever variable you use to track login state
     // go Buckeyes!
     const colors = ["#bb0000", "#ffffff"];
 

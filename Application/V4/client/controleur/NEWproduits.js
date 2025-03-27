@@ -1,6 +1,9 @@
 import { fetchTaillesByIdProduit } from "./NEWtailles.js";
 import { userId } from "./function.js";
 
+console.log(userId);
+
+
 let currentPage = 1;
 const itemsPerPage = 20;
 let allArticles = [];
