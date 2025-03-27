@@ -11,15 +11,18 @@
 
   <body>
     <header id="printHeader"></header>
-
-    <section class="py-24 relative">
-      <div id="produitsContainer" class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+    <div class="min-h-screen flex flex-col justify-between">
+      <div class="flex-grow">
+    <section class="pt-23 lg:pt-30 relative">
+      <div id="produitsContainer" class="w-full max-w-screen-xl max-lg:px-4 lg-6 mx-auto">
           <!-- Affichage des produits via JS -->
       </div>
     </section>
 
-    <footer id="printFooter"></footer>
-  </body>
+  </div>
+    
+  <footer id="printFooter"></footer>
+</div>  </body>
  <script type="module" src="./controleur/function.js"></script>
   <script type="module" src="./controleur/panier.js"></script>
   <script

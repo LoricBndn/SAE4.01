@@ -10,9 +10,10 @@
 
   <body>
     <header id="printHeader"></header>
-
-    <section class="py-10 lg:py-24 relative">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen flex flex-col justify-between">
+      <div class="flex-grow">
+    <section class="pt-25 lg:pt-29 relative">
+      <div class="mx-auto  max-w-screen-xl max-lg:px-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
             <img
             id="grande_img"
@@ -45,7 +46,7 @@
 
                 <div
                 id="couleurs_produits"
-                  class="flex items-center justify-start gap-3 md:gap-6 relative mb-6"
+                  class="flex flex-wrap items-center justify-start gap-3 md:gap-6 relative mb-6"
                 >
                 </div>
 
@@ -169,8 +170,10 @@
       </div>
     </section>
 
+            </div>
+    
     <footer id="printFooter"></footer>
-  </body>
+  </div>  </body>
   <script type="module" src="./controleur/function.js"></script>
   <script type="module" src="./controleur/NEWdetail_produit.js"></script>
 </html>
