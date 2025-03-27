@@ -113,7 +113,7 @@ function printFooter() {
             <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
                 <li>
                 <a href="#" class="hover:underline me-4 md:me-6">Conditions générales de vente</a>
-                    <a href="#" class="hover:underline me-4 md:me-6">Politique de confidentialité</a>
+                    <a href="./mentionsLegales.html" class="hover:underline me-4 md:me-6">Mentions Légales</a>
                 </li>
             </ul>
         </div>
