@@ -92,7 +92,7 @@ function displayCommandes(page) {
                 </dl>
 
                 <div class="w-full grid lg:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end gap-4">
-                    <a href="./historique_detail.html?id=${commande.id_commande}" class="w-full inline-flex justify-center rounded-lg bg-white px-3 py-2 text-sm font-medium  hover:bg-gray-100 hover:text-primary-700 md:w-auto">Voir en détails</a>
+                    <a href="./historique_detail.html?id_commande=${commande.id_commande}" class="w-full inline-flex justify-center rounded-lg bg-white px-3 py-2 text-sm font-medium  hover:bg-gray-100 hover:text-primary-700 md:w-auto">Voir en détails</a>
                 </div>
             `;
             commandesContainer.appendChild(commandeElement);
@@ -109,7 +109,7 @@ function displayPagination() {
     const totalPages = Math.ceil(commandesData.length / itemsPerPage);
 
     // Si aucune commande, ne pas afficher la pagination
-    if (totalPages === 0) {
+    if (totalPages === 0 || totalPages === 1) {
         paginationContainer.style.display = 'none';
         return;
     }

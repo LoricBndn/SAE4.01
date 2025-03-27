@@ -15,9 +15,15 @@ function getUserIdFromCookie() {
     return null; // Retourne null si l'ID utilisateur n'est pas trouvé
 }
 
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id_commande");
+}
+
 async function fetchProduits() {
     try {
         const userId = getUserIdFromCookie();
+        const commandeId = getQueryParams();
         if (!userId) {
             console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
             window.location.href = "accueil.html";
@@ -29,7 +35,7 @@ async function fetchProduits() {
                 method: "POST",
                 body: new URLSearchParams({
                     id_user: userId,
-                    id_commande: 61
+                    id_commande: commandeId,
                 }),
             }
         );
