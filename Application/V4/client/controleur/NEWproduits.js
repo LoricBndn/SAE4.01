@@ -78,31 +78,26 @@ function displayProducts(page, articles = allArticles) {
 }
 
 export function filtreProduits() {
-    const selectedCategories = Array.from(document.querySelectorAll('#dropdownCategory input[type="checkbox"]:checked'))
+    const selectedCategories = Array.from(document.querySelectorAll('#dropdownCategory input[type="checkbox"]:checked, #dropdownCategoryMobile input[type="checkbox"]:checked'))
         .map(checkbox => checkbox.getAttribute('data-category'));
 
-    const selectedColors = Array.from(document.querySelectorAll('#dropdownColor input[type="checkbox"]:checked'))
+    const selectedColors = Array.from(document.querySelectorAll('#dropdownColor input[type="checkbox"]:checked, #dropdownColorMobile input[type="checkbox"]:checked'))
         .map(checkbox => checkbox.getAttribute('data-color'));
 
-    const selectedSizes = Array.from(document.querySelectorAll('#dropdownSize input[type="checkbox"]:checked'))
+    const selectedSizes = Array.from(document.querySelectorAll('#dropdownSize input[type="checkbox"]:checked, #dropdownSizeMobile input[type="checkbox"]:checked'))
         .map(checkbox => checkbox.getAttribute('data-size'));
 
-        console.log("Catégories sélectionnées:", selectedCategories);
-        console.log("Couleurs sélectionnées:", selectedColors);
-        console.log("Tailles sélectionnées:", selectedSizes);
+    const filteredArticles = allArticles.filter(article => {            
+        const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(String(article.id_categorie));
+        const colorMatch = selectedColors.length === 0 || selectedColors.includes(String(article.id_couleur));
+        const sizeMatch = selectedSizes.length === 0 || article.tailles.some(size => selectedSizes.includes(String(size.id_taille)));            
         
-        
-        const filteredArticles = allArticles.filter(article => {            
-            const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(String(article.id_categorie));
-            const colorMatch = selectedColors.length === 0 || selectedColors.includes(String(article.id_couleur));
-            const sizeMatch = selectedSizes.length === 0 || article.tailles.some(size => selectedSizes.includes(String(size.id_taille)));            
-            
-            return categoryMatch && colorMatch && sizeMatch;
-        });
-        console.log("Articles chargés :", filteredArticles);
-    
+        return categoryMatch && colorMatch && sizeMatch;
+    });
+
     displayFilteredProducts(filteredArticles);
 }
+
 
 function displayFilteredProducts(filteredArticles) {
     currentPage = 1;
@@ -112,6 +107,31 @@ function displayFilteredProducts(filteredArticles) {
 
 document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', filtreProduits);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const openFilterModal = document.getElementById("openFilterModal");
+    const closeFilterModal = document.getElementById("closeFilterModal");
+    const filterModal = document.getElementById("filterModal");
+
+    if (openFilterModal && closeFilterModal && filterModal) {
+        openFilterModal.addEventListener("click", () => {
+            filterModal.classList.remove("hidden");
+            filterModal.classList.add("flex");
+        });
+
+        closeFilterModal.addEventListener("click", () => {
+            filterModal.classList.add("hidden");
+            filterModal.classList.remove("flex");
+        });
+
+        filterModal.addEventListener("click", (event) => {
+            if (event.target === filterModal) {
+                filterModal.classList.add("hidden");
+                filterModal.classList.remove("flex");
+            }
+        });
+    }
 });
 
 function rechercherProduits() {
@@ -194,6 +214,7 @@ function displayPagination(filteredArticles = allArticles) {
     });
     paginationContainer.appendChild(nextButton);
 }
+
 
 
 fetchArticles();
