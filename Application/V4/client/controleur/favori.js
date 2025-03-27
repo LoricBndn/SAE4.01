@@ -1,75 +1,207 @@
-import { cookieValue } from "./function.js";
-
-if (cookieValue === undefined) {
-    window.location.href = 'accueil.html'; //Si le cookie est vide, l'utilisateur n'est pas connecté donc on retourne à l'accueil.
+function getUserIdFromCookie() {
+    const name = "id_user=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length); // Retourne l'ID utilisateur
+        }
+    }
+    return null; // Retourne null si l'ID utilisateur n'est pas trouvé
 }
 
-import { imprimerUnProduit } from "./accueil.js"
 
-const id_us = cookieValue; // A changer en cookieValue
+async function fetchProduits() {
+    try {
+        const userId = getUserIdFromCookie();
+        if (!userId) {
+            console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
+            window.location.href = "accueil.html";
+            return;
+        }
 
-async function getFavori(id_us) {
-    return await fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/getFavori.php", {
-            method: "POST",
-            body: new URLSearchParams({
-                id_us: id_us,
-            }),
-        }).then((response) => response.json().then(json => afficherFavoris(json.data)))
-        .catch((error) => console.log(error));
-}
-
-function afficherFavoris(produits) {
-    //console.log(produits);
-    const listeFav = document.querySelector(".listeFav");
-    // console.log(produits);
-
-    produits.forEach((produit) => {
-
-        const produitElement = imprimerUnProduit(produit)
-        
-        listeFav.appendChild(produitElement);
-        produitElement.shadowRoot.querySelector("label").querySelector("img").src = "img/icones/star_plein.png";
-    });
-}
-
-function btn() {
-    const produits = document.querySelectorAll(".listeFav produit-generique");
-    produits.forEach((produit) => {
-
-        const button = produit.shadowRoot.querySelector("input");
-        button.addEventListener("click", (event) => {
-
-            //console.log("ptdr mais c'est quoi ce truc");
-            // console.log(event.target.id);
-            fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/delFavori.php", {
+        const response = await fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getFavoris.php", {
                 method: "POST",
                 body: new URLSearchParams({
-                    id_us: id_us,
-                    id_prod: event.target.id.substring(2),
-                })
-            }).then(() => {
-                document.querySelector(".listeFav").innerHTML = "";
+                    id_user: userId,
+                }),
+            }
+        );
 
-                getFavori(id_us).then(() => {
-                    btn();
-                });
-            })
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des produits des favoris');
+        }
+
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            displayProduits(data.data);
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
+async function displayProduits(produits) {
+    const produitsContainer = document.querySelector('#produitsContainer'); 
+    produitsContainer.innerHTML = ''; 
+
+    for (const produit of produits) {
+        const produitElement = document.createElement('a');
+        produitElement.href = `detail_produit.html?id_produit=${produit.id_produit}&id_couleur=${produit.id_couleur}`;
+        produitElement.classList.add('group');
+                
+        produitElement.innerHTML = `
+            <img src="https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/img/articles/${produit.path_img}" 
+                alt="${produit.nom_produit}" 
+                class="w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75" />
+            <div class="flex justify-between items-center">
+                <div>
+                    <h3 class="mt-4 text-sm text-gray-700">${produit.nom_produit}</h3>
+                    <p class="mt-1 text-lg font-medium text-gray-900">${produit.prix}€</p>
+                </div>
+                <div class="cursor-pointer favorite-icon" data-id="${produit.id_detail_prod}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="red" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-heart heartIcon">
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                    </svg>
+                </div>
+            </div>
+        `;
+        produitsContainer.appendChild(produitElement);
+    }
+
+    document.querySelectorAll('.favorite-icon').forEach(icon => {
+        icon.addEventListener('click', async (event) => {
+            event.preventDefault();
+            const heartIcon = icon.querySelector('.heartIcon');
+            const detailProdId = icon.dataset.id;
+
+            if (heartIcon.getAttribute("fill") === "red") {
+                await delProduit(detailProdId);
+                heartIcon.setAttribute("fill", "none");
+                fetchProduits();
+            } 
         });
     });
-};
 
-getFavori(id_us).then(() => {
-    //console.log("ok");
-    btn();
-});
+    document.querySelector('#deleteButton').addEventListener('click', async () => { 
+        clearFavori();
+        fetchProduits();
+    });
+}
 
-document.getElementById("clear").addEventListener("click", () => {
-    fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V1/serveur/api/clearFavori.php", {
-        method: "POST",
-        body: new URLSearchParams({
-            id_us: id_us,
-        })
-    }).then(() => {
-        document.querySelector(".listeFav").innerHTML = "<p>Aucun favori</p>";
-    })
-});
+async function delProduit(detailProdId) {
+    try {
+        const userId = getUserIdFromCookie();
+        if (!userId) {
+            console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
+            window.location.href = "accueil.html";
+            return;
+        }
+
+        const response = await fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/delFavori.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    id_user: userId,
+                    id_detail_prod: detailProdId,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la suppression du produit');
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            console.log(data.message);
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
+async function clearFavori() {
+    try {
+        const userId = getUserIdFromCookie();
+        if (!userId) {
+            console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
+            window.location.href = "accueil.html";
+            return;
+        }
+
+        const response = await fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/clearFavori.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    id_user: userId,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la suppression des favoris');
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            console.log(data.message);
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
+async function newFavori(detailProdId) {
+    try {
+        const userId = getUserIdFromCookie();
+        if (!userId) {
+            console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
+            window.location.href = "accueil.html";
+            return;
+        }
+
+        const response = await fetch(
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/newFavori.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    id_user: userId,
+                    id_detail_prod: detailProdId,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Erreur lors de l'ajout d'un favori");
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            console.log(data.message);
+        } else {
+            console.error(data.message);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
+fetchProduits();
