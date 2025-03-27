@@ -185,6 +185,12 @@ function displayProducts(page, articles = allArticles) {
 }
 
 export function filtreProduits() {
+    const searchInput = document
+    .getElementById("default-search")
+    .value.trim()
+    .toLowerCase();
+
+  // Appliquer les filtres
   const selectedCategories = Array.from(
     document.querySelectorAll(
       '#dropdownCategory input[type="checkbox"]:checked, #dropdownCategoryMobile input[type="checkbox"]:checked'
@@ -203,7 +209,8 @@ export function filtreProduits() {
     )
   ).map((checkbox) => checkbox.getAttribute("data-size"));
 
-  const filteredArticles = allArticles.filter((article) => {
+  // Filtrer les articles en fonction des filtres
+  let filteredArticles = allArticles.filter((article) => {
     const categoryMatch =
       selectedCategories.length === 0 ||
       selectedCategories.includes(String(article.id_categorie));
@@ -219,18 +226,23 @@ export function filtreProduits() {
     return categoryMatch && colorMatch && sizeMatch;
   });
 
-  displayFilteredProducts(filteredArticles);
-}
+  // Appliquer la recherche sur les articles filtrés
+  filteredArticles = filteredArticles.filter((article) => {
+    const articleName = article.nom_produit.toLowerCase();
+    return articleName.includes(searchInput);
+  });
 
-function displayFilteredProducts(filteredArticles) {
   currentPage = 1;
   displayProducts(currentPage, filteredArticles);
   displayPagination(filteredArticles);
 }
 
 document.querySelectorAll(".filter-checkbox").forEach((checkbox) => {
-  checkbox.addEventListener("change", filtreProduits);
-});
+    checkbox.addEventListener("change", filtreProduits);
+  });
+  
+  const rechercher = document.getElementById("default-search");
+  if (rechercher) rechercher.addEventListener("input", filtreProduits);
 
 document.addEventListener("DOMContentLoaded", () => {
   const openFilterModal = document.getElementById("openFilterModal");
@@ -256,23 +268,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-function rechercherProduits() {
-  const searchInput = document
-    .getElementById("default-search")
-    .value.trim()
-    .toLowerCase();
-
-  document.querySelectorAll("#products-container a").forEach((article) => {
-    const articleName = article.querySelector("h3").textContent.toLowerCase();
-    const matchesSearch = articleName.includes(searchInput);
-
-    article.style.display = matchesSearch ? "block" : "none";
-  });
-}
-
-const rechercher = document.getElementById("default-search");
-if (rechercher) rechercher.addEventListener("input", rechercherProduits);
 
 function displayPagination(filteredArticles = allArticles) {
   const paginationContainer = document.querySelector("#pagination-container");
