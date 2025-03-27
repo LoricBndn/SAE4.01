@@ -15,6 +15,7 @@ function getUserIdFromCookie() {
     return null; // Retourne null si l'ID utilisateur n'est pas trouvé
 }
 const userId = getUserIdFromCookie();
+const confetti = window.confetti;
 
 async function fetchProduits() {
     try {
@@ -392,9 +393,11 @@ async function displayProduits(produits) {
                         .then(res => res.json())
                         .then(data => {
                             if (data.status === "success") {
-                                alert("Commande validée avec succès !");
                                 launchConfetti();
-                                window.location.href = `historique_detail.html?id_commande=${data.res}`;
+                                setTimeout(function() {
+                                    window.location.href = `historique_detail.html?id_commande=${data.res}`;
+                                }, 2000);
+                             
                             } else {
                                 alert("Erreur lors de la commande : " + data.message);
                             }
@@ -412,13 +415,13 @@ async function displayProduits(produits) {
 
 // Fonction pour lancer les confettis
 function launchConfetti() {
-    const duration = 5 * 1000; // Durée en millisecondes (5 secondes)
+    const duration = 1000; // Durée en millisecondes
     const end = Date.now() + duration;
     const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
 
     (function frame() {
         confetti({
-            particleCount: 10,
+            particleCount: 5,
             angle: Math.random() * 360,
             spread: 70,
             origin: { x: Math.random(), y: Math.random() },
