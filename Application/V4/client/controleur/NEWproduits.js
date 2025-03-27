@@ -1,34 +1,14 @@
 import { fetchTaillesByIdProduit } from "./NEWtailles.js";
+import { userId } from "./function.js";
 
 let currentPage = 1;
 const itemsPerPage = 20;
 let allArticles = [];
 let favoris = [];
-const userId = getUserIdFromCookie();
-
-function getUserIdFromCookie() {
-  const name = "id_user=";
-  const decodedCookie = decodeURIComponent(document.cookie);
-  const ca = decodedCookie.split(";");
-
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length); // Retourne l'ID utilisateur
-    }
-  }
-  return null; // Retourne null si l'ID utilisateur n'est pas trouvé
-}
 
 async function fetchFavoris() {
   try {
     if (!userId) {
-      console.error(
-        "Utilisateur non authentifié ou ID utilisateur introuvable"
-      );
       return;
     }
 
@@ -344,7 +324,6 @@ function displayPagination(filteredArticles = allArticles) {
 
 async function delProduit(detailProdId) {
   try {
-    const userId = getUserIdFromCookie();
     if (!userId) {
       console.error(
         "Utilisateur non authentifié ou ID utilisateur introuvable"
@@ -381,7 +360,6 @@ async function delProduit(detailProdId) {
 
 async function newFavori(detailProdId) {
   try {
-    const userId = getUserIdFromCookie();
     if (!userId) {
       console.error(
         "Utilisateur non authentifié ou ID utilisateur introuvable"

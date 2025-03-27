@@ -16,13 +16,13 @@ function showCookieBanniere() {
 }
 showCookieBanniere();
 
-export const cookieValue = document.cookie
+export const userId = document.cookie
   .split("; ")
   .find((row) => row.startsWith("id_user="))
   ?.split("=")[1];
 
  export function isConnected() {
-  return cookieValue !== undefined;
+  return userId !== undefined;
 }
 
 function printHeader() {

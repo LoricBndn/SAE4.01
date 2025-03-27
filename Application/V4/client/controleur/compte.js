@@ -1,24 +1,7 @@
-export const cookieValue = getUserIdFromCookie();
-
-function getUserIdFromCookie() {
-    const name = "id_user=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) === 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return null;
-}
+import { userId } from "./function.js";
 
 async function afficherInfos() {
-    if (cookieValue === null) {
+    if (userId === null) {
         window.location.href = 'accueil.html'; 
         return;
     }
@@ -27,7 +10,7 @@ async function afficherInfos() {
         const response = await fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getUtilisateur.php", {
             method: "POST",
             body: new URLSearchParams({
-                id_user: cookieValue,
+                id_user: userId,
             }),
         });
 

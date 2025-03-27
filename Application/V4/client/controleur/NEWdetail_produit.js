@@ -1,23 +1,7 @@
 import { codeHexaCouleurs } from "./listCouleurs.js";
 import { fetchCouleursByIdProduit } from "./NEWcouleurs.js";
 import { fetchTaillesByIdProduit } from "./NEWtailles.js";
-
-function getUserIdFromCookie() {
-  const name = "id_user=";
-  const decodedCookie = decodeURIComponent(document.cookie);
-  const ca = decodedCookie.split(";");
-
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return null;
-}
+import { userId } from "./function.js";
 
 function getQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -245,9 +229,7 @@ async function afficherTailles(id_produit) {
 async function ajouterAuPanier(id_produit, id_taille, id_couleur) {
   console.log(id_produit, id_taille, id_couleur);
 
-  const id_user = getUserIdFromCookie();
-
-  if (!id_user) {
+  if (!userId) {
     window.location.href = "login.html";
     return;
   }
@@ -266,7 +248,7 @@ async function ajouterAuPanier(id_produit, id_taille, id_couleur) {
   const quantite = inputQte.value;
 
   const data = {
-    id_user: id_user,
+    id_user: userId,
     id_detail_prod: id_detail_prod,
     quantite: quantite,
   };

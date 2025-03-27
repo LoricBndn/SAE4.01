@@ -1,3 +1,5 @@
+import { userId } from "./function.js";
+
 const eyeIcon = document.getElementById("eyeIcon");
 const togglePassword = document.getElementById("togglePassword");
 const passwordInput = document.getElementById("new-password"); // Sélecteur pour l'input du mot de passe
@@ -5,22 +7,7 @@ const eyeIconConfirm = document.getElementById("eyeIconConfirm");
 const togglePasswordConfirm = document.getElementById("togglePasswordConfirm");
 const confirmPasswordInput = document.getElementById("confirm-password"); 
 // Sélecteur pour l'input de confirmation
-function getUserIdFromCookie() {
-  const name = "id_user=";
-  const decodedCookie = decodeURIComponent(document.cookie);
-  const ca = decodedCookie.split(';');
-  
-  for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') {
-          c = c.substring(1);
-      }
-      if (c.indexOf(name) === 0) {
-          return c.substring(name.length, c.length);
-      }
-  }
-  return null;
-}
+
 togglePassword.addEventListener("click", () => {
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
@@ -90,11 +77,10 @@ togglePasswordConfirm.addEventListener("click", () => {
       }
 
       // Envoi de la requête de changement de mot de passe
-      const cookieValue = getUserIdFromCookie(); // Utilise la fonction que tu as déjà pour obtenir l'id_user
       fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/changerMDP.php", {
           method: "POST",
           body: new URLSearchParams({
-              "id_user": cookieValue,
+              "id_user": userId,
               "mdp": newPassword,
           }),
       }).then((response) => {

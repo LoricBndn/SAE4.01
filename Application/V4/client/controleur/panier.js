@@ -1,20 +1,5 @@
-function getUserIdFromCookie() {
-    const name = "id_user=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) === 0) {
-            return c.substring(name.length, c.length); // Retourne l'ID utilisateur
-        }
-    }
-    return null; // Retourne null si l'ID utilisateur n'est pas trouvé
-}
-const userId = getUserIdFromCookie();
+import { userId } from "./function.js";
+
 const confetti = window.confetti;
 
 async function fetchProduits() {
@@ -438,7 +423,6 @@ function launchConfetti() {
 
 async function delProduit(detailProdId) {
     try {
-        const userId = getUserIdFromCookie();
         if (!userId) {
             console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
             window.location.href = "accueil.html";
@@ -473,7 +457,6 @@ async function delProduit(detailProdId) {
 
 async function updateQuantite(quantite, detailProdId) {
     try {
-        const userId = getUserIdFromCookie();
         if (!userId) {
             console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
             window.location.href = "accueil.html";
@@ -513,7 +496,6 @@ async function updateQuantite(quantite, detailProdId) {
 
 async function newPanier(detailProdId, quantite) {
     try {
-        const userId = getUserIdFromCookie();
         if (!userId) {
             console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
             window.location.href = "accueil.html";
