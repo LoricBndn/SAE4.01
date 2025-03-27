@@ -145,9 +145,9 @@ async function displayProduits(produits) {
                     <img src="https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/img/articles/${produit.path_img}" alt="${produit.nom_produit}" class="xl:w-[140px] rounded-sm w-40 object-cover"/>
                 </div>
                 <div class=" w-full max-w-sm">
-                    <h5 class="font-semibold text-xl leading-8 text-black max-[550px]:text-center">
+                    <a href="detail_produit.html?id_produit=${produit.id_produit}&id_couleur=${produit.id_couleur}" class="font-semibold text-xl leading-8 text-black max-[550px]:text-center">
                         ${produit.nom_produit}
-                    </h5>
+                    </a>
                     <p class="font-normal text-sm leading-5 text-gray-500 max-[550px]:text-center max-[550px]:hidden">
                         ${produit.nom_categorie}
                     </p>
@@ -185,7 +185,7 @@ async function displayProduits(produits) {
             <h6 class="ffont-bold text-2xl leading-9 w-full max-w-[176px] text-center">
                 ${produit.prix_total}€
             </h6>
-          </div>
+        </div>
         `;
         produitsContainer.appendChild(produitElement);
         total += parseFloat(produit.prix_total);
