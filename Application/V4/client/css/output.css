@@ -1437,11 +1437,17 @@
     --tw-border-style: solid;
     border-style: solid;
   }
+  .border-\[\#00FF00\] {
+    border-color: #00FF00;
+  }
   .border-\[\#cfcfcf\] {
     border-color: #cfcfcf;
   }
   .border-\[\#d5d5d5\] {
     border-color: #d5d5d5;
+  }
+  .border-\[\#ffffff\] {
+    border-color: #ffffff;
   }
   .border-gray-200 {
     border-color: var(--color-gray-200);

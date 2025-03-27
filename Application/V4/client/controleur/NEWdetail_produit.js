@@ -73,7 +73,7 @@ async function afficherProduit(id_produit, id_couleur) {
     );
 
     if (couleur.id_couleur == id_couleur) {
-      bouton.classList.add(`border-black-500`);
+      bouton.classList.add(`border-[${codeHexaCouleurs.get(couleur.id_couleur).hex}]`);
     } else {
       bouton.classList.add("border-gray-200", "hover:border-gray-500");
     }

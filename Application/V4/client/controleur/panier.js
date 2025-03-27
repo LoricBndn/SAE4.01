@@ -278,7 +278,7 @@ async function displayProduits(produits) {
             </h6>
         </div>
         <div class="flex items-center flex-col sm:flex-row justify-center gap-3 mt-8">
- <button id="paymentButton" class="w-full max-w-[280px] py-4 text-center justify-center items-center bg-[#B43131] font-semibold text-lg text-white flex transition-all duration-500 hover:bg-[#9b2929] rounded-md">
+ <button id="paymentButton" class="cursor-pointer w-full max-w-[280px] py-4 text-center justify-center items-center bg-[#B43131] font-semibold text-lg text-white flex transition-all duration-500 hover:bg-[#9b2929] rounded-md">
             Passer au paiement
             <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
                 <path d="M8.75324 5.49609L14.2535 10.9963L8.75 16.4998" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -342,9 +342,28 @@ async function displayProduits(produits) {
                         }]
                     });
                 },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        alert("Transaction réussie : " + details.payer.name.given_name);
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (details) {
+                                    fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/payer.php", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: new URLSearchParams({ id_us: cookieValue })
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.status === "success") {
+                                alert("Commande validée avec succès !");
+                                window.location.href = "accueil.html";
+                            } else {
+                                alert("Erreur lors de la commande : " + data.message);
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Erreur lors de l'enregistrement:", err);
+                            alert("Erreur réseau lors de la validation de commande");
+                        });
                     });
                 }
             }).render('#paypal-button-container');
