@@ -14,11 +14,10 @@ function getUserIdFromCookie() {
     }
     return null; // Retourne null si l'ID utilisateur n'est pas trouvé
 }
-
+const userId = getUserIdFromCookie();
 
 async function fetchProduits() {
     try {
-        const userId = getUserIdFromCookie();
         if (!userId) {
             console.error('Utilisateur non authentifié ou ID utilisateur introuvable');
             window.location.href = "accueil.html";
@@ -344,13 +343,14 @@ async function displayProduits(produits) {
                 },
                 onApprove: function (data, actions) {
                     return actions.order.capture().then(function (details) {
-                                    fetch("https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/payer.php", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/x-www-form-urlencoded"
-                            },
-                            body: new URLSearchParams({ id_us: cookieValue })
-                        })
+                        fetch(
+                            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/payer.php", {
+                                method: "POST",
+                                body: new URLSearchParams({
+                                    id_user: userId,
+                                }),
+                            }
+                        )
                         .then(res => res.json())
                         .then(data => {
                             if (data.status === "success") {
