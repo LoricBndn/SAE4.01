@@ -9,12 +9,10 @@ $query =
 "SELECT *
 FROM DETAIL_PRODUIT
 WHERE  id_produit = :id_produit
-AND id_taille = :id_taille
 AND id_couleur = :id_couleur";
 
 $res = $db->prepare($query);
 $res->bindParam(":id_produit", $_POST["id_produit"]);
-$res->bindParam(":id_taille", $_POST["id_taille"]);
 $res->bindParam(":id_couleur", $_POST["id_couleur"]);
 
 try {
