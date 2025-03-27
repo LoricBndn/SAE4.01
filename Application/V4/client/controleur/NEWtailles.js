@@ -1,56 +1,61 @@
-import { filtreProduits } from './NEWproduits.js';
+import { filtreProduits } from "./NEWproduits.js";
 
 async function fetchTailles() {
-    try {
-        const response = await fetch('https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getTailles.php');
-        if (!response.ok) {
-            throw new Error('Erreur lors de la récupération des tailles');
-        }
-
-        const data = await response.json();
-
-        if (data.status === 'success') {
-            afficherLesTailles(data.data);
-        } else {
-            console.error(data.message);
-        }
-    } catch (error) {
-        console.error('Erreur:', error);
+  try {
+    const response = await fetch(
+      "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getTailles.php"
+    );
+    if (!response.ok) {
+      throw new Error("Erreur lors de la récupération des tailles");
     }
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      afficherLesTailles(data.data);
+    } else {
+      console.error(data.message);
+    }
+  } catch (error) {
+    console.error("Erreur:", error);
+  }
 }
 
 export async function fetchTaillesByIdProduit(idProduit) {
-    try {
-        const response = await fetch('https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getTaille.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `id_produit=${idProduit}`
-        });
+  try {
+    const response = await fetch(
+      "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getTaille.php",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `id_produit=${idProduit}`,
+      }
+    );
 
-        if (!response.ok) {
-            throw new Error('Erreur lors de la récupération des tailles');
-        }
-
-        const data = await response.json();
-        return data.status === 'success' ? data.data : [];
-    } catch (error) {
-        console.error('Erreur:', error);
-        return [];
+    if (!response.ok) {
+      throw new Error("Erreur lors de la récupération des tailles");
     }
+
+    const data = await response.json();
+    return data.status === "success" ? data.data : [];
+  } catch (error) {
+    console.error("Erreur:", error);
+    return [];
+  }
 }
 
 function afficherLesTailles(tailles) {
-    const taillesContainer = document.querySelector('#dropdownSize');
-    taillesContainer.innerHTML = '';
-    
-    const gridContainer = document.createElement('div');
-    gridContainer.classList.add('grid', 'grid-cols-2', 'gap-2');
-    
-    tailles.forEach(taille => {
-        const tailleElement = document.createElement('div');
-        tailleElement.classList.add('flex', 'items-center', 'gap-2');
+  const taillesContainer = document.querySelector("#dropdownSize");
+  taillesContainer.innerHTML = "";
 
-        tailleElement.innerHTML = `
+  const gridContainer = document.createElement("div");
+  gridContainer.classList.add("grid", "grid-cols-2", "gap-2");
+
+  tailles.forEach((taille) => {
+    const tailleElement = document.createElement("div");
+    tailleElement.classList.add("flex", "items-center", "gap-2");
+
+    tailleElement.innerHTML = `
         <div class="flex items-center gap-2">
             <input 
                 type="checkbox" 
@@ -62,14 +67,16 @@ function afficherLesTailles(tailles) {
         </div>
         `;
 
-        gridContainer.appendChild(tailleElement);
-    });
-    
-    taillesContainer.appendChild(gridContainer);
+    gridContainer.appendChild(tailleElement);
+  });
 
-    document.querySelectorAll('.taille-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('change', filtreProduits);
-    });
+  taillesContainer.appendChild(gridContainer);
+
+  document.querySelectorAll(".taille-checkbox").forEach((checkbox) => {
+    checkbox.addEventListener("change", filtreProduits);
+  });
 }
 
-fetchTailles();
+if (window.location.pathname.includes("accueil")) {
+  fetchTailles();
+}

@@ -65,6 +65,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                   <div class="flex items-center justify-center w-full">
                     <button
+                    id="moins"
                       class="cursor-pointer group py-4 px-6 border border-gray-400 rounded-l-full shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-300 hover:bg-gray-50"
                     >
                       <svg
@@ -98,11 +99,14 @@
                       </svg>
                     </button>
                     <input
+                    id="qte"
                       type="text"
                       class="font-semibold text-gray-900 text-lg py-[13px] px-6 w-full lg:max-w-[118px] border-y border-gray-400 bg-transparent placeholder:text-gray-900 text-center hover:bg-gray-50 focus-within:bg-gray-50 outline-0"
                       placeholder="1"
+                      value="1"
                     />
                     <button
+                    id="plus"
                       class="cursor-pointer group py-4 px-6 border border-gray-400 rounded-r-full shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-300 hover:bg-gray-50"
                     >
                       <svg
@@ -137,6 +141,7 @@
                     </button>
                   </div>
                   <button
+                  id="ajouter_panier"
                     class="cursor-pointer group py-4 px-5 rounded-full bg-[#ffd6d6] text-[#B43131] font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-[#ffd6d6]"
                   >
                     <svg
