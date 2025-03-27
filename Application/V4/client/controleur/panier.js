@@ -404,7 +404,7 @@ async function newPanier(detailProdId, quantite) {
 async function fetchDetailProduit(produitId, tailleId, couleurId) {
     try {
         const response = await fetch(
-            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getDetailProduit.php", {
+            "https://devweb.iutmetz.univ-lorraine.fr/~bondon3u/2A/SAE4.01/Application/V4/serveur/api/getDetailProduits.php", {
                 method: "POST",
                 body: new URLSearchParams({
                     id_produit: produitId,
