@@ -197,7 +197,7 @@ async function displayProduits(produits) {
                 </svg>
               </button>
             </div>
-            <h6 class="font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">
+            <h6 class="ffont-bold text-2xl leading-9 w-full max-w-[176px] text-center">
                 ${produit.prix_total}€
             </h6>
           </div>
@@ -267,13 +267,13 @@ async function displayProduits(produits) {
     };
 
     const prixContainer = document.createElement("div");
-    prixContainer.classList.add('bg-gray-50', 'rounded-xl', 'p-6', 'w-80', 'mb-8', 'max-lg:max-w-xl', 'max-lg:mx-auto', 'ml-auto');
+    prixContainer.classList.add('bg-gray-100', 'rounded-xl', 'p-6', 'w-80', 'mb-8', 'max-lg:max-w-xl', 'max-lg:mx-auto', 'ml-auto');
     prixContainer.innerHTML = `
         <div class="flex items-center justify-between w-full py-2">
-            <p class="font-manrope font-medium text-2xl leading-9 text-gray-900">
+            <p class="font-medium text-2xl leading-9 text-gray-900">
               Total 
             </p>
-            <h6 class="font-manrope font-medium text-2xl leading-9">
+            <h6 class="font-medium text-2xl leading-9">
               ${total}€
             </h6>
         </div>
