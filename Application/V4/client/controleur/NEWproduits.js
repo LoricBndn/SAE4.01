@@ -121,7 +121,7 @@ function displayProducts(page, articles = allArticles) {
                     ${userId ? `
                 <div class="cursor-pointer favorite-icon" data-id="${article.id_detail_prod}" title="${article.favori ? 'Retirer des favoris' : 'Ajouter au favori'}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="${article.favori ? 'red' : 'none'}" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                        fill="${article.favori ? 'red' : 'none'}" stroke="currentColor" stroke-width="${article.favori ? '0' : '1'}" stroke-linecap="round"
                         stroke-linejoin="round" class="lucide lucide-heart heartIcon">
                         <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
                     </svg>
@@ -142,10 +142,12 @@ function displayProducts(page, articles = allArticles) {
                     if (heartIcon.getAttribute("fill") === "red") {
                         await delProduit(detailProdId);
                         heartIcon.setAttribute("fill", "none");
+                        heartIcon.setAttribute("stroke-width", "1");
                         icon.setAttribute("title", "Ajouter au favori");
                     } else {
                         await newFavori(detailProdId);
                         heartIcon.setAttribute("fill", "red");
+                        heartIcon.setAttribute("stroke-width", "0");
                         icon.setAttribute("title", "Retirer des favoris");
                     }
                 });
