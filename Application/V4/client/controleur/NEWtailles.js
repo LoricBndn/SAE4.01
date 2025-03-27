@@ -44,7 +44,7 @@ function afficherLesTailles(tailles) {
     taillesContainer.innerHTML = '';
     
     const gridContainer = document.createElement('div');
-    gridContainer.classList.add('grid', 'grid-cols-2', 'gap-2'); // Similaire à la grille des couleurs
+    gridContainer.classList.add('grid', 'grid-cols-2', 'gap-2');
     
     tailles.forEach(taille => {
         const tailleElement = document.createElement('div');
@@ -67,7 +67,6 @@ function afficherLesTailles(tailles) {
     
     taillesContainer.appendChild(gridContainer);
 
-    // Ajouter l'événement de filtre sur les checkboxes des tailles
     document.querySelectorAll('.taille-checkbox').forEach(checkbox => {
         checkbox.addEventListener('change', filtreProduits);
     });
