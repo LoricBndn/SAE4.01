@@ -119,7 +119,7 @@ function displayProducts(page, articles = allArticles) {
                         <p class="mt-1 text-lg font-medium text-gray-900">${article.prix} €</p>
                     </div>
                     ${userId ? `
-                <div class="cursor-pointer favorite-icon" data-id="${article.id_detail_prod}">
+                <div class="cursor-pointer favorite-icon" data-id="${article.id_detail_prod}" title="${article.favori ? 'Retirer des favoris' : 'Ajouter au favori'}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="${article.favori ? 'red' : 'none'}" stroke="currentColor" stroke-width="1" stroke-linecap="round"
                         stroke-linejoin="round" class="lucide lucide-heart heartIcon">
@@ -142,9 +142,11 @@ function displayProducts(page, articles = allArticles) {
                     if (heartIcon.getAttribute("fill") === "red") {
                         await delProduit(detailProdId);
                         heartIcon.setAttribute("fill", "none");
+                        icon.setAttribute("title", "Ajouter au favori");
                     } else {
                         await newFavori(detailProdId);
                         heartIcon.setAttribute("fill", "red");
+                        icon.setAttribute("title", "Retirer des favoris");
                     }
                 });
             });
