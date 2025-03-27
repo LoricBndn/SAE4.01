@@ -89,7 +89,7 @@ function displayPagination() {
 
     const prevButton = document.createElement('li');
     prevButton.innerHTML = `
-        <a href="#" class="flex h-8 items-center justify-center rounded-s-lg bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+        <a href="#products" class="flex h-8 items-center justify-center rounded-s-lg bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">
             <span class="sr-only">Précédent</span>
             <svg class="h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
@@ -108,7 +108,7 @@ function displayPagination() {
     for (let page = 1; page <= totalPages; page++) {
         const pageButton = document.createElement('li');
         pageButton.innerHTML = `
-            <a href="#" class="flex h-8 items-center justify-center bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">${page}</a>
+            <a href="#products" class="flex h-8 items-center justify-center bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">${page}</a>
         `;
         if (page === currentPage) {
             pageButton.querySelector('a').classList.add('bg-primary-50', 'text-primary-600', 'hover:bg-primary-100');
@@ -123,7 +123,7 @@ function displayPagination() {
 
     const nextButton = document.createElement('li');
     nextButton.innerHTML = `
-        <a href="#" class="flex h-8 items-center justify-center rounded-e-lg bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+        <a href="#products" class="flex h-8 items-center justify-center rounded-e-lg bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">
             <span class="sr-only">Suivant</span>
             <svg class="h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />

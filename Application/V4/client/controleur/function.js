@@ -108,9 +108,8 @@ function printFooter() {
 <footer class="mt-15 bg-white rounded-lg shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
     <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="./accueil.html" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                <img src="./img/logo.png" class="h-14" alt="" />
-            </a>
+                    <span class="block text-sm text-gray-500 sm:text-center">Paul Muller Pulls Moches - Site de vente</span>
+
             <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
                 <li>
                 <a href="#" class="hover:underline me-4 md:me-6">Conditions générales de vente</a>
@@ -118,8 +117,6 @@ function printFooter() {
                 </li>
             </ul>
         </div>
-        <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
-        <span class="block text-sm text-gray-500 sm:text-center">Paul Muller Pulls Moches - Site de vente</span>
     </div>
 </footer>
 

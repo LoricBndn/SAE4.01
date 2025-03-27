@@ -1480,6 +1480,9 @@
   .bg-\(color\:--my-color\) {
     background-color: var(--my-color);
   }
+  .bg-\[\#000000\] {
+    background-color: #000000;
+  }
   .bg-\[\#0088cc\] {
     background-color: #0088cc;
   }
