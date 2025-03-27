@@ -63,7 +63,7 @@ try {
     $res->bindValue(":id_user", $id_user);
     $res->execute();
 
-    echo json_encode(["status" => "success", "message" => "Commande validée et enregistrée"]);
+    echo json_encode(["status" => "success", "message" => "Commande validée et enregistrée", "res" => $id_commande]);
 } catch (Exception $exception) {
     echo json_encode(["status" => "error", "message" => $exception->getMessage()]);
 }

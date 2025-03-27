@@ -355,7 +355,7 @@ async function displayProduits(produits) {
                         .then(data => {
                             if (data.status === "success") {
                                 alert("Commande validée avec succès !");
-                                window.location.href = "accueil.html";
+                                window.location.href = `historique_detail.html?id_commande=${data.res}`;
                             } else {
                                 alert("Erreur lors de la commande : " + data.message);
                             }
