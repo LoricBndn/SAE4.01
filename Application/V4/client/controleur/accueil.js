@@ -416,28 +416,31 @@ afficherTousLesProduits();
 window.onload = function() {
   const end = Date.now() + 1000;
 
-// go Buckeyes!
-const colors = ["#bb0000", "#ffffff"];
+  // Check if the user is logged in by checking the cookie or session (cookieValue could be a flag for login)
+  if (cookieValue != null) {  // You can replace `cookieValue` with whatever variable you use to track login state
+    // go Buckeyes!
+    const colors = ["#bb0000", "#ffffff"];
 
-(function frame() {
-  confetti({
-    particleCount: 2,
-    angle: 60,
-    spread: 55,
-    origin: { x: 0, y: 1 },
-    colors: colors,
-  });
+    (function frame() {
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 1 },
+        colors: colors,
+      });
 
-  confetti({
-    particleCount: 2,
-    angle: 120,
-    spread: 55,
-    origin: { x:1 },
-    colors: colors,
-  });
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: colors,
+      });
 
-  if (Date.now() < end) {
-    requestAnimationFrame(frame);
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    })();
   }
-})();
 };
