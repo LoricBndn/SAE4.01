@@ -355,6 +355,7 @@ async function displayProduits(produits) {
                         .then(data => {
                             if (data.status === "success") {
                                 alert("Commande validée avec succès !");
+                                launchConfetti();
                                 window.location.href = `historique_detail.html?id_commande=${data.res}`;
                             } else {
                                 alert("Erreur lors de la commande : " + data.message);
@@ -369,6 +370,28 @@ async function displayProduits(produits) {
             }).render('#paypal-button-container');
         });
     }
+}
+
+// Fonction pour lancer les confettis
+function launchConfetti() {
+    const duration = 5 * 1000; // Durée en millisecondes (5 secondes)
+    const end = Date.now() + duration;
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+
+    (function frame() {
+        confetti({
+            particleCount: 10,
+            angle: Math.random() * 360,
+            spread: 70,
+            origin: { x: Math.random(), y: Math.random() },
+            colors: colors,
+            zIndex: 9999
+        });
+        
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    })();
 }
 
 
