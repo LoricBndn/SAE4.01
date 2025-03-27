@@ -180,15 +180,15 @@ async function displayProduits(produits) {
             </div>
             
             <div class="flex items-center w-full mx-auto justify-center">
-              <button id="removeButton_${produit.id_detail_prod}" class="group rounded-l-full px-2 py-2 border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
+              <button id="moinsButton_${produit.id_detail_prod}" class="group rounded-l-full px-2 py-2 border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
                 <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
                   <path d="M16.5 11H5.5" stroke="" stroke-width="1.6" stroke-linecap="round"/>
                   <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round"/>
                   <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round"/>
                 </svg>
               </button>
-              <input type="text" class="border-y border-gray-200 outline-none text-gray-900 font-semibold text-lg w-full max-w-[80px] min-w-[40px] placeholder:text-gray-900 py-[5px] text-center bg-transparent" placeholder="${produit.quantite}"/>
-              <button id="addButton_${produit.id_detail_prod}" class="group rounded-r-full px-2 py-2 border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
+              <input id="qte" type="text" class="border-y border-gray-200 outline-none text-gray-900 font-semibold text-lg w-full max-w-[80px] min-w-[40px] placeholder:text-gray-900 py-[5px] text-center bg-transparent" value="${produit.quantite}"/>
+              <button id="plusButton_${produit.id_detail_prod}" class="group rounded-r-full px-2 py-2 border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
                 <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
                   <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-width="1.6" stroke-linecap="round"/>
                   <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round"/>
@@ -217,8 +217,9 @@ async function displayProduits(produits) {
         const suppButtons = produitElement.querySelector(`#suppButton_${produit.id_detail_prod}`);
         const couleurSelect = produitElement.querySelector(`#couleurSelect`);
         const tailleSelect = produitElement.querySelector(`#tailleSelect`);
-        const removeButton = produitElement.querySelector(`#removeButton_${produit.id_detail_prod}`);
-        const addButton = produitElement.querySelector(`#addButton_${produit.id_detail_prod}`);
+        const inputQte = document.getElementById("qte");
+        const moinsButton = produitElement.querySelector(`#moinsButton_${produit.id_detail_prod}`);
+        const plusButton = produitElement.querySelector(`#plusButton_${produit.id_detail_prod}`);
         
         if (suppButtons) {
             suppButtons.addEventListener('click', () => {
@@ -249,19 +250,38 @@ async function displayProduits(produits) {
             });
         }
 
-        if (removeButton) {
-            removeButton.addEventListener('click', () => {
+        if (moinsButton) {
+            moinsButton.addEventListener('click', () => {
                 updateQuantite(produit.quantite - 1, produit.id_detail_prod);
                 fetchProduits();
             });
         }
 
-        if (addButton) {
-            addButton.addEventListener('click', () => {
+        if (plusButton) {
+            plusButton.addEventListener('click', () => {
                 updateQuantite(produit.quantite + 1, produit.id_detail_prod);
                 fetchProduits();
             });
         }
+
+        let timeout;
+
+        if (inputQte) {
+            inputQte.addEventListener("input", () => {
+                clearTimeout(timeout); // Annule l'appel précédent si un nouvel input survient
+                let quantity = parseInt(inputQte.value);
+                if (isNaN(quantity) || quantity < 1) {
+                    quantity = 1;
+                }
+        
+                // Attente de 500ms avant de faire l'appel
+                timeout = setTimeout(() => {
+                    updateQuantite(quantity, produit.id_detail_prod);
+                    fetchProduits();
+                }, 500); 
+            });
+        }
+        
 
     };
 
