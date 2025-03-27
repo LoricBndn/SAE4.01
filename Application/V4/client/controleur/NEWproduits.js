@@ -14,6 +14,7 @@ async function fetchArticles() {
         }
 
         const data = await response.json();
+
         if (data.status === "success") {
             allArticles = await Promise.all(
                 data.data.map(async (article) => {
@@ -31,13 +32,13 @@ async function fetchArticles() {
     }
 }
 
-function displayProducts(page) {
+function displayProducts(page, articles = allArticles) {
     const productsContainer = document.querySelector("#products-container");
     productsContainer.innerHTML = "";
 
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = page * itemsPerPage;
-    const pageArticles = allArticles.slice(startIndex, endIndex);
+    const pageArticles = articles.slice(startIndex, endIndex);
 
     if (pageArticles.length > 0) {
         pageArticles.forEach((article) => {
@@ -76,16 +77,70 @@ function displayProducts(page) {
     }
 }
 
-function displayPagination() {
+export function filtreProduits() {
+    const selectedCategories = Array.from(document.querySelectorAll('#dropdownCategory input[type="checkbox"]:checked'))
+        .map(checkbox => checkbox.getAttribute('data-category'));
+
+    const selectedColors = Array.from(document.querySelectorAll('#dropdownColor input[type="checkbox"]:checked'))
+        .map(checkbox => checkbox.getAttribute('data-color'));
+
+    const selectedSizes = Array.from(document.querySelectorAll('#dropdownSize input[type="checkbox"]:checked'))
+        .map(checkbox => checkbox.getAttribute('data-size'));
+
+        console.log("Catégories sélectionnées:", selectedCategories);
+        console.log("Couleurs sélectionnées:", selectedColors);
+        console.log("Tailles sélectionnées:", selectedSizes);
+        
+        
+        const filteredArticles = allArticles.filter(article => {            
+            const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(String(article.id_categorie));
+            const colorMatch = selectedColors.length === 0 || selectedColors.includes(String(article.id_couleur));
+            const sizeMatch = selectedSizes.length === 0 || article.tailles.some(size => selectedSizes.includes(String(size.id_taille)));            
+            
+            return categoryMatch && colorMatch && sizeMatch;
+        });
+        console.log("Articles chargés :", filteredArticles);
+    
+    displayFilteredProducts(filteredArticles);
+}
+
+function displayFilteredProducts(filteredArticles) {
+    currentPage = 1;
+    displayProducts(currentPage, filteredArticles);
+    displayPagination(filteredArticles);
+}
+
+document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', filtreProduits);
+});
+
+function rechercherProduits() {
+    const searchInput = document.getElementById('default-search').value.trim().toLowerCase();
+
+    document.querySelectorAll('#products-container a').forEach(article => {
+        const articleName = article.querySelector('h3').textContent.toLowerCase();
+        const matchesSearch = articleName.includes(searchInput);
+
+        article.style.display = matchesSearch ? 'block' : 'none';
+    });
+}
+
+const rechercher = document.getElementById('default-search');
+if (rechercher) rechercher.addEventListener('input', rechercherProduits);
+
+function displayPagination(filteredArticles = allArticles) {
     const paginationContainer = document.querySelector('#pagination-container');
     paginationContainer.innerHTML = ''; 
 
-    const totalPages = Math.ceil(allArticles.length / itemsPerPage);
-
-    if (totalPages === 0) {
+    if (filteredArticles.length <= itemsPerPage) {
         paginationContainer.style.display = 'none';
         return;
+    } else {
+        paginationContainer.style.display = 'flex';
     }
+
+    const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
+    if (totalPages === 0) return;
 
     const prevButton = document.createElement('li');
     prevButton.innerHTML = `
@@ -99,8 +154,8 @@ function displayPagination() {
     prevButton.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
-            displayProducts(currentPage);
-            displayPagination();
+            displayProducts(currentPage, filteredArticles);
+            displayPagination(filteredArticles);
         }
     });
     paginationContainer.appendChild(prevButton);
@@ -115,8 +170,8 @@ function displayPagination() {
         }
         pageButton.addEventListener('click', () => {
             currentPage = page;
-            displayProducts(currentPage);
-            displayPagination();
+            displayProducts(currentPage, filteredArticles);
+            displayPagination(filteredArticles);
         });
         paginationContainer.appendChild(pageButton);
     }
@@ -133,11 +188,12 @@ function displayPagination() {
     nextButton.addEventListener('click', () => {
         if (currentPage < totalPages) {
             currentPage++;
-            displayProducts(currentPage);
-            displayPagination();
+            displayProducts(currentPage, filteredArticles);
+            displayPagination(filteredArticles);
         }
     });
     paginationContainer.appendChild(nextButton);
 }
+
 
 fetchArticles();

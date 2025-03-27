@@ -1,4 +1,4 @@
-import { filtrePoduits } from './NEWfiltres.js';
+import { filtreProduits } from './NEWproduits.js';
 
 async function fetchCouleurs() {
     try {
@@ -68,7 +68,7 @@ function remplirFiltreCouleurs(couleurs) {
     });
 
     document.querySelectorAll('#dropdownColor input[type="checkbox"], #dropdownColorMobile input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', filtrePoduits);
+        checkbox.addEventListener('change', filtreProduits);
     });
 }
 

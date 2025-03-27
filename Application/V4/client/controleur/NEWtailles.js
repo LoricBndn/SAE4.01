@@ -1,4 +1,4 @@
-import { filtrePoduits } from './NEWfiltres.js';
+import { filtreProduits } from './NEWproduits.js';
 
 async function fetchTailles() {
     try {
@@ -69,7 +69,7 @@ function afficherLesTailles(tailles) {
 
     // Ajouter l'événement de filtre sur les checkboxes des tailles
     document.querySelectorAll('.taille-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('change', filtrePoduits);
+        checkbox.addEventListener('change', filtreProduits);
     });
 }
 

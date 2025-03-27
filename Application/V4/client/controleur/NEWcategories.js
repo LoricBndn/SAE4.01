@@ -1,4 +1,4 @@
-import { filtrePoduits } from './NEWfiltres.js';
+import { filtreProduits } from './NEWproduits.js';
 
 async function fetchCategories() {
     try {
@@ -41,7 +41,7 @@ function remplirFiltreCategories(categories) {
     });
 
     document.querySelectorAll('#dropdownCategory input[type="checkbox"], #dropdownCategoryMobile input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', filtrePoduits);
+        checkbox.addEventListener('change', filtreProduits);
     });
 }
 
