@@ -248,7 +248,7 @@ async function ajouterAuPanier(id_produit, id_taille, id_couleur) {
   const id_user = getUserIdFromCookie();
 
   if (!id_user) {
-    alert("Utilisateur non authentifié");
+    window.location.href = "login.html";
     return;
   }
 
