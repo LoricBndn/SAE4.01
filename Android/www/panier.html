@@ -1,42 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="css/output.css" />
     <title>Panier - PM2</title>
-</head>
-<style>
-    p {
-        text-align: center;
-    }
-    
-    button {
-        width: 200px;
-        text-align: center;
-    }
-</style>
+  </head>
 
-<body>
+  <body>
     <header id="printHeader"></header>
+    <div class="min-h-screen flex flex-col justify-between">
+      <div class="flex-grow">
+    <section class="pt-23 lg:pt-30 relative">
+      <div id="produitsContainer" class="w-full max-w-screen-xl max-lg:px-4 lg-6 mx-auto">
+          <!-- Affichage des produits via JS -->
+      </div>
+    </section>
 
-    <div id="panier"></div>
-    <div id="footer" style="display: none;">
-        <div id="total">Prix total :
-            <span id="prixTotal">0</span>€
-        </div>
-        <button id="clear" class="footer form_button">Vider le panier</button>
-        <button id="payer" class="footer form_button">Payer</button>
-    </div>
-    <footer id="printFooter"></footer>
-</body>
-
-
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script type="module" type="module" src="./controleur/function.js"></script>
-<script type="module" type="module" src="./controleur/panier.js"></script>
-
+  </div>
+    
+  <footer id="printFooter"></footer>
+</div>  </body>
+ <script type="module" src="./controleur/function.js"></script>
+  <script type="module" src="./controleur/panier.js"></script>
+  <script
+  src="https://www.paypal.com/sdk/js?client-id=AYbGjopJkEbu_OiL5OSD1U9Ap-se2TzEJMJPUnxbvMXvJwVjnKnQOsY1ka00XmVsIAxkI3ejK_ZZPhpo&buyer-country=FR&currency=EUR&components=buttons"
+></script>
+<script src="./controleur/paypal.js"></script>
 </html>

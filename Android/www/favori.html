@@ -5,23 +5,36 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css" />
     <title>Favoris - PM2</title>
 </head>
 
-<body class="accueil">
+<body class="flex flex-col min-h-screen">
     <header id="printHeader"></header>
 
-    <h1>Tous vos favoris<br /><button id="clear" class="form_button red">Supprimer tous les favoris</button></h1>
-
-    <div class="listeFav descProduit row"></div>
+    <div class="flex-grow">
+        <section class="pt-25 lg:pt-29 relative">
+            <div class="w-full max-w-screen-xl max-lg:px-4 lg-6 mx-auto">
+                <div class="flex justify-between items-center pb-8">
+                    <h2 class="text-xl font-semibold leading-7 sm:leading-9 text-black sm:text-3xl">
+                        Vos produits favoris
+                    </h2>
+                    <button id="deleteButton" class="py-1 px-3 text-sm sm:py-3 sm:px-5 bg-[#B43131] font-semibold text-md text-white rounded-md cursor-pointer">
+                        Supprimer tous les favoris
+                    </button>
+                </div>
+                <div id="produitsContainer" class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-8">
+                    <!-- Ajout des favoris via JS -->
+                </div>
+            </div>
+        </section>
+    </div>
 
     <footer id="printFooter"></footer>
+
 </body>
 
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script type="module" src="./controleur/favori.js"></script>
 <script type="module" src="./controleur/function.js"></script>
+<script type="module" src="./controleur/favori.js"></script>
 
 </html>

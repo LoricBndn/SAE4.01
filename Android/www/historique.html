@@ -5,32 +5,43 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css" />
     <title>Historique - PM2</title>
 </head>
 
-<body class="accueil">
+<body>
     <header id="printHeader"></header>
-
-    <h1>Historique de vos commandes</h1>
-
-    <center>
-        <table id="commande">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Prix total</th>
-                    <th>Détails</th>
-                </tr>
-            </thead>
-        </table>
-        <span id="commandeVide"></span>
-    </center>
-
+    <div class="min-h-screen flex flex-col justify-between">
+      <div class="flex-grow">
+        <section class="bg-white py-8 antialiased md:pt-20">
+          <div class="mt-15 md:mt-10 mx-auto max-w-screen-xl max-lg:px-4 2xl:px-0">
+            <div class="mx-auto max-w-screen-xl">
+              <div class="gap-4 sm:flex sm:items-center sm:justify-between">
+                <h2 class="text-2xl font-semibold sm:text-3xl">Mes commandes</h2>
+              </div>
+        
+              <div class="mt-6 flow-root sm:mt-8">
+                <div id="commandesContainer" class="divide-y divide-gray-200">
+                  <!-- Affiche des commandes dynamiquement en JS -->
+                </div>
+              </div>
+        
+              <nav class="mt-6 flex items-center justify-center sm:mt-8" aria-label="Page navigation example">
+                <ul id="paginationContainer" class="flex h-8 items-center -space-x-px text-sm">
+                  <!-- Affiche des pages dynamiquement en JS -->
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </section>
+            </div>
+    
     <footer id="printFooter"></footer>
+  </div>
+
 </body>
 
-<script type="module" src="./controleur/historique.js" type="module"></script>
-<script type="module" src="./controleur/function.js" type="module"></script>
+<script type="module" src="./controleur/historique.js"></script>
+<script type="module" src="./controleur/function.js"></script>
 
 </html>
