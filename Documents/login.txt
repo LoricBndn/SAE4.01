@@ -1,0 +1,6 @@
+Client 1 : 
+	Login : remiF
+	Mdp : Azerty123!
+Client 2 :
+	Login : new
+	Mdp : Motdepasse#789#
