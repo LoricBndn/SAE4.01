@@ -292,8 +292,8 @@ INSERT INTO DETAIL_PRODUIT (id_detail_prod, id_produit, id_taille, id_couleur, p
 -- Sapin Nöel Naturel x2 (Taille) x2 (Couleur)
 (198, 14, 6, 3, 84.0, 50, "SapinNoelNaturelVert.jpg"), -- Vert 30cm
 (199, 14, 7, 3, 108.0, 50, "SapinNoelNaturelVert.jpg"), -- Vert 60cm
-(200, 14, 6, 5, 84.0, 50, "SapinNoelNaturelVert.jpg"), -- Vert 30cm
-(201, 14, 7, 5, 108.0, 50, "SapinNoelNaturelVert.jpg"), -- Vert 60cm
+(200, 14, 6, 5, 84.0, 50, "SapinNoelNaturelBlanc.jpg"), -- Blanc 30cm
+(201, 14, 7, 5, 108.0, 50, "SapinNoelNaturelBlanc.jpg"), -- Blanc 60cm
 -- Père Nöel x1 (Taille) x1 (Couleur)
 (202, 15, 11, 2, 0.0, 50, "PereNoelRouge.png"); -- Rouge 200cm
 
